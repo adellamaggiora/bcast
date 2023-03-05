@@ -1,9 +1,9 @@
-import { IBcast } from "src/app/interfaces/bcast";
-import { IMessage } from "src/app/interfaces/message";
-import { IRawBcast } from "src/app/interfaces/raw/raw-bcast";
-import { IRawMessage } from "src/app/interfaces/raw/raw-message";
-import { IRawUserInfo } from "src/app/interfaces/raw/raw-user-info";
-import { IUserInfo } from "src/app/interfaces/user-info";
+import { IBcast } from "src/interfaces/bcast";
+import { IMessage } from "src/interfaces/message";
+import { IRawBcast } from "src/interfaces/raw/raw-bcast";
+import { IRawMessage } from "src/interfaces/raw/raw-message";
+import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
+import { IUserInfo } from "src/interfaces/user-info";
 
 const rawBcastToBcast = (rawBcast: IRawBcast): IBcast => ({
   content: {
