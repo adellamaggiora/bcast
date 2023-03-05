@@ -1,0 +1,8 @@
+{
+  "name": "bcast",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "cec8a445"
+}
