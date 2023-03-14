@@ -4,12 +4,16 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'profile',
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'bcast',
+    loadChildren: () => import('./modules/features/bcast/bcast.module').then( m => m.BcastModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./modules/features/profile/profile.module').then( m => m.ProfileModule)
   }
 ];
 
