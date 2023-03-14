@@ -3,11 +3,16 @@ import {
   SupabaseClient,
 } from "@supabase/supabase-js";
 import { v4 as uuid } from "uuid";
-import { ISignIn, ISignUp } from "../interfaces/auth";
+import { ISignUp } from "../interfaces/sign-up";
+import { ISignIn } from "src/interfaces/sign-in";
 import { IBcast } from "../interfaces/bcast";
 import { IGeoLocation } from "../interfaces/geo-location";
 import { IUserInfo } from "../interfaces/user-info";
+
 import handlers from "./handlers";
+import outputDto from "./dto/output-dto";
+import { utilsFns } from "src/functions/utils-fns";
+
 
 const api =
   (init = false) => (supabase: SupabaseClient<any, "public", any>) => {
@@ -20,20 +25,18 @@ const api =
       supabase,
 
       bcast: {
-        insert: (userId: string) => (bcast: IBcast) =>
+        insert: (userId: string) => (bcast: IBcast) => {
+          const rawBcast = outputDto.buildRawBcast(userId, bcast);
+          return supabase
+            .from("bcast")
+            .insert(rawBcast);
+        },
+
+        getAll: () =>
           supabase
             .from("bcast")
-            .insert({
-              user_id: userId,
-              expires_at: bcast.expiresAt,
-              max_user: bcast.maxUsers,
-              max_distance_km: bcast.maxDistanceKm,
-              tag: bcast.tag,
-              title: bcast.content.title,
-              content: bcast.content.message,
-              location: `POINT(${bcast.location.lng} ${bcast.location.lat})`,
-              explicit: bcast.explicitContent,
-            }),
+            .select("*")
+            .then(handlers.bcastHandler),
 
         getInserted: (userId: string) =>
           supabase
@@ -50,7 +53,8 @@ const api =
                 _lat: location.lat,
                 _lng: location.lng,
                 _tag: tag,
-              }),
+              })
+              .then(handlers.bcastHandler),
 
         getJoined: (userId: string) =>
           supabase
@@ -157,15 +161,21 @@ const api =
             .eq("id", userId)
             .then(handlers.userInfoHandler),
 
-        insert: (userId: string) => (userInfo: IUserInfo) =>
-          supabase
+        insert: (userId: string) => (userInfo: IUserInfo) => {
+          const rawUserInfo = outputDto.buildRawUserInfo(userId, userInfo);
+          return supabase
             .from("user_info")
-            .insert({
-              id: userId,
-              bcast_to_send: userInfo.bcast.toSend,
-              bcast_to_get: userInfo.bcast.toGet,
-              tag: userInfo.tag,
-            }),
+            .insert(rawUserInfo);
+        },
+
+        update: (userId: string) => (userInfo: Partial<IUserInfo>) => {
+          const rawUserInfo = outputDto.buildRawUserInfo(userId, userInfo);
+          const obj = utilsFns.removeUndefinedOrNullProps(rawUserInfo);
+          return supabase
+            .from("user_info")
+            .update(obj)
+            .eq('id', userId);
+        },
       },
 
       auth: {
@@ -175,7 +185,7 @@ const api =
 
         signUp: (signUp: ISignUp) =>
           supabase
-            .auth.signUp(signUp)
+            .auth.signUp(signUp),
       },
     };
   };
