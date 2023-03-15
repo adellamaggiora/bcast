@@ -1,8 +1,7 @@
 {
   "name": "bcast",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Andrea Della Maggiora <fedrozenzero@gmail.com>",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
