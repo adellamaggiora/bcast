@@ -81,39 +81,46 @@ const api =
             .then(handlers.bcastHandler),
 
         onInsert: (userId: string) =>
-        (
-          cb: (
-            payload: RealtimePostgresChangesPayload<{ [key: string]: any }>,
-          ) => void,
-          channelId = uuid(),
-        ) =>
-          supabase
-            .channel(channelId)
-            .on(
-              "postgres_changes",
-              {
-                event: "INSERT",
-                schema: "public",
-                table: "bcast_user",
-                filter: `user_id=eq.${userId}`,
-              },
-              cb,
-            )
-            .subscribe(),
+          (
+            cb: (
+              payload: RealtimePostgresChangesPayload<{ [key: string]: any }>,
+            ) => void,
+            channelId = uuid(),
+          ) =>
+            supabase
+              .channel(channelId)
+              .on(
+                "postgres_changes",
+                {
+                  event: "INSERT",
+                  schema: "public",
+                  table: "bcast_user",
+                  filter: `user_id=eq.${userId}`,
+                },
+                cb,
+              )
+              .subscribe(),
 
-        join: (userId: string) =>
+        join: (userId: string) => (bcastId: string) =>
           supabase
             .from("bcast_user")
-            .update({ accepted: true })
+            .update({ joined: true })
             .eq("user_id", userId)
-            .is("accepted", null),
+            .eq("bcast_id", bcastId),
 
-        hide: (userId: string) =>
+        hide: (userId: string) => (bcastId: string) =>
           supabase
             .from("bcast_user")
-            .update({ accepted: false })
+            .update({ hided: true })
             .eq("user_id", userId)
-            .is("accepted", null),
+            .eq("bcast_id", bcastId),
+
+        report: (userId: string) => (bcastId: string) =>
+          supabase
+            .from("bcast_user")
+            .update({ reported: true })
+            .eq("user_id", userId)
+            .eq("bcast_id", bcastId)
       },
 
       message: {
