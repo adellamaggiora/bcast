@@ -7,7 +7,7 @@ export class AppComponent {
 
   public appPages = [
     { title: 'Profile', url: '/profile', icon: 'settings' },
-    { title: 'Bcast', url: '/bcast', icon: 'paper-plane' }
+    { title: 'Broadcasts', url: '/bcast', icon: 'earth' }
   ];
 
 
