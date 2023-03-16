@@ -17,7 +17,6 @@ import { JoinedComponent } from './components/joined/joined.component';
   imports: [
     CommonModule, 
     IonicModule,
-    CommonModule,
     BcastRoutingModule
   ]
 })
