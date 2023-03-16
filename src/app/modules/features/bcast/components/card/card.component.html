@@ -35,8 +35,8 @@
   </ion-item>
 
   <div *ngIf="!joined">
-    <ion-button fill="clear" class="me-3">Join</ion-button>
-    <ion-button fill="clear">Discard</ion-button>
+    <ion-button fill="clear" class="me-3" (click)="onJoin.emit(true)">Join</ion-button>
+    <ion-button fill="clear" (click)="onDiscard.emit(true)">Discard</ion-button>
   </div>
   
 </ion-card>

@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import { createClient } from '@supabase/supabase-js';
-import api from 'src/api/api';
-import { supabaseUrl, supabaseKey } from 'src/api/constants';
-import { IBcast } from 'src/interfaces/bcast';
+import client from 'src/api/client';
 import { ICandidateBcast } from 'src/interfaces/candidate-bcast';
-import { IGeoLocation } from 'src/interfaces/geo-location';
+
 
 @Component({
   selector: 'app-candidate',
@@ -13,20 +10,20 @@ import { IGeoLocation } from 'src/interfaces/geo-location';
 })
 export class CandidateComponent {
 
-  client
   candidateBcast: ICandidateBcast[];
+  window = window
 
   constructor() { 
-    const client = createClient(supabaseUrl, supabaseKey);
-    const cli = api(client);
-
+    this.getCandidateBcast();
   }
 
   async getCandidateBcast() {
-    this.candidateBcast = await this.client.bcast.getCandidate('b95c1217-c98e-44f6-a0f7-aa5ad46f750a')({
-        lat: 43.02344,
-        lng: 11.01233
-      })(['figa', 'mio', 'tuo', 'fia'])
+    // this.candidateBcast = await client.bcast.getCandidate('b95c1217-c98e-44f6-a0f7-aa5ad46f750a')({
+    //     lat: 43.02344,
+    //     lng: 11.01233
+    //   })(['figa', 'mio', 'tuo', 'fia'])
   }
+
+  
 
 }
