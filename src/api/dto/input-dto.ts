@@ -1,6 +1,8 @@
 import { IBcast } from "src/interfaces/bcast";
+import { ICandidateBcast } from "src/interfaces/candidate-bcast";
 import { IMessage } from "src/interfaces/message";
 import { IRawBcast } from "src/interfaces/raw/raw-bcast";
+import { IRawCandidateBcast } from "src/interfaces/raw/raw-candidate-bcast";
 import { IRawMessage } from "src/interfaces/raw/raw-message";
 import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
 import { IUserInfo } from "src/interfaces/user-info";
@@ -20,6 +22,26 @@ const buildBcast = (rawBcast: IRawBcast): IBcast => {
       lng: lng,
     },
     maxDistanceKm: rawBcast.max_distance_km,
+    maxUsers: rawBcast.max_user,
+    tag: rawBcast.tag,
+    explicitContent: rawBcast.explicit,
+  }
+};
+
+const buildCandidateBcast = (rawBcast: IRawCandidateBcast): ICandidateBcast => {
+  const { lat, lng } = geoFns.parseGeoPoint(rawBcast.location);
+  return {
+    content: {
+      title: rawBcast.title,
+      message: rawBcast.content,
+    },
+    expiresAt: new Date(rawBcast.expires_at),
+    location: {
+      lat: lat,
+      lng: lng,
+    },
+    maxDistanceKm: rawBcast.max_distance_km,
+    distanceKm: rawBcast?.distance_km,
     maxUsers: rawBcast.max_user,
     tag: rawBcast.tag,
     explicitContent: rawBcast.explicit,
@@ -49,6 +71,7 @@ const buildMessage = (rawMessage: IRawMessage): IMessage => {
 
 export default {
   buildBcast,
+  buildCandidateBcast,
   buildUserInfo,
   buildMessage
 }

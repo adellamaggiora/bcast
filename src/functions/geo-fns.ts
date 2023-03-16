@@ -16,5 +16,5 @@ const parseGeoPoint = (geoPoint: string) => {
 
 export const geoFns = {
   getCurrentPosition,
-  parseGeoPoint
+  parseGeoPoint,
 }

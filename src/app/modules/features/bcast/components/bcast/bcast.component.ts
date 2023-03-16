@@ -5,10 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './bcast.component.html',
   styleUrls: ['./bcast.component.scss'],
 })
-export class BcastComponent  implements OnInit {
+export class BcastComponent {
 
   constructor() { }
-
-  ngOnInit() {}
 
 }

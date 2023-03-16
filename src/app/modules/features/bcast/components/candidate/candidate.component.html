@@ -1,5 +1,7 @@
-<app-card 
-[bcast]="bcastTest"
-[joined]="false"
-[userLocation]="userLocationTest"
-></app-card>
+<div *ngFor="let bcast of candidateBcast">
+    <app-card 
+        [bcast]="bcast" 
+        [joined]="false" 
+        [userLocation]="null">
+    </app-card>
+</div>
