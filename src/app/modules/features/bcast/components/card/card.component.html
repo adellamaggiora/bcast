@@ -1,0 +1,42 @@
+<ion-card>
+  <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+  <ion-card-header class="d-flex justify-content-between">
+    <ion-card-title>{{ bcast?.content?.title }}</ion-card-title>
+    <div>
+      <span class="me-2"> 
+        <span>
+          {{ gisFns.distanceBetweenPoints(bcast?.location, userLocation) }}
+        </span>
+        <ion-icon name="rocket"></ion-icon>
+      </span>
+
+      <span *ngIf="!joined">
+        <span> 0/{{ bcast?.maxUsers }} </span>
+        <ion-icon name="person"></ion-icon>
+      </span>
+    </div>
+    
+  </ion-card-header>  
+
+  <ion-card-content>
+    {{ bcast?.content?.message }}
+  </ion-card-content>
+
+  <ion-card-content>
+    <span class="blockquote-footer" *ngFor="let tag of bcast?.tag">
+      {{ tag }}
+    </span>
+  </ion-card-content>
+
+  <ion-item>
+    Expires at:
+    <ion-icon name="calendar" class="mx-2"></ion-icon>
+    {{ bcast?.expiresAt | date: dateFns.formatString() }}
+  </ion-item>
+
+  <div *ngIf="!joined">
+    <ion-button fill="clear" class="me-3">Join</ion-button>
+    <ion-button fill="clear">Discard</ion-button>
+  </div>
+  
+</ion-card>
