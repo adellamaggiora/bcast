@@ -3,7 +3,8 @@
         [bcast]="bcast" 
         [joined]="false" 
         [userLocation]="null"
-        (onDiscard)="window.console.log($event)"
+        (discard)="onDiscard($event)"
+        (join)="onJoin($event)"
         >
     </app-card>
 </div>

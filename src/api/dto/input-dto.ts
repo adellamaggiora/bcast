@@ -28,24 +28,25 @@ const buildBcast = (rawBcast: IRawBcast): IBcast => {
   }
 };
 
-const buildCandidateBcast = (rawBcast: IRawCandidateBcast): ICandidateBcast => {
-  const { lat, lng } = geoFns.parseGeoPoint(rawBcast.location);
-  return {
+const buildCandidateBcast = (rawCandidateBcast: IRawCandidateBcast): ICandidateBcast => {
+  const { lat, lng } = geoFns.parseGeoPoint(rawCandidateBcast.location);
+  const result = {
     content: {
-      title: rawBcast.title,
-      message: rawBcast.content,
+      title: rawCandidateBcast.title,
+      message: rawCandidateBcast.content,
     },
-    expiresAt: new Date(rawBcast.expires_at),
+    expiresAt: new Date(rawCandidateBcast.expires_at),
     location: {
       lat: lat,
       lng: lng,
     },
-    maxDistanceKm: rawBcast.max_distance_km,
-    distanceKm: rawBcast?.distance_km,
-    maxUsers: rawBcast.max_user,
-    tag: rawBcast.tag,
-    explicitContent: rawBcast.explicit,
+    maxDistanceKm: rawCandidateBcast.max_distance_km,
+    distanceKm: Math.floor(rawCandidateBcast?.distance_km),
+    maxUsers: rawCandidateBcast.max_user,
+    tag: rawCandidateBcast.tag,
+    explicitContent: rawCandidateBcast.explicit,
   }
+  return result;
 };
 
 const buildUserInfo = (rawUserInfo: IRawUserInfo): IUserInfo => {
@@ -68,14 +69,9 @@ const buildMessage = (rawMessage: IRawMessage): IMessage => {
 };
 
 
-
 export default {
   buildBcast,
   buildCandidateBcast,
   buildUserInfo,
   buildMessage
-}
-
-function parseGeoPoint(location: string): { lat: any; lng: any; } {
-  throw new Error("Function not implemented.");
 }

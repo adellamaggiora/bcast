@@ -5,7 +5,7 @@
     <div>
       <span class="me-2"> 
         <span>
-          {{ bcast?.distanceKm }}
+          {{ bcast?.distanceKm }} Km
         </span>
         <ion-icon name="rocket"></ion-icon>
       </span>
@@ -34,9 +34,9 @@
     {{ bcast?.expiresAt | date: dateFns.formatString() }}
   </ion-item>
 
-  <div *ngIf="!joined">
-    <ion-button fill="clear" class="me-3" (click)="onJoin.emit(true)">Join</ion-button>
-    <ion-button fill="clear" (click)="onDiscard.emit(true)">Discard</ion-button>
+  <div *ngIf="!joined" style="z-index: 100000000000;">
+    <ion-button fill="clear" class="me-3" (click)="onJoin()">Join</ion-button>
+    <ion-button fill="clear" (click)="onDiscard()">Discard</ion-button>
   </div>
   
 </ion-card>

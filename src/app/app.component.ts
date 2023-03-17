@@ -10,7 +10,7 @@ export class AppComponent {
   public appVersion: string = packageJson.version;
   public appPages = [
     { title: 'Profile', url: '/profile', icon: 'settings' },
-    { title: 'Broadcasts', url: '/bcast', icon: 'earth' }
+    { title: 'Broadcasts', url: '/bcast/candidate', icon: 'earth' }
   ];
 
 }

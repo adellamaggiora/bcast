@@ -8,10 +8,18 @@ import { ISignIn } from "src/interfaces/sign-in";
 import { IBcast } from "../interfaces/bcast";
 import { IGeoLocation } from "../interfaces/geo-location";
 import { IUserInfo } from "../interfaces/user-info";
-
 import handlers from "./handlers";
 import outputDto from "./dto/output-dto";
 import { utilsFns } from "src/functions/utils-fns";
+import { exists } from "fs";
+
+const bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>) => (userId: string) => (bcastId: string) => {
+  return supabase.from("bcast_user")
+    .select('*')
+    .eq("user_id", userId)
+    .eq("bcast_id", bcastId)
+    .then(handlers.bcastUserExistsHandler)
+}
 
 
 const api =
@@ -101,26 +109,50 @@ const api =
               )
               .subscribe(),
 
-        join: (userId: string) => (bcastId: string) =>
-          supabase
-            .from("bcast_user")
-            .update({ joined: true })
-            .eq("user_id", userId)
-            .eq("bcast_id", bcastId),
+        join: async (userId: string) => async (bcastId: string) => {
+          const exists = await bcastUserRecordExists(supabase)(userId)(bcastId);
+          if (exists) {
+            return supabase
+              .from("bcast_user")
+              .update({ joined: true })
+              .eq("user_id", userId)
+              .eq("bcast_id", bcastId)
+          } else {
+            return supabase
+              .from("bcast_user")
+              .insert({ user_id: userId, bcast_id: bcastId, joined: true })
+          }
+        },
 
-        hide: (userId: string) => (bcastId: string) =>
-          supabase
-            .from("bcast_user")
-            .update({ hided: true })
-            .eq("user_id", userId)
-            .eq("bcast_id", bcastId),
+        hide: async (userId: string) => async (bcastId: string) => {
+          const exists = await bcastUserRecordExists(supabase)(userId)(bcastId);
+          if (exists) {
+            return supabase
+              .from("bcast_user")
+              .update({ hided: true })
+              .eq("user_id", userId)
+              .eq("bcast_id", bcastId)
+          } else {
+            return supabase
+              .from("bcast_user")
+              .insert({ user_id: userId, bcast_id: bcastId, hided: true })
+          }
+        },
 
-        report: (userId: string) => (bcastId: string) =>
-          supabase
-            .from("bcast_user")
-            .update({ reported: true })
-            .eq("user_id", userId)
-            .eq("bcast_id", bcastId)
+        report: async (userId: string) => async (bcastId: string) => {
+          const exists = await bcastUserRecordExists(supabase)(userId)(bcastId);
+          if (exists) {
+            return supabase
+              .from("bcast_user")
+              .update({ reported: true })
+              .eq("user_id", userId)
+              .eq("bcast_id", bcastId)
+          } else {
+            return supabase
+              .from("bcast_user")
+              .insert({ user_id: userId, bcast_id: bcastId, reported: true })
+          }
+        }
       },
 
       message: {

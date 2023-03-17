@@ -6,6 +6,7 @@ import { BcastComponent } from './components/bcast/bcast.component';
 import { CardComponent } from './components/card/card.component';
 import { CandidateComponent } from './components/candidate/candidate.component';
 import { JoinedComponent } from './components/joined/joined.component';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,9 @@ import { JoinedComponent } from './components/joined/joined.component';
     CommonModule, 
     IonicModule,
     BcastRoutingModule
+  ],
+  providers: [
+    Geolocation
   ]
 })
 export class BcastModule { }

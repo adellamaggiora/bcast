@@ -1,4 +1,4 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" [formGroup]="loginForm">
   <ion-list>
     <ion-item>
       <ion-label position="floating">Email</ion-label>
@@ -17,12 +17,12 @@
         <ion-input type="password" formControlName="confirmPassword"></ion-input>
       </ion-item>
     </ion-list>
-    <ion-button expand="block" (click)="doRegister()" [disabled]="registerForm?.invalid">Register</ion-button>
+    <ion-button expand="block" (click)="doRegister()">Register</ion-button>
     <p class="ion-text-center">Already have an account? <a (click)="toggleRegister()">Login</a></p>
   </div>
 
   <div *ngIf="!isRegistering">
-    <ion-button expand="block" (click)="doLogin()" [disabled]="loginForm?.invalid">Login</ion-button>
+    <ion-button expand="block" (click)="doLogin()">Login</ion-button>
     <p class="ion-text-center">Don't have an account yet? <a (click)="toggleRegister()">Register</a></p>
   </div>
 </ion-content>

@@ -13,9 +13,19 @@ export class CardComponent {
   @Input() userLocation: IGeoLocation;
   @Input() joined: boolean;
 
-  @Output() onJoin = new EventEmitter(false);
-  @Output() onDiscard = new EventEmitter(false);
+  @Output() join = new EventEmitter(false);
+  @Output() discard = new EventEmitter(false);
 
   public dateFns = dateFns;
+
+  onJoin() {
+    this.join.emit(true);
+  }
+
+  onDiscard() {
+    this.discard.emit(true);
+  }
+
+
 
 }
