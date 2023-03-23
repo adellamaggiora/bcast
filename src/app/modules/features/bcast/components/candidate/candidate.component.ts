@@ -18,7 +18,6 @@ export class CandidateComponent {
 
   constructor(private authService: AuthService, private toastService: ToastService) { 
     this.getCandidateBcast();
-
   }
 
   onJoin(evt: boolean) {
@@ -32,7 +31,7 @@ export class CandidateComponent {
   }
 
   async getCandidateBcast() {
-    const userId = this.authService.userId();
+    const userId = this.authService.getUserId();
     const location = await this.getGeoLocation();
     const { tag } = await client.userInfo.get(userId);
     this.candidateBcast = await client.bcast.getCandidate(userId)(location)(tag);

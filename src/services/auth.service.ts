@@ -39,11 +39,11 @@ export class AuthService {
       })
   }
 
-  public userId$() {
+  public getUserId$() {
     return this._userUd$.asObservable().pipe(share());
   }
 
-  public userId() {
+  public getUserId() {
     return this._userUd$.getValue();
   }
 
