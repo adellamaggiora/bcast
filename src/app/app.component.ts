@@ -13,4 +13,7 @@ export class AppComponent {
     { title: 'Broadcasts', url: '/bcast/candidate', icon: 'earth' }
   ];
 
+  logout() {
+    
+  }
 }
