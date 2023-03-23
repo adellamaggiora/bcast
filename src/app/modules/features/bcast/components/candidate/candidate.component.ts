@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ICandidateBcast } from 'src/interfaces/candidate-bcast';
 import { AuthService } from 'src/services/auth.service';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+// import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { IGeoLocation } from 'src/interfaces/geo-location';
 import client from 'src/api/client';
 
@@ -15,19 +15,17 @@ export class CandidateComponent {
 
   candidateBcast: ICandidateBcast[];
 
-  constructor(private authService: AuthService, private geolocation: Geolocation) { 
+  constructor(private authService: AuthService) { 
     this.getCandidateBcast();
 
   }
 
   onJoin(evt: boolean) {
-    client.bcast.join(this.authService.userId()).then(_ => {
-      console.log(_)
-    })
+    console.log('join')
   }
 
   onDiscard(evt: boolean) {
-
+    console.log('discard')
   }
 
   async getCandidateBcast() {
@@ -40,12 +38,15 @@ export class CandidateComponent {
   
 
   getGeoLocation(): Promise<IGeoLocation> {
-    return this.geolocation.getCurrentPosition().then(_ => {
-      return {
-        lat: _.coords.latitude,
-        lng: _.coords.longitude
-      }
+    return new Promise(res => {
+      res({ lat: 43.15263, lng:11.25636 })
     })
+    // return this.geolocation.getCurrentPosition().then(_ => {
+    //   return {
+    //     lat: _.coords.latitude,
+    //     lng: _.coords.longitude
+    //   }
+    // })
   }
   
 

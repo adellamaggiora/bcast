@@ -1,7 +1,10 @@
+<div class='ion-page'>
+  <ion-content [fullscreen]="true">
+    <ion-router-outlet></ion-router-outlet>
+  </ion-content>
+</div>
+
 <ion-tabs>
-
-  <ion-router-outlet></ion-router-outlet>
-
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="candidate">
       <ion-icon name="locate"></ion-icon>
@@ -12,5 +15,5 @@
       Joined
     </ion-tab-button>
   </ion-tab-bar>
-  
+
 </ion-tabs>
