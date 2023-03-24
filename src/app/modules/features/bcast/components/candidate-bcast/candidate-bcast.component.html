@@ -3,8 +3,8 @@
         [bcast]="bcast" 
         [joined]="false" 
         [userLocation]="null"
-        (discard)="onDiscard($event)"
-        (join)="onJoin($event)"
+        (hide)="onHide($event)"
+        (join)="onJoin(bcast.id)"
         >
     </app-card>
 </div>

@@ -1,0 +1,8 @@
+<div *ngFor="let bcast of bcastService.chatList.get$() | async">
+  <app-card 
+      [bcast]="bcast" 
+      [joined]="true" 
+      [userLocation]="null"
+      >
+  </app-card>
+</div>

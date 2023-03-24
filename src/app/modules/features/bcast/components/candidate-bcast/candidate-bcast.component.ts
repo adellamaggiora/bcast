@@ -7,22 +7,26 @@ import { BcastService } from 'src/services/bcast.service';
 
 
 @Component({
-  selector: 'app-candidate',
-  templateUrl: './candidate.component.html',
-  styleUrls: ['./candidate.component.scss'],
+  selector: 'app-candidate-bcast',
+  templateUrl: './candidate-bcast.component.html',
+  styleUrls: ['./candidate-bcast.component.scss'],
 })
-export class CandidateComponent {
+export class CandidateBcastComponent {
 
   constructor(public bcastService: BcastService, private toastService: ToastService) { 
     this.getCandidateBcast();
   }
 
-  onJoin(evt: boolean) {
-    this.toastService.warning('joined')
+  onJoin(bcastId: string) {
+    this.bcastService.candidate.join(bcastId)
+      .then(() => this.toastService.success(`Broadcast joined`))
+      .catch(err => this.toastService.danger(err))
   }
 
-  onDiscard(evt: boolean) {
-    console.log('discard')
+  onHide(bcastId: string) {
+    this.bcastService.candidate.join(bcastId)
+      .then(() => this.toastService.success(`Broadcast hided`))
+      .catch(err => this.toastService.danger(err))
   }
 
   async getCandidateBcast() {

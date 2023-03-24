@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BcastComponent } from './components/bcast/bcast.component';
-import { CandidateComponent } from './components/candidate/candidate.component';
-import { JoinedComponent } from './components/joined/joined.component';
+import { CandidateBcastComponent } from './components/candidate-bcast/candidate-bcast.component';
+import { ChatListComponent } from './components/chat-list/chat-list.component';
 
 const routes: Routes = [
   {
@@ -11,11 +11,11 @@ const routes: Routes = [
     children: [
       {
         path: 'candidate',
-        component: CandidateComponent
+        component: CandidateBcastComponent
       },
       {
-        path: 'joined',
-        component: JoinedComponent
+        path: 'chatlist',
+        component: ChatListComponent
       }
     ]
   }

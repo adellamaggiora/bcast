@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { BcastRoutingModule } from './bcast-routing.module';
 import { IonicModule } from '@ionic/angular';
 import { BcastComponent } from './components/bcast/bcast.component';
-import { CandidateComponent } from './components/candidate/candidate.component';
-import { JoinedComponent } from './components/joined/joined.component';
+import { CandidateBcastComponent } from './components/candidate-bcast/candidate-bcast.component';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { UiKitModule } from '../../shared/ui-kit/ui-kit.module';
+import { ChatListComponent } from './components/chat-list/chat-list.component';
 
 @NgModule({
   declarations: [
     BcastComponent,
-    CandidateComponent,
-    JoinedComponent
+    CandidateBcastComponent,
+    ChatListComponent
   ],
   imports: [
     BcastRoutingModule,

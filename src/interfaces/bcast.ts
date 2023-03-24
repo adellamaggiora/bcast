@@ -1,6 +1,7 @@
 import { IGeoLocation } from "./geo-location";
 
 export interface IBcast {
+    id: string;
     expiresAt: Date;
     content: {
         title: string;

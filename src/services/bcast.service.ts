@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, share } from 'rxjs';
+import { BehaviorSubject, merge, share } from 'rxjs';
 import client from 'src/api/client';
 import { IBcast } from 'src/interfaces/bcast';
 import { IGeoLocation } from 'src/interfaces/geo-location';
@@ -28,8 +28,16 @@ export class BcastService {
       const tag = this.userService.userInfo.get()?.tag;
       const candidateBcast = await client.bcast.getCandidate(userId)(location)(tag);
       this._candidate$.next(candidateBcast);
+    },
+    join: async (bcastId: string) => {
+      const userId = this.userService.userId.get();
+      await client.bcast.join(userId)(bcastId);
+    },
+    hide: async (bcastId: string) => {
+      const userId = this.userService.userId.get();
+      await client.bcast.hide(userId)(bcastId);
     }
-  }
+  } 
 
   public joined  = {
     get$: () => this._joined$.asObservable().pipe(share()),
@@ -41,7 +49,7 @@ export class BcastService {
     }
   } 
 
-  public inserted  = {
+  public inserted = {
     get$: () => this._inserted$.asObservable().pipe(share()),
     get: () => this._inserted$.getValue(),
     fetch: async () => {
@@ -49,6 +57,10 @@ export class BcastService {
       const insertedBcast = await client.bcast.getInserted(userId);
       this._inserted$.next(insertedBcast);
     }
+  }
+
+  public chatList = {
+    get$: () => merge([this.joined.get(), this.inserted.get()])
   }
 
 

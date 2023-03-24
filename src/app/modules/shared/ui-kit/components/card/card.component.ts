@@ -14,7 +14,7 @@ export class CardComponent {
   @Input() joined: boolean;
 
   @Output() join = new EventEmitter(false);
-  @Output() discard = new EventEmitter(false);
+  @Output() hide = new EventEmitter(false);
 
   public dateFns = dateFns;
 
@@ -22,8 +22,8 @@ export class CardComponent {
     this.join.emit(true);
   }
 
-  onDiscard() {
-    this.discard.emit(true);
+  onHide() {
+    this.hide.emit(true);
   }
 
 

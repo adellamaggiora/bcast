@@ -11,7 +11,8 @@ import handlers from "./handlers";
 import outputDto from "./dto/output-dto";
 import { utilsFns } from "src/functions/utils-fns";
 import { IMessage } from "src/interfaces/message";
-import { IInsertBcast } from "src/interfaces/insert-bcast";
+import { IBcast } from "src/interfaces/bcast";
+
 
 const bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>) => (userId: string) => (bcastId: string) => {
   return supabase.from("bcast_user")
@@ -33,7 +34,7 @@ const api =
       supabase,
 
       bcast: {
-        insert: (userId: string) => (bcast: IInsertBcast) => {
+        insert: (userId: string) => (bcast: IBcast) => {
           const rawBcast = outputDto.buildRawBcast(userId, bcast);
           return supabase
             .from("bcast")

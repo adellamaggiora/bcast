@@ -10,6 +10,7 @@ import { geoFns } from "../../functions/geo-fns";
 const buildBcast = (rawBcast: IRawBcast): IBcast => {
   const { lat, lng } = geoFns.parseGeoPoint(rawBcast.location);
   return {
+    id: rawBcast?.id,
     content: {
       title: rawBcast.title,
       message: rawBcast.content,
