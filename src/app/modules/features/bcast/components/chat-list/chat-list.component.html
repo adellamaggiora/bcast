@@ -6,3 +6,7 @@
       >
   </app-card>
 </div>
+
+<ion-note *ngIf="!(bcastService.chatList.get$() | async)?.length" class="my-3 text-center">
+  You don't have any chat yet
+</ion-note>

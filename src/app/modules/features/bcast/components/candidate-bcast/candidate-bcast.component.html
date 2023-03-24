@@ -8,3 +8,7 @@
         >
     </app-card>
 </div>
+
+<ion-note *ngIf="!(bcastService.candidate.get$() | async)?.length" class="my-3 text-center">
+    No matching broadcast in your area
+</ion-note>

@@ -1,3 +1,21 @@
-<p>
-  profile works!
-</p>
+
+<ng-container [formGroup]="formValidator?.formGroup">
+  <ion-item>
+    <ion-input 
+    placeholder="Enter tag" 
+    [(ngModel)]="newTag" 
+    (keydown.enter)="addTag()" 
+    (keydown.space)="addTag()"
+    />
+  </ion-item>
+
+  <ion-item>
+    <ion-chip color="primary" *ngFor="let t of formValidator?.tag?.value; let i = index;">
+      {{ t }}
+      <ion-label>{{ t }}</ion-label>
+      <ion-icon name="close-circle" (click)="removeTag(i)"></ion-icon>
+    </ion-chip>
+  </ion-item>
+
+  <ion-button shape="round" (click)="save()"> Save </ion-button>
+</ng-container>

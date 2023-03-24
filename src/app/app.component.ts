@@ -7,13 +7,15 @@ import packageJson from '../../package.json';
 })
 export class AppComponent {
 
+  constructor() { }
+
   public appVersion: string = packageJson.version;
   public appPages = [
-    { title: 'Profile', url: '/profile', icon: 'settings' },
+    { title: 'Profile', url: '/profile', icon: 'person' },
     { title: 'Broadcasts', url: '/bcast/candidate', icon: 'earth' }
   ];
 
   logout() {
-    
+
   }
 }
