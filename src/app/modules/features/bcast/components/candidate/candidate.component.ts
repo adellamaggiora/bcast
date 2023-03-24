@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { ICandidateBcast } from 'src/interfaces/candidate-bcast';
 import { AuthService } from 'src/services/auth.service';
-// import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { IGeoLocation } from 'src/interfaces/geo-location';
 import client from 'src/api/client';
 import { ToastService } from 'src/services/toast.service';
+import { BcastService } from 'src/services/bcast.service';
 
 
 @Component({
@@ -14,15 +13,11 @@ import { ToastService } from 'src/services/toast.service';
 })
 export class CandidateComponent {
 
-  candidateBcast: ICandidateBcast[];
-
-  constructor(private authService: AuthService, private toastService: ToastService) { 
+  constructor(public bcastService: BcastService, private toastService: ToastService) { 
     this.getCandidateBcast();
   }
 
   onJoin(evt: boolean) {
-    
-
     this.toastService.warning('joined')
   }
 
@@ -31,10 +26,8 @@ export class CandidateComponent {
   }
 
   async getCandidateBcast() {
-    const userId = this.authService.getUserId();
     const location = await this.getGeoLocation();
-    const { tag } = await client.userInfo.get(userId);
-    this.candidateBcast = await client.bcast.getCandidate(userId)(location)(tag);
+    await this.bcastService.candidate.fetch(location);
   }
   
 

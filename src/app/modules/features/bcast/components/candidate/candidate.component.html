@@ -1,4 +1,4 @@
-<div *ngFor="let bcast of candidateBcast">
+<div *ngFor="let bcast of bcastService.candidate.get$() | async">
     <app-card 
         [bcast]="bcast" 
         [joined]="false" 

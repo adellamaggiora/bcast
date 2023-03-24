@@ -21,7 +21,11 @@ export class BcastService {
     get: () => this._candidate$.getValue(),
     fetch: async (location: IGeoLocation) => {
       const userId = this.userService.userId.get();
-      const tag = this.userService.userInfo.get()?.tag || [];
+      const userInfo = this.userService.userInfo.get();
+      if (!userInfo) {
+        await this.userService.userInfo.fetch();
+      }
+      const tag = this.userService.userInfo.get()?.tag;
       const candidateBcast = await client.bcast.getCandidate(userId)(location)(tag);
       this._candidate$.next(candidateBcast);
     }
