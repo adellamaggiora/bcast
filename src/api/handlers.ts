@@ -1,6 +1,5 @@
 import { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
 import { IBcast } from "src/interfaces/bcast";
-import { ICandidateBcast } from "src/interfaces/candidate-bcast";
 import { IMessage } from "src/interfaces/message";
 import { IUserInfo } from "src/interfaces/user-info";
 import inputDto from "./dto/input-dto";
@@ -43,7 +42,6 @@ const handlePostgresChangePayload = (dto: Function) => (payload: RealtimePostgre
 }
 
 const bcastHandler: ApiHandler<IBcast[]> = handleArray(inputDto.buildBcast);
-const candidateBcastHandler: ApiHandler<ICandidateBcast[]> = handleArray(inputDto?.buildCandidateBcast);
 const userInfoHandler: ApiHandler<IUserInfo> = handleFirstObject(inputDto.buildUserInfo);
 const messageHandler: ApiHandler<IMessage> = handleArray(inputDto.buildMessage);
 const bcastUserExistsHandler: ApiHandler<boolean> = handleObject(((data: any) => data.length > 0));
@@ -56,7 +54,6 @@ export default {
     userInfoHandler,
     messageHandler,
     bcastUserExistsHandler,
-    candidateBcastHandler,
     interactedBcastHandler,
     messageInsertedHandler
 }

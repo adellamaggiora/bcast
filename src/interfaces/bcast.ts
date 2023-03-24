@@ -11,4 +11,5 @@ export interface IBcast {
     tag: string[];
     location: IGeoLocation;
     explicitContent?: boolean;
+    distanceKm?: number;
 }
