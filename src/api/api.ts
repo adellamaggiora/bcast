@@ -2,24 +2,24 @@ import {
   RealtimePostgresChangesPayload,
   SupabaseClient,
 } from "@supabase/supabase-js";
-import { v4 as uuid } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import { ISignUp } from "../interfaces/sign-up";
-import { ISignIn } from "src/interfaces/sign-in";
+import { ISignIn } from "../interfaces/sign-in";
 import { IGeoLocation } from "../interfaces/geo-location";
 import { IUserInfo } from "../interfaces/user-info";
-import handlers from "./handlers";
+import handlers from "./utils/handlers";
 import outputDto from "./dto/output-dto";
-import { utilsFns } from "src/functions/utils-fns";
-import { IMessage } from "src/interfaces/message";
-import { IBcast } from "src/interfaces/bcast";
+import { utilsFns } from "../functions/utils-fns";
+import { IMessage } from "../interfaces/message";
+import { IBcast } from "../interfaces/bcast";
 
 
-const bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>) => (userId: string) => (bcastId: string) => {
+const bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>, userId: string, bcastId: string) => {
   return supabase.from("bcast_user")
     .select('*')
     .eq("user_id", userId)
     .eq("bcast_id", bcastId)
-    .then(handlers.bcastUserExistsHandler)
+    .then(handlers.dataHasLengthHandler)
 }
 
 
@@ -34,7 +34,7 @@ const api =
       supabase,
 
       bcast: {
-        insert: (userId: string) => (bcast: IBcast) => {
+        insert: (userId: string, bcast: IBcast) => {
           const rawBcast = outputDto.buildRawBcast(userId, bcast);
           return supabase
             .from("bcast")
@@ -45,17 +45,17 @@ const api =
           supabase
             .from("bcast")
             .select("*")
-            .then(handlers.bcastHandler),
+            .then(handlers.arrayBcastHandler),
 
         getInserted: (userId: string) =>
           supabase
             .from("bcast")
             .select("*")
             .eq("user_id", userId)
-            .then(handlers.bcastHandler),
+            .then(handlers.arrayBcastHandler),
 
         getCandidate:
-          (userId: string) => (location: IGeoLocation) => (tag: string[]) =>
+          (userId: string, location: IGeoLocation, tag: string[]) =>
             supabase
               .rpc("candidate_bcast", {
                 _user_id: userId,
@@ -63,7 +63,7 @@ const api =
                 _lng: location.lng,
                 _tag: tag,
               })
-              .then(handlers.bcastHandler),
+              .then(handlers.arrayBcastHandler),
 
         getJoined: (userId: string) =>
           supabase
@@ -92,7 +92,7 @@ const api =
         onInsert: (userId: string) =>
           (
             cb: (message: IMessage) => void,
-            channelId = uuid(),
+            channelId = uuidv4(),
           ) =>
             supabase
               .channel(channelId)
@@ -105,14 +105,15 @@ const api =
                   filter: `user_id=eq.${userId}`,
                 },
                 (payload: RealtimePostgresChangesPayload<{ [key: string]: any }>) => {
+                  console.log(payload)
                   const message: IMessage = handlers.messageInsertedHandler(payload);
                   cb(message);
                 },
               )
               .subscribe(),
 
-        join: (userId: string) => async (bcastId: string) => {
-          const bcastUserExists = await bcastUserRecordExists(supabase)(userId)(bcastId);
+        join: async (userId: string, bcastId: string) => {
+          const bcastUserExists = await bcastUserRecordExists(supabase, userId, bcastId);
           if (bcastUserExists) {
             return supabase
               .from("bcast_user")
@@ -126,8 +127,8 @@ const api =
           }
         },
 
-        hide: (userId: string) => async (bcastId: string) => {
-          const bcastUserExists = await bcastUserRecordExists(supabase)(userId)(bcastId);
+        hide: async (userId: string, bcastId: string) => {
+          const bcastUserExists = await bcastUserRecordExists(supabase, userId, bcastId);
           if (bcastUserExists) {
             return supabase
               .from("bcast_user")
@@ -141,8 +142,8 @@ const api =
           }
         },
 
-        report: (userId: string) => async (bcastId: string) => {
-          const bcastUserExists = await bcastUserRecordExists(supabase)(userId)(bcastId);
+        report: async (userId: string, bcastId: string) => {
+          const bcastUserExists = await bcastUserRecordExists(supabase, userId, bcastId);
           if (bcastUserExists) {
             return supabase
               .from("bcast_user")
@@ -163,9 +164,9 @@ const api =
             .from("message")
             .select("*")
             .eq("bcast_id", bcastId)
-            .then(handlers.messageHandler),
+            .then(handlers.arrayMessageHandler),
 
-        insert: (userId: string) => (bcastId: string) => (content: string) =>
+        insert: (userId: string, bcastId: string, content: string) =>
           supabase
             .from("message")
             .insert([
@@ -177,7 +178,7 @@ const api =
           cb: (
             payload: RealtimePostgresChangesPayload<{ [key: string]: any }>,
           ) => void,
-          channelId = uuid(),
+          channelId = uuidv4(),
         ) =>
           supabase
             .channel(channelId)
@@ -202,14 +203,14 @@ const api =
             .eq("id", userId)
             .then(handlers.userInfoHandler),
 
-        insert: (userId: string) => (userInfo: IUserInfo) => {
+        insert: (userId: string, userInfo: IUserInfo) => {
           const rawUserInfo = outputDto.buildRawUserInfo(userId, userInfo);
           return supabase
             .from("user_info")
             .insert(rawUserInfo);
         },
 
-        update: (userId: string) => (userInfo: Partial<IUserInfo>) => {
+        update: (userId: string, userInfo: Partial<IUserInfo>) => {
           const rawUserInfo = outputDto.buildRawUserInfo(userId, userInfo);
           const obj = utilsFns.removeUndefinedOrNullProps(rawUserInfo);
           return supabase

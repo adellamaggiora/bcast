@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/services/auth.service';
+import { toast } from 'src/api/utils/toast';
 import { IGeoLocation } from 'src/interfaces/geo-location';
-import client from 'src/api/client';
-import { ToastService } from 'src/services/toast.service';
 import { BcastService } from 'src/services/bcast.service';
 
 
@@ -13,20 +11,18 @@ import { BcastService } from 'src/services/bcast.service';
 })
 export class CandidateBcastComponent {
 
-  constructor(public bcastService: BcastService, private toastService: ToastService) { 
+  constructor(public bcastService: BcastService) { 
     this.getCandidateBcast();
   }
 
   onJoin(bcastId: string) {
     this.bcastService.candidate.join(bcastId)
-      .then(() => this.toastService.success(`Broadcast joined`))
-      .catch(err => this.toastService.danger(err))
+      .then(() => toast.success(`Broadcast joined`))
   }
 
   onHide(bcastId: string) {
     this.bcastService.candidate.join(bcastId)
-      .then(() => this.toastService.success(`Broadcast hided`))
-      .catch(err => this.toastService.danger(err))
+      .then(() => toast.success(`Broadcast hided`))
   }
 
   async getCandidateBcast() {

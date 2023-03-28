@@ -7,8 +7,6 @@ export class FormValidator {
         return this._formGroup;
     }
 
-    constructor() {
-
-    }
+    constructor() { }
 
 }

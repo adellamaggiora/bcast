@@ -26,16 +26,16 @@ export class BcastService {
         await this.userService.userInfo.fetch();
       }
       const tag = this.userService.userInfo.get()?.tag;
-      const candidateBcast = await client.bcast.getCandidate(userId)(location)(tag);
+      const candidateBcast = await client.bcast.getCandidate(userId, location, tag);
       this._candidate$.next(candidateBcast);
     },
     join: async (bcastId: string) => {
       const userId = this.userService.userId.get();
-      await client.bcast.join(userId)(bcastId);
+      await client.bcast.join(userId, bcastId);
     },
     hide: async (bcastId: string) => {
       const userId = this.userService.userId.get();
-      await client.bcast.hide(userId)(bcastId);
+      await client.bcast.hide(userId, bcastId);
     }
   } 
 
