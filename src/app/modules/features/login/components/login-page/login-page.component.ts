@@ -24,7 +24,7 @@ export class LoginPageComponent {
   doLogin() {
     const email = this.loginForm.controls['email'].value;
     const password = this.loginForm.controls['password'].value;
-    this.authService.login(email, password).subscribe(console.log);
+    this.authService.login(email, password).then(console.log);
   }
 
   doRegister() {

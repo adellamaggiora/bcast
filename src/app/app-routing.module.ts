@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/services/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,11 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'bcast',
-    loadChildren: () => import('./modules/features/bcast/bcast.module').then( m => m.BcastModule)
+    loadChildren: () => import('./modules/features/bcast/bcast.module').then( m => m.BcastModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',
-    loadChildren: () => import('./modules/features/profile/profile.module').then( m => m.ProfileModule)
+    loadChildren: () => import('./modules/features/profile/profile.module').then( m => m.ProfileModule),
+    canActivate: [AuthGuard]
   }
 ];
 

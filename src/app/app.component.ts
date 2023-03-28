@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/services/auth.service';
 import packageJson from '../../package.json';
 
 @Component({
@@ -7,7 +8,7 @@ import packageJson from '../../package.json';
 })
 export class AppComponent {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   public appVersion: string = packageJson.version;
   public appPages = [
@@ -16,6 +17,6 @@ export class AppComponent {
   ];
 
   logout() {
-    
+    this.authService.logout();
   }
 }

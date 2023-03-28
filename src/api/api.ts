@@ -3,8 +3,6 @@ import {
   SupabaseClient,
 } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from 'uuid';
-import { ISignUp } from "../interfaces/sign-up";
-import { ISignIn } from "../interfaces/sign-in";
 import { IGeoLocation } from "../interfaces/geo-location";
 import { IUserInfo } from "../interfaces/user-info";
 import handlers from "./utils/handlers";
@@ -12,6 +10,7 @@ import outputDto from "./dto/output-dto";
 import { utilsFns } from "../functions/utils-fns";
 import { IMessage } from "../interfaces/message";
 import { IBcast } from "../interfaces/bcast";
+import { toast } from "./utils/toast";
 
 
 const bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>, userId: string, bcastId: string) => {
@@ -221,13 +220,15 @@ const api =
       },
 
       auth: {
-        signIn: (signIn: ISignIn) =>
+        signIn: (email: string, password: string) =>
           supabase
-            .auth.signInWithPassword(signIn),
+            .auth.signInWithPassword({ email, password })
+            .then(handlers.authenticationHandler),
 
-        signUp: (signUp: ISignUp) =>
+        signUp: (email: string, password: string) =>
           supabase
-            .auth.signUp(signUp),
+            .auth.signUp({ email, password })
+            .then(handlers.authenticationHandler)
       },
     };
   };

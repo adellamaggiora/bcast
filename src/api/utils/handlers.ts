@@ -3,12 +3,15 @@
 import { IBcast } from "src/interfaces/bcast";
 import { IMessage } from "src/interfaces/message";
 import { IUserInfo } from "src/interfaces/user-info";
+import { IUserSession } from "src/interfaces/user-session";
 import inputDto from "../dto/input-dto";
+import { toast } from "./toast";
 
 type ApiHandler<T> = (data: any) => T;
 
-const errorHandler = (error) => {
+const errorHandler = (error: any) => {
     if (error) {
+        toast.danger(`Api error: ${error?.message}`);
         throw error;
     }
 }
@@ -25,6 +28,7 @@ const userInfoHandler: ApiHandler<IUserInfo> = handleFirstObject(inputDto.buildU
 const dataHasLengthHandler: ApiHandler<boolean> = handleObject(((data: any) => data.length > 0));
 const interactedBcastHandler: ApiHandler<IBcast[]> = handleInteractedBcast(inputDto.buildBcast);
 const messageInsertedHandler: ApiHandler<IMessage> = handlePostgresChangePayload(inputDto.buildMessage);
+const authenticationHandler: ApiHandler<IUserSession> = handleObject(_ => inputDto.buildUserSession(_.session));
 
 export default {
     arrayBcastHandler,
@@ -32,7 +36,8 @@ export default {
     userInfoHandler,
     dataHasLengthHandler,
     interactedBcastHandler,
-    messageInsertedHandler
+    messageInsertedHandler,
+    authenticationHandler
 }
 
 

@@ -15,8 +15,8 @@ export class ProfileComponent implements OnInit {
   newTag: string = '';
 
   ngOnInit() {
-    const userInfo = this.userService.userInfo.get();
-    this.formValidator = new ProfileFormValidator(userInfo);
+    // const userInfo = this.userService.userInfo.get();
+    // this.formValidator = new ProfileFormValidator(userInfo);
   }
 
   addTag() {
