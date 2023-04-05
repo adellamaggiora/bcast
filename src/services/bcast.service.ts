@@ -20,21 +20,21 @@ export class BcastService {
     get$: () => this._candidate$.asObservable().pipe(share()),
     get: () => this._candidate$.getValue(),
     fetch: async (location: IGeoLocation) => {
-      const userId = this.userService.userSession?.get()?.id;
+      const userId = this.userService.userSession?.get()?.user?.id;
       const userInfo = this.userService.userInfo.get();
       if (!userInfo) {
         await this.userService.userInfo.fetch();
       }
       const tag = this.userService.userInfo.get()?.tag;
       const candidateBcast = await client.bcast.getCandidate(userId, location, tag);
-      this._candidate$.next(candidateBcast);
+      this._candidate$.next(candidateBcast?.bcast);
     },
     join: async (bcastId: string) => {
-      const userId = this.userService.userSession?.get()?.id;
+      const userId = this.userService.userSession?.get()?.user?.id;
       await client.bcast.join(userId, bcastId);
     },
     hide: async (bcastId: string) => {
-      const userId = this.userService.userSession?.get()?.id;
+      const userId = this.userService.userSession?.get()?.user?.id;
       await client.bcast.hide(userId, bcastId);
     }
   } 
@@ -43,9 +43,9 @@ export class BcastService {
     get$: () => this._joined$.asObservable().pipe(share()),
     get: () => this._joined$.getValue(),
     fetch: async () => {
-      const userId = this.userService.userSession?.get()?.id;
+      const userId = this.userService.userSession?.get()?.user?.id;
       const joinedBcast = await client.bcast.getJoined(userId);
-      this._joined$.next(joinedBcast);
+      this._joined$.next(joinedBcast?.bcast);
     }
   } 
 
@@ -53,9 +53,9 @@ export class BcastService {
     get$: () => this._inserted$.asObservable().pipe(share()),
     get: () => this._inserted$.getValue(),
     fetch: async () => {
-      const userId = this.userService.userSession?.get()?.id;
+      const userId = this.userService.userSession?.get()?.user?.id;
       const insertedBcast = await client.bcast.getInserted(userId);
-      this._inserted$.next(insertedBcast);
+      this._inserted$.next(insertedBcast?.bcast);
     }
   }
 

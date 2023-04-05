@@ -2,17 +2,18 @@ import { IBcast } from "src/interfaces/bcast";
 import { IMessage } from "src/interfaces/message";
 import { IRawBcast } from "src/interfaces/raw/raw-bcast";
 import { IRawMessage } from "src/interfaces/raw/raw-message";
+import { IRawUserAuth } from "src/interfaces/raw/raw-user-auth";
 import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
-import { IRawUserSession } from "src/interfaces/raw/raw-user-session";
+import { UserAuth } from "src/interfaces/user-auth";
 import { IUserInfo } from "src/interfaces/user-info";
-import { IUserSession } from "src/interfaces/user-session";
 import { geoFns } from "../../functions/geo-fns";
 
 
 const buildBcast = (rawBcast: IRawBcast): IBcast => {
   const { lat, lng } = geoFns.parseGeoPoint(rawBcast.location);
   return {
-    id: rawBcast?.id,
+    id: rawBcast.id,
+    userId: rawBcast.user_id,
     content: {
       title: rawBcast.title,
       message: rawBcast.content,
@@ -26,7 +27,7 @@ const buildBcast = (rawBcast: IRawBcast): IBcast => {
     maxUsers: rawBcast.max_user,
     tag: rawBcast.tag,
     explicitContent: rawBcast.explicit,
-    distanceKm: Math.floor(rawBcast?.distance_km) || 0
+    distanceKm: Math.floor(rawBcast?.distance_km!!) || 0,
   }
 };
 
@@ -49,19 +50,8 @@ const buildMessage = (rawMessage: IRawMessage): IMessage => {
   }
 };
 
-const buildUserSession = (rawUserSession: IRawUserSession): IUserSession => {
-  return {
-    id: rawUserSession?.user?.id,
-    email: rawUserSession?.user?.email,
-    lastSignIn: rawUserSession.user.last_sign_in_at? new Date(rawUserSession.user.last_sign_in_at) : null, 
-    jwt: {
-      accessToken: rawUserSession?.access_token,
-      refreshToken: rawUserSession?.refresh_token,
-      expiresIn: rawUserSession?.expires_in,
-      expriesAt: rawUserSession.expires_at
-    }
-
-  }
+const buildUserAuth = (rawUserInfo: IRawUserAuth): UserAuth => {
+  return rawUserInfo;
 }
 
 
@@ -69,5 +59,5 @@ export default {
   buildBcast,
   buildUserInfo,
   buildMessage,
-  buildUserSession
+  buildUserAuth
 }

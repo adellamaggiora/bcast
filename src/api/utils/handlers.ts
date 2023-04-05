@@ -1,43 +1,82 @@
-// @ts-nocheck
-
+import * as R from 'ramda';
+import { utilsFns } from "src/functions/utils-fns";
 import { IBcast } from "src/interfaces/bcast";
 import { IMessage } from "src/interfaces/message";
+import { UserAuth } from "src/interfaces/user-auth";
 import { IUserInfo } from "src/interfaces/user-info";
-import { IUserSession } from "src/interfaces/user-session";
 import inputDto from "../dto/input-dto";
 import { toast } from "./toast";
 
-type ApiHandler<T> = (data: any) => T;
 
-const errorHandler = (error: any) => {
-    if (error) {
-        toast.danger(`Api error: ${error?.message}`);
-        throw error;
+const errorHandler = (customErrorMessage = 'Handler error') => ({ error, errors, ...props }) => {
+    if (error || errors?.length) {
+        const e = error?.message || customErrorMessage;
+        toast.danger(e);
+        throw e;
     }
+    return { ...props };
 }
 
-const handleObject = (dto: Function) => ({ data, error }) => error ? errorHandler(error) : dto(data);
-const handleFirstObject = (dto: Function) => ({ data, error }) => error ? errorHandler(error) : dto(data?.at(0));
-const handleArray = (dto: Function) => ({ data, error }) => error ? errorHandler(error) : data.map((_:any) => dto(_));
-const handleInteractedBcast = (dto: Function) => ({ data, error }) => error ? errorHandler(error) : data.map((_:any) => dto(_.bcast))
-const handlePostgresChangePayload = (dto: Function) => (payload) => payload?.errors? errorHandler({ message: 'Error postgres change payload' }) : dto(payload?.new);
+const messagesHandler: (obj: Object) => { count: number, messages: IMessage[] } = R.pipe(
+    errorHandler(),
+    R.over(R.lensPath(['data']), R.map(inputDto.buildMessage)),
+    ({ data, count }) => ({ messages: data, count })
+)
 
-const arrayBcastHandler: ApiHandler<IBcast[]> = handleArray(inputDto.buildBcast);
-const arrayMessageHandler: ApiHandler<IMessage[]> = handleArray(inputDto.buildMessage);
-const userInfoHandler: ApiHandler<IUserInfo> = handleFirstObject(inputDto.buildUserInfo);
-const dataHasLengthHandler: ApiHandler<boolean> = handleObject(((data: any) => data.length > 0));
-const interactedBcastHandler: ApiHandler<IBcast[]> = handleInteractedBcast(inputDto.buildBcast);
-const messageInsertedHandler: ApiHandler<IMessage> = handlePostgresChangePayload(inputDto.buildMessage);
-const authenticationHandler: ApiHandler<IUserSession> = handleObject(_ => inputDto.buildUserSession(_.session));
+const messageInsertedHandler: (obj: Object) => IMessage = R.pipe(
+    errorHandler('Error postgres change payload'),
+    R.prop('payload'),
+    inputDto.buildMessage
+)
+
+const bcastsHandler: (obj: Object) => { count: number, bcast: IBcast[] } = R.pipe(
+    errorHandler(),
+    R.over(R.lensPath(['data']), R.map(inputDto.buildBcast)),
+    ({ data, count }) => ({ bcast: data, count })
+)
+
+const userInfoHandler: (obj: Object) => IUserInfo = R.pipe(
+    errorHandler(),
+    R.prop('data'),
+    R.head,
+    inputDto.buildUserInfo
+)
+
+const authHandler: (obj: Object) => UserAuth = R.pipe(
+    errorHandler(),
+    R.prop('data'),
+    inputDto.buildUserAuth
+)
+
+const bcastInteractedHandler: (obj: Object) => { count: number, bcast: IBcast[] } = R.pipe(
+    errorHandler(),
+    R.over(R.lensPath(['data']), R.pipe(
+        R.map(
+            R.pipe(
+                R.prop('bcast'),
+                inputDto.buildBcast
+            )
+        )
+    )),
+    ({ data, count }) => ({ bcast: data, count })
+)
+
+const dataHasLengthHandler: (obj: Object) => boolean = R.pipe(
+    errorHandler(),
+    R.prop('data'),
+    R.length,
+    R.gt(R.__, 0),
+    utilsFns.logger('res')
+)
 
 export default {
-    arrayBcastHandler,
-    arrayMessageHandler,
-    userInfoHandler,
-    dataHasLengthHandler,
-    interactedBcastHandler,
+    messagesHandler,
     messageInsertedHandler,
-    authenticationHandler
+    bcastsHandler,
+    bcastInteractedHandler,
+    userInfoHandler,
+    authHandler,    
+    dataHasLengthHandler
 }
 
 
