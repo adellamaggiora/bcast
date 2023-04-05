@@ -1,4 +1,5 @@
-// import { Geometry } from 'wkx';
+import { Geometry } from 'wkx';
+
 
 const getCurrentPosition = () => new Promise((resolve, reject) => {
   if (navigator.geolocation) {
@@ -9,8 +10,8 @@ const getCurrentPosition = () => new Promise((resolve, reject) => {
 })
 
 const parseGeoPoint = (geoPoint: string) => {
-  // const { x: lng, y: lat } = Geometry.parse(Buffer.from(geoPoint, 'hex')) as any;
-  return { lat: 43.1256, lng: 10.2652 };
+  const { x: lng, y: lat } = Geometry.parse(Buffer.from(geoPoint, 'hex')) as any;
+  return { lat, lng };
 }
 
 
