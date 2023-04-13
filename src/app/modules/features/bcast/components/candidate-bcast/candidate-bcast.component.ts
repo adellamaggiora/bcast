@@ -15,8 +15,7 @@ export class CandidateBcastComponent implements OnInit {
   constructor(public bcastService: BcastService, private geolocation: Geolocation) { }
 
   ngOnInit() {
-    console.log('magheeooooooo')
-    this.getCandidateBcast();
+    this.fetchCandidiateBcast();
   }
 
   onJoin(bcastId: string) {
@@ -29,27 +28,9 @@ export class CandidateBcastComponent implements OnInit {
       .then(() => toast.success(`Broadcast hided`))
   }
 
-  async getCandidateBcast() {
-    // const location = await this.getGeoLocation();
-    //await this.bcastService.candidate.fetch(location);
-
-    this.geolocation.getCurrentPosition()
-    .then(({ coords, timestamp }) => {
-      console.log('current location:');
-      console.log(coords);
-    })
-    .catch(console.error)
-  }
-
-
-  getGeoLocation(): Promise<IGeoLocation> {
-    this.geolocation.getCurrentPosition()
-      .then(({ coords, timestamp }) => {
-        console.log('current location:');
-        console.log(coords);
-      })
-      .catch(console.error)
-    return null
+  async fetchCandidiateBcast() {
+    const { coords, timestamp } = await this.geolocation.getCurrentPosition();
+    await this.bcastService.candidate.fetch({ lat: coords?.latitude, lng: coords.longitude })
   }
 
 

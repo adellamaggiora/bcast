@@ -16,8 +16,11 @@ const removeUndefinedOrNullProps = (obj) => {
 
 const logger = (label: any) => (data: any) => { console.log(`${label} -> ${JSON.stringify(data)}`); return data };
 
+const existy = (el: any) => el !== null && el !== undefined;
+
 export const utilsFns = {
   pick,
   removeUndefinedOrNullProps,
-  logger
+  logger,
+  existy
 }

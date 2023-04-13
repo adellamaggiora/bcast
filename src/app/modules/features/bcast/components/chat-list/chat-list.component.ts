@@ -10,11 +10,8 @@ export class ChatListComponent  implements OnInit {
 
   constructor(public bcastService: BcastService) { }
 
-  ngOnInit() {}
-
-
-  getChatList() {
-    
+  ngOnInit() {
+    this.bcastService.chatList.fetch();
   }
-
+  
 }

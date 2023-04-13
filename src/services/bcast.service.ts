@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, merge, share } from 'rxjs';
+import { BehaviorSubject, filter, from, merge, share } from 'rxjs';
 import client from 'src/api/client';
 import { IBcast } from 'src/interfaces/bcast';
 import { IGeoLocation } from 'src/interfaces/geo-location';
 import { UserService } from './user.service';
+import { utilsFns } from 'src/functions/utils-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +57,18 @@ export class BcastService {
   }
 
   public chatList = {
-    get$: () => merge([this.joined.get(), this.inserted.get()])
+    get$: () => from(merge(this.joined.get$(), this.inserted.get$()))
+      .pipe(
+        filter(utilsFns.existy),
+        filter(_ => _.length > 0),
+        share()
+    ),
+    get: () => [...this._joined$.getValue(), ...this._inserted$.getValue()],
+    fetch: async () => {
+      console.log('fetching chat list')
+      await this.inserted.fetch();
+      await this.joined.fetch();
+    }
   }
 
 
