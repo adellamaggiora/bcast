@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/services/auth.service';
 import packageJson from '../../package.json';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import packageJson from '../../package.json';
 })
 export class AppComponent {
 
-  constructor(private authService: AuthService) { }
+  constructor(public userService: UserService, private authService: AuthService) { }
 
   public appVersion: string = packageJson.version;
   public appPages = [

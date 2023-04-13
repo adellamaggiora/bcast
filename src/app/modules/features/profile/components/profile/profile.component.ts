@@ -10,7 +10,7 @@ import client from 'src/api/client';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(public userService: UserService) { }
 
   formValidator: ProfileFormValidator;
 

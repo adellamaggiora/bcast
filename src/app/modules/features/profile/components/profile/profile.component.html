@@ -1,5 +1,9 @@
 <ion-list [formGroup]="formValidator?.formGroup" *ngIf="formValidator?.formGroup">
   <ion-item>
+    <ion-label>{{ (userService.userSession.get$() | async)?.user?.email }}</ion-label>
+  </ion-item>
+
+  <ion-item>
     <ion-input #tag placeholder="Enter tag" (keydown.enter)="formValidator.addTag(tag.value)"
       (keydown.space)="formValidator.addTag(tag.value)" />
   </ion-item>
