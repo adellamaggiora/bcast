@@ -3,6 +3,7 @@
       [bcast]="bcast" 
       [joined]="true" 
       [userLocation]="null"
+      [userTag]="(userService?.userInfo.get$() | async)?.tag"
       >
   </app-card>
 </div>

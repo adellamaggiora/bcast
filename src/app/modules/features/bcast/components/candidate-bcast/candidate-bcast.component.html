@@ -3,6 +3,7 @@
         [bcast]="bcast" 
         [joined]="false" 
         [userLocation]="null"
+        [userTag]="(userService?.userInfo.get$() | async)?.tag"
         (hide)="onHide($event)"
         (join)="onJoin(bcast.id)"
         >

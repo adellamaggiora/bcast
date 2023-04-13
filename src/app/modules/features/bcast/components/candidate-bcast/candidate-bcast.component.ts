@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { toast } from 'src/api/utils/toast';
-import { IGeoLocation } from 'src/interfaces/geo-location';
 import { BcastService } from 'src/services/bcast.service';
+import { UserService } from 'src/services/user.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { BcastService } from 'src/services/bcast.service';
 })
 export class CandidateBcastComponent implements OnInit {
 
-  constructor(public bcastService: BcastService, private geolocation: Geolocation) { }
+  constructor(public bcastService: BcastService, public userService: UserService, private geolocation: Geolocation) { }
 
   ngOnInit() {
     this.fetchCandidiateBcast();

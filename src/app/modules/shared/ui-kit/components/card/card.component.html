@@ -3,7 +3,7 @@
   <ion-card-header class="d-flex justify-content-between">
     <ion-card-title>{{ bcast?.content?.title }}</ion-card-title>
     <div>
-      <span class="me-2"> 
+      <span class="me-2">
         <span>
           {{ bcast?.distanceKm }} Km
         </span>
@@ -15,15 +15,16 @@
         <ion-icon name="person"></ion-icon>
       </span>
     </div>
-    
-  </ion-card-header>  
+
+  </ion-card-header>
 
   <ion-card-content>
     {{ bcast?.content?.message }}
   </ion-card-content>
 
   <ion-card-content>
-    <span class="blockquote-footer" *ngFor="let tag of bcast?.tag">
+    <span class="blockquote-footer" [ngClass]="userTag?.includes(tag) ? 'fw-bold' : null"
+      *ngFor="let tag of bcast?.tag">
       {{ tag }}
     </span>
   </ion-card-content>
@@ -38,5 +39,5 @@
     <ion-button fill="clear" class="me-3" (click)="onJoin()">Join</ion-button>
     <ion-button fill="clear" (click)="onHide()">Discard</ion-button>
   </div>
-  
+
 </ion-card>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BcastService } from 'src/services/bcast.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -8,7 +9,7 @@ import { BcastService } from 'src/services/bcast.service';
 })
 export class ChatListComponent  implements OnInit {
 
-  constructor(public bcastService: BcastService) { }
+  constructor(public bcastService: BcastService, public userService: UserService) { }
 
   ngOnInit() {
     this.bcastService.chatList.fetch();
