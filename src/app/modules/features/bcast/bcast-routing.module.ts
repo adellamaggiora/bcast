@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BcastComponent } from './components/bcast/bcast.component';
 import { CandidateBcastComponent } from './components/candidate-bcast/candidate-bcast.component';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
+import { ChatRoomComponent } from './components/chat-room/chat-room.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,11 @@ const routes: Routes = [
       {
         path: 'chatlist',
         component: ChatListComponent
+      },
+      {
+        // path: 'chatroom',
+        path: 'chatroom/:id',
+        component: ChatRoomComponent
       }
     ]
   }

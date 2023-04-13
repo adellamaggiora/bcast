@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import dateFns from 'src/functions/date-fns';
 import { IBcast } from 'src/interfaces/bcast';
 import { IGeoLocation } from 'src/interfaces/geo-location';
@@ -20,6 +21,8 @@ export class CardComponent {
 
   public dateFns = dateFns;
 
+  constructor(private router: Router) { }
+
   onJoin() {
     this.join.emit(true);
   }
@@ -28,6 +31,10 @@ export class CardComponent {
     this.hide.emit(true);
   }
 
+  onChat() {
+    // this.router.navigate(['bcast', 'chatroom'], { queryParams: { id: this.bcast.id }  })
+    this.router.navigate(['bcast', 'chatroom', this.bcast.id] )
+  }
 
 
 }

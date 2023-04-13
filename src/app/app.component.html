@@ -16,7 +16,9 @@
       <ion-menu contentId="main-content" type="overlay">
 
         <ion-list>
-          <ion-list-header> {{ (userService.userSession.get$() | async)?.user?.email }} </ion-list-header>
+          <ion-list-header *ngIf="(userService.userSession.get$() | async)?.user?.email?.length"> 
+            {{ (userService.userSession.get$() | async)?.user?.email }} 
+          </ion-list-header>
           <ion-menu-toggle *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
               routerLinkActive="selected">

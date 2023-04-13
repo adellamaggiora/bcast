@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     const isAuthenticated = !!this.userService.userSession.get();
     if (!isAuthenticated) {
       toast.warning(`User is not allowed to the route`);
-      this.router.navigate(['/login']);
+      this.router.navigate(['login']);
     }
     return isAuthenticated;
   }
