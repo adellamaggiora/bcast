@@ -195,7 +195,7 @@ const api =
               cb(message!!)
             }
           )
-          .subscribe(),
+          .subscribe()
     },
 
     userInfo: {
@@ -220,7 +220,7 @@ const api =
           .from("user_info")
           .update(obj)
           .eq('id', userId);
-      },
+      }
     },
 
     auth: {
@@ -233,7 +233,7 @@ const api =
       signUp: (signUp: ISignIn) =>
         supabase
           .auth.signUp(signUp)
-          .then(handlers.authHandler),
+          .then(handlers.authHandler)
     }
   }
 }

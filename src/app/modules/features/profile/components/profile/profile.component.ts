@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "src/services/user.service";
 import { ProfileFormValidator } from './profile-form-validator';
+import client from 'src/api/client';
 
 @Component({
   selector: 'app-profile',
@@ -12,26 +13,24 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   formValidator: ProfileFormValidator;
-  newTag: string = '';
 
   ngOnInit() {
-    // const userInfo = this.userService.userInfo.get();
-    // this.formValidator = new ProfileFormValidator(userInfo);
+    this.initializeFormValidator();
   }
 
-  addTag() {
-    if (this.newTag.trim() !== '') {
-      // this.tags.push(this.newTag.trim());
-      this.newTag = '';
+  async save() {
+    const tag = this.formValidator.tag.value;
+    const userId = this.userService.userSession.get().user.id;
+    await client.userInfo.update(userId, { tag });
+    await this.userService.userInfo.fetch(userId);
+    this.initializeFormValidator();
+  }
+
+  initializeFormValidator() {
+    const userInfo = this.userService.userInfo.get();
+    if (userInfo) {
+      this.formValidator = new ProfileFormValidator(userInfo);
     }
-  }
-
-  removeTag(index: number) {
-    //this.tags.splice(index, 1);
-  }
-
-  save() {
-
   }
 
 }

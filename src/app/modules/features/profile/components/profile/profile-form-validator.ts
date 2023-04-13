@@ -4,9 +4,14 @@ import { FormValidator } from "src/models/form-validator";
 
 export class ProfileFormValidator extends FormValidator {
 
-    get tag() {
-        return this._formGroup.controls['tag'];
+    private _generateTagFormControl(tag: string) {
+        return new FormControl(tag);
     }
+
+    get tag() {
+        return this._formGroup.controls['tag'] as FormArray;
+    }
+    
     
     constructor(userInfo: IUserInfo) {
         super();
@@ -15,7 +20,11 @@ export class ProfileFormValidator extends FormValidator {
         })
     }
 
-    private _generateTagFormControl(tag: string) {
-        return new FormControl(tag);
+    addTag(tag: any) {
+        this.tag.push(this._generateTagFormControl(tag));
+    }
+
+    removeTag(index: number) {
+        this.tag.removeAt(index);
     }
 }

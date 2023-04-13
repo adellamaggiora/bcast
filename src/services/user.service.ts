@@ -15,17 +15,18 @@ export class UserService {
 
   constructor() {
     const storedUserId = localStorage.getItem(LSKeys.USER_ID);
-    console.log(`stored user id: ${storedUserId}`);
+    if (storedUserId) {
+      this.userInfo.fetch(storedUserId);
+    }
   }
 
 
   public userInfo = {
     get$: () => this._userInfo$.asObservable().pipe(share()),
     get: () => this._userInfo$.getValue(),
-    fetch: async () => {
-      const userId = this._userSession$.getValue()?.user?.id;
+    fetch: async (userId: string) => {
       const userInfo = await client.userInfo.get(userId);
-      this._userInfo$.next(userInfo); 
+      this._userInfo$.next(userInfo);
     }
   }
 
@@ -33,9 +34,12 @@ export class UserService {
     get$: () => this._userSession$.asObservable().pipe(share()),
     get: () => this._userSession$.getValue(),
     set: (userSession: Session) => {
-      localStorage.setItem(LSKeys.USER_ID, userSession?.user?.id);
       this._userSession$.next(userSession);
-    } 
+      if (userSession?.user?.id) {
+        localStorage.setItem(LSKeys.USER_ID, userSession.user.id);
+        this.userInfo.fetch(userSession.user.id)
+      }
+    }
   }
 
 }

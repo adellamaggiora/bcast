@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { toast } from 'src/api/utils/toast';
 import { IGeoLocation } from 'src/interfaces/geo-location';
 import { BcastService } from 'src/services/bcast.service';
@@ -9,9 +10,12 @@ import { BcastService } from 'src/services/bcast.service';
   templateUrl: './candidate-bcast.component.html',
   styleUrls: ['./candidate-bcast.component.scss'],
 })
-export class CandidateBcastComponent {
+export class CandidateBcastComponent implements OnInit {
 
-  constructor(public bcastService: BcastService) { 
+  constructor(public bcastService: BcastService, private geolocation: Geolocation) { }
+
+  ngOnInit() {
+    console.log('magheeooooooo')
     this.getCandidateBcast();
   }
 
@@ -26,22 +30,27 @@ export class CandidateBcastComponent {
   }
 
   async getCandidateBcast() {
-    const location = await this.getGeoLocation();
-    await this.bcastService.candidate.fetch(location);
+    // const location = await this.getGeoLocation();
+    //await this.bcastService.candidate.fetch(location);
+
+    this.geolocation.getCurrentPosition()
+    .then(({ coords, timestamp }) => {
+      console.log('current location:');
+      console.log(coords);
+    })
+    .catch(console.error)
   }
-  
+
 
   getGeoLocation(): Promise<IGeoLocation> {
-    return new Promise(res => {
-      res({ lat: 43.15263, lng:11.25636 })
-    })
-    // return this.geolocation.getCurrentPosition().then(_ => {
-    //   return {
-    //     lat: _.coords.latitude,
-    //     lng: _.coords.longitude
-    //   }
-    // })
+    this.geolocation.getCurrentPosition()
+      .then(({ coords, timestamp }) => {
+        console.log('current location:');
+        console.log(coords);
+      })
+      .catch(console.error)
+    return null
   }
-  
+
 
 }

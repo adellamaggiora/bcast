@@ -7,8 +7,8 @@ import { IUserInfo } from "src/interfaces/user-info";
 
 const buildRawUserInfo = (userId: string, userInfo: Partial<IUserInfo> ): IRawUserInfo => ({
     id: userId,
-    bcast_to_get: userInfo.bcast.toGet,
-    bcast_to_send: userInfo.bcast.toSend,
+    bcast_to_get: userInfo.bcast?.toGet,
+    bcast_to_send: userInfo.bcast?.toSend,
     tag: userInfo?.tag,
 });
 

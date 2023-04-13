@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BcastRoutingModule } from './bcast-routing.module';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { BcastComponent } from './components/bcast/bcast.component';
 import { CandidateBcastComponent } from './components/candidate-bcast/candidate-bcast.component';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { UiKitModule } from '../../shared/ui-kit/ui-kit.module';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
+import { RouteReuseStrategy } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ChatListComponent } from './components/chat-list/chat-list.component';
     UiKitModule
   ],
   providers: [
-    Geolocation
+    Geolocation,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ]
 })
 export class BcastModule { }
