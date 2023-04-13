@@ -1,13 +1,12 @@
 <div *ngFor="let bcast of bcastService.candidate.get$() | async">
-    <app-card 
+    <app-bcast-card 
         [bcast]="bcast" 
-        [joined]="false" 
-        [userLocation]="null"
+        [joined]="false"
         [userTag]="(userService?.userInfo.get$() | async)?.tag"
         (hide)="onHide($event)"
-        (join)="onJoin(bcast.id)"
+        (join)="onJoin($event)"
         >
-    </app-card>
+    </app-bcast-card>
 </div>
 
 <ion-note *ngIf="!(bcastService.candidate.get$() | async)?.length" class="my-3 text-center">

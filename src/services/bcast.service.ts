@@ -65,7 +65,6 @@ export class BcastService {
     ),
     get: () => [...this._joined$.getValue(), ...this._inserted$.getValue()],
     fetch: async () => {
-      console.log('fetching chat list')
       await this.inserted.fetch();
       await this.joined.fetch();
     }

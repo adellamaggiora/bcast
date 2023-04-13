@@ -1,11 +1,11 @@
 <div *ngFor="let bcast of bcastService.chatList.get$() | async">
-  <app-card 
+  <app-bcast-card 
       [bcast]="bcast" 
       [joined]="true" 
-      [userLocation]="null"
       [userTag]="(userService?.userInfo.get$() | async)?.tag"
+      (chat)="onChat($event)"
       >
-  </app-card>
+  </app-bcast-card>
 </div>
 
 <ion-note *ngIf="!(bcastService.chatList.get$() | async)?.length" class="my-3 text-center">

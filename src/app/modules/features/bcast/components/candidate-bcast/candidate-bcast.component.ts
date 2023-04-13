@@ -29,8 +29,15 @@ export class CandidateBcastComponent implements OnInit {
   }
 
   async fetchCandidiateBcast() {
-    const { coords, timestamp } = await this.geolocation.getCurrentPosition();
-    await this.bcastService.candidate.fetch({ lat: coords?.latitude, lng: coords.longitude })
+    const geoposition = await this.updateUserPosition();
+    const { coords: { latitude: lat, longitude: lng } } = geoposition;
+    await this.bcastService.candidate.fetch({ lat, lng });
+  }
+
+  async updateUserPosition() {
+    const geoposition = await this.geolocation.getCurrentPosition();
+    this.userService.userGeoposition.update(geoposition);
+    return geoposition;
   }
 
 

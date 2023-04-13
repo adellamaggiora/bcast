@@ -19,8 +19,8 @@ const routes: Routes = [
         component: ChatListComponent
       },
       {
-        // path: 'chatroom',
-        path: 'chatroom/:id',
+        // path: 'chatroom/:id',
+        path: 'chatroom',
         component: ChatRoomComponent
       }
     ]

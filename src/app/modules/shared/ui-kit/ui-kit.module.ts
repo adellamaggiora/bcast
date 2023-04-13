@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from './components/card/card.component';
+import { BcastCardComponent } from './components/bcast-card/bcast-card.component';
 import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
   declarations: [
-    CardComponent
+    BcastCardComponent
   ],
   imports: [
     CommonModule,
     IonicModule
   ],
   exports: [
-    CardComponent
+    BcastCardComponent
   ]
 })
 export class UiKitModule { }
