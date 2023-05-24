@@ -55,13 +55,14 @@ const api =
           .then(handlers.bcastsHandler),
 
       getCandidate:
-        (userId: string, location: IGeoLocation, tag: string[], limit = 50, offset = 0) =>
+        (userId: string, location: IGeoLocation, maxDistanceKm: number, tag: string[], limit = 50, offset = 0) =>
           supabase
             .rpc("candidate_bcast", {
               _user_id: userId,
               _lat: location.lat,
               _lng: location.lng,
               _tag: tag,
+              _max_distance_km: maxDistanceKm
             })
             .range(offset, (offset+limit))
             .then(handlers.bcastsHandler),

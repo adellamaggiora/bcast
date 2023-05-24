@@ -23,7 +23,6 @@ const buildBcast = (rawBcast: IRawBcast): IBcast => {
       lat: lat,
       lng: lng,
     },
-    maxDistanceKm: rawBcast.max_distance_km,
     maxUsers: rawBcast.max_user,
     tag: rawBcast.tag,
     explicitContent: rawBcast.explicit,

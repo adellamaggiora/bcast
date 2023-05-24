@@ -16,7 +16,6 @@ const buildRawBcast = (userId: string, bcast: IBcast): Partial<IRawBcast> => ({
     user_id: userId,
     expires_at: bcast.expiresAt,
     max_user: bcast.maxUsers,
-    max_distance_km: bcast.maxDistanceKm,
     tag: bcast.tag,
     title: bcast.content.title,
     content: bcast.content.message,

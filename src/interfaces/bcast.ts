@@ -11,7 +11,6 @@ export interface IBcast {
         message: string;
     },
     maxUsers: number;
-    maxDistanceKm: number;
     tag: string[];
     location: IGeoLocation;
 

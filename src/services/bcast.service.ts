@@ -20,10 +20,10 @@ export class BcastService {
   public candidate  = {
     get$: () => this._candidate$.asObservable().pipe(share()),
     get: () => this._candidate$.getValue(),
-    fetch: async (location: IGeoLocation) => {
+    fetch: async (location: IGeoLocation, maxDistanceKm: number) => {
       const userId = this.userService.userSession?.get()?.user?.id;
       const tag = this.userService.userInfo.get()?.tag;
-      const candidateBcast = await client.bcast.getCandidate(userId, location, tag);
+      const candidateBcast = await client.bcast.getCandidate(userId, location, maxDistanceKm, tag);
       this._candidate$.next(candidateBcast?.bcast);
     },
     join: async (bcastId: string) => {

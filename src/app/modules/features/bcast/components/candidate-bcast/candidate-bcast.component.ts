@@ -30,8 +30,9 @@ export class CandidateBcastComponent implements OnInit {
 
   async fetchCandidiateBcast() {
     const geoposition = await this.updateUserPosition();
+    const maxDistanceKm = 50;
     const { coords: { latitude: lat, longitude: lng } } = geoposition;
-    await this.bcastService.candidate.fetch({ lat, lng });
+    await this.bcastService.candidate.fetch({ lat, lng }, maxDistanceKm);
   }
 
   async updateUserPosition() {
