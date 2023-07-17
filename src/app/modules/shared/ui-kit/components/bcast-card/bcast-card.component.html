@@ -1,30 +1,27 @@
 <ion-card>
   <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
   <ion-card-header class="d-flex justify-content-between">
-    <ion-card-title>{{ bcast?.content?.title }}</ion-card-title>
+    <ion-card-title>{{ listedBcast?.title }}</ion-card-title>
     <div>
       <span class="me-2">
         <span>
-          {{ bcast?.distanceKm }} Km
+          {{ listedBcast?.distMeters }} meters
         </span>
         <ion-icon name="rocket"></ion-icon>
       </span>
 
-      <span *ngIf="!joined">
-        <span> 0/{{ bcast?.maxUsers }} </span>
+      <!-- <span *ngIf="!joined">
+        <span> 0/{{ listedBcast?.maxUsers }} </span>
         <ion-icon name="person"></ion-icon>
-      </span>
+      </span> -->
     </div>
 
   </ion-card-header>
 
-  <ion-card-content>
-    {{ bcast?.content?.message }}
-  </ion-card-content>
 
   <ion-card-content>
     <span class="blockquote-footer" [ngClass]="userTag?.includes(tag) ? 'fw-bold' : null"
-      *ngFor="let tag of bcast?.tag">
+      *ngFor="let tag of listedBcast?.tag">
       {{ tag }}
     </span>
   </ion-card-content>
@@ -32,15 +29,14 @@
   <ion-card-content>
     Expires at:
     <ion-icon name="calendar" class="mx-2"></ion-icon>
-    {{ bcast?.expiresAt | date: dateFns.formatString() }}
+    {{ listedBcast?.expiresAt | date: dateFns.formatString() }}
   </ion-card-content>
 
-  <div *ngIf="!joined">
+  <div *ngIf="!listedBcast.joined">
     <ion-button fill="clear" class="me-3" (click)="onJoin()">Join</ion-button>
-    <ion-button fill="clear" (click)="onHide()">Discard</ion-button>
   </div>
 
-  <div *ngIf="joined">
+  <div *ngIf="listedBcast.joined">
     <ion-button fill="clear" class="me-3" (click)="onChat()">Chat</ion-button>
   </div>
 

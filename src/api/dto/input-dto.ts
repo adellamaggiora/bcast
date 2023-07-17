@@ -1,34 +1,47 @@
+import { geoFns } from "src/functions/geo-fns";
 import { IBcast } from "src/interfaces/bcast";
+import { IListedBcast } from "src/interfaces/listed-bcast";
 import { IMessage } from "src/interfaces/message";
 import { IRawBcast } from "src/interfaces/raw/raw-bcast";
+import { IRawListedBcast } from "src/interfaces/raw/raw-listed-bcast";
 import { IRawMessage } from "src/interfaces/raw/raw-message";
 import { IRawUserAuth } from "src/interfaces/raw/raw-user-auth";
 import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
 import { UserAuth } from "src/interfaces/user-auth";
 import { IUserInfo } from "src/interfaces/user-info";
-import { geoFns } from "../../functions/geo-fns";
 
 
 const buildBcast = (rawBcast: IRawBcast): IBcast => {
-  const { lat, lng } = geoFns.parseGeoPoint(rawBcast.location);
+  const { lat, lng } = geoFns.parseGeoPoint(rawBcast?.location);
   return {
-    id: rawBcast.id,
-    userId: rawBcast.user_id,
-    content: {
-      title: rawBcast.title,
-      message: rawBcast.content,
-    },
-    expiresAt: new Date(rawBcast.expires_at),
-    location: {
-      lat: lat,
-      lng: lng,
-    },
-    maxUsers: rawBcast.max_user,
-    tag: rawBcast.tag,
-    explicitContent: rawBcast.explicit,
-    distanceKm: Math.floor(rawBcast?.distance_km!!) || 0,
+    id: rawBcast?.id,
+    userId: rawBcast?.user_id,
+    expiresAt: new Date(rawBcast?.expires_at),
+    location: { lat: lat, lng: lng },
+    maxUsers: rawBcast?.max_users,
+    tag: rawBcast?.tag,
+    content: rawBcast?.content,
+    title: rawBcast?.title,
+    createdAt: rawBcast?.created_at,
+    imageName: rawBcast?.image_name
   }
 };
+
+const buildListedBcast = (rawListedBcast: IRawListedBcast): IListedBcast => {
+  const { lat, lng } = geoFns.parseGeoPoint(rawListedBcast.location);
+  return {
+    id: rawListedBcast?.id,
+    userId: rawListedBcast?.user_id,
+    title: rawListedBcast?.title,
+    expiresAt: rawListedBcast?.expires_at,
+    distMeters: rawListedBcast?.dist_meters,
+    imageName: rawListedBcast?.image_name,
+    location: { lat, lng },
+    maxUsers: rawListedBcast?.max_users,
+    joined: rawListedBcast?.joined,
+    tag: rawListedBcast?.tag
+  }
+}
 
 const buildUserInfo = (rawUserInfo: IRawUserInfo): IUserInfo => {
   return {
@@ -58,5 +71,6 @@ export default {
   buildBcast,
   buildUserInfo,
   buildMessage,
-  buildUserAuth
+  buildUserAuth,
+  buildListedBcast
 }

@@ -3,6 +3,7 @@ import { UserService } from "src/services/user.service";
 import { ProfileFormValidator } from './profile-form-validator';
 import client from 'src/api/client';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -20,7 +21,7 @@ export class ProfileComponent implements OnInit {
 
   async save() {
     const tag = this.formValidator.tag.value;
-    const userId = this.userService.userSession.get().user.id;
+    const userId = await this.userService.userSession.getId();
     await client.userInfo.update(userId, { tag });
     await this.userService.userInfo.fetch(userId);
     this.initializeFormValidator();

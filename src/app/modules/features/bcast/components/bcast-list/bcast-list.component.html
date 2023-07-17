@@ -1,0 +1,8 @@
+<div *ngFor="let listedBcast of bcastService.bcastList.get$() | async">
+    <app-bcast-card 
+        [listedBcast]="listedBcast" 
+        [userTag]="(userService?.userInfo.get$() | async)?.tag"
+        (join)="onJoin($event)"
+        >
+    </app-bcast-card>
+</div>

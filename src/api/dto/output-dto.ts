@@ -5,21 +5,23 @@ import { IRawMessage } from "src/interfaces/raw/raw-message";
 import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
 import { IUserInfo } from "src/interfaces/user-info";
 
+
 const buildRawUserInfo = (userId: string, userInfo: Partial<IUserInfo> ): IRawUserInfo => ({
     id: userId,
-    bcast_to_get: userInfo.bcast?.toGet,
-    bcast_to_send: userInfo.bcast?.toSend,
-    tag: userInfo?.tag,
+    bcast_to_get: userInfo?.bcast?.toGet || 0,
+    bcast_to_send: userInfo?.bcast?.toSend || 0,
+    tag: userInfo?.tag || [],
 });
 
 const buildRawBcast = (userId: string, bcast: IBcast): Partial<IRawBcast> => ({
     user_id: userId,
     expires_at: bcast.expiresAt,
-    max_user: bcast.maxUsers,
+    max_users: bcast.maxUsers,
     tag: bcast.tag,
-    title: bcast.content.title,
-    content: bcast.content.message,
-    location: `POINT(${bcast.location.lng} ${bcast.location.lat})`
+    title: bcast.title,
+    content: bcast.content,
+    location: `POINT(${bcast.location.lng} ${bcast.location.lat})`,
+    image_name: bcast.imageName
 });
 
 const buildRawMessage = (userId: string, bcastId: string, message: IMessage): Partial<IRawMessage> => ({
@@ -27,7 +29,7 @@ const buildRawMessage = (userId: string, bcastId: string, message: IMessage): Pa
     bcast_id: bcastId,
     content: message.content
 })
-
+    
 
 export default {
     buildRawUserInfo,

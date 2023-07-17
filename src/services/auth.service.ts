@@ -15,7 +15,7 @@ export class AuthService {
     return client.auth.signIn({email, password})
       .then((userAuth: UserAuth) => {
         this.userService.userSession.set(userAuth.session);
-        this.router.navigate(['bcast', 'candidate']);
+        this.router.navigate(['bcast', 'list']);
       })
   }
 

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import dateFns from 'src/functions/date-fns';
-import { IBcast } from 'src/interfaces/bcast';
-import { IGeoLocation } from 'src/interfaces/geo-location';
+import { IListedBcast } from 'src/interfaces/listed-bcast';
 
 @Component({
   selector: 'app-bcast-card',
@@ -10,12 +9,10 @@ import { IGeoLocation } from 'src/interfaces/geo-location';
 })
 export class BcastCardComponent {
 
-  @Input() bcast: IBcast;
-  @Input() joined: boolean;
+  @Input() listedBcast: IListedBcast;
   @Input() userTag: string[];
 
   @Output() join = new EventEmitter(null);
-  @Output() hide = new EventEmitter(null);
   @Output() chat = new EventEmitter(null);
 
   public dateFns = dateFns;
@@ -23,15 +20,11 @@ export class BcastCardComponent {
   constructor() { }
 
   onJoin() {
-    this.join.emit(this.bcast.id);
-  }
-
-  onHide() {
-    this.hide.emit(this.bcast.id);
+    this.join.emit(this.listedBcast.id);
   }
 
   onChat() {
-    this.chat.emit(this.bcast.id);
+    this.chat.emit(this.listedBcast.id);
   }
 
 

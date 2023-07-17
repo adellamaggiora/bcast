@@ -13,13 +13,7 @@ export class ChatListComponent  implements OnInit {
 
   constructor(public bcastService: BcastService, public userService: UserService, private router: Router) { }
 
-  ngOnInit() {
-    this.bcastService.chatList.fetch();
-    this.userService.userGeoposition.getLocation$().subscribe(_ => {
-      console.log('user geolocation');
-      console.log(_)
-    })
-  }
+  ngOnInit() { }
 
   onChat(bcastId: string) {
     this.router.navigate(['bcast', 'chatroom'], { queryParams: { id: bcastId } } );

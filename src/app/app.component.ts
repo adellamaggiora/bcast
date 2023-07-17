@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from 'src/services/auth.service';
 import packageJson from '../../package.json';
 import { UserService } from 'src/services/user.service';
+import { Session } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +10,13 @@ import { UserService } from 'src/services/user.service';
 })
 export class AppComponent {
 
-  constructor(public userService: UserService, private authService: AuthService) { }
-
-  public appVersion: string = packageJson.version;
-  public appPages = [
-    { title: 'Profile', url: '/profile', icon: 'person' },
-    { title: 'Broadcasts', url: '/bcast/candidate', icon: 'earth' }
+  userSession: Session;
+  appVersion: string = packageJson.version;
+  appPages = [
+    { title: 'Profile', url: '/profile', icon: 'person' }
   ];
+
+  constructor(public userService: UserService, private authService: AuthService) { }
 
   logout() {
     this.authService.logout();

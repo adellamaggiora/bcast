@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BcastRoutingModule } from './bcast-routing.module';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { BcastComponent } from './components/bcast/bcast.component';
-import { CandidateBcastComponent } from './components/candidate-bcast/candidate-bcast.component';
+import { BcastListComponent } from './components/bcast-list/bcast-list.component';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { UiKitModule } from '../../shared/ui-kit/ui-kit.module';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
@@ -12,7 +12,7 @@ import { RouteReuseStrategy } from '@angular/router';
 @NgModule({
   declarations: [
     BcastComponent,
-    CandidateBcastComponent,
+    BcastListComponent,
     ChatListComponent
   ],
   imports: [
