@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/services/auth.service';
 import packageJson from '../../package.json';
-import { UserService } from 'src/services/user.service';
 import { Session } from '@supabase/supabase-js';
 
 @Component({
@@ -16,7 +15,8 @@ export class AppComponent {
     { title: 'Profile', url: '/profile', icon: 'person' }
   ];
 
-  constructor(public userService: UserService, private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
+
 
   logout() {
     this.authService.logout();

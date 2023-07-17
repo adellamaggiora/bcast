@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from "src/services/user.service";
 import { ProfileFormValidator } from './profile-form-validator';
 import client from 'src/api/client';
+import { Session } from '@supabase/supabase-js';
 
 
 @Component({
@@ -11,12 +12,18 @@ import client from 'src/api/client';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public userService: UserService) { }
-
   formValidator: ProfileFormValidator;
+  userSession: Session;
+
+  constructor(public userService: UserService) { }
 
   ngOnInit() {
     this.initializeFormValidator();
+    this.readUserSession();
+  }
+
+  async readUserSession() {
+    this.userSession = await this.userService.userSession.get();
   }
 
   async save() {

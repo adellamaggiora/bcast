@@ -2,24 +2,22 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { toast } from 'src/api/utils/toast';
 import { UserService } from '../user.service';
+import { utilsFns } from 'src/functions/utils-fns';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(
-    private userService: UserService,
-    private router: Router) { }
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): boolean | Promise<boolean> {
-    const isAuthenticated = !!this.userService.userSession.get();
-    if (!isAuthenticated) {
+  constructor(private userService: UserService, private router: Router) { }
+
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+    const userSessionExists = await this.userService.userSession.get().then(utilsFns.existy);
+    if (!userSessionExists) {
       toast.warning(`User is not allowed to the route`);
       this.router.navigate(['login']);
     }
-    return isAuthenticated;
+    return userSessionExists;
   }
 
 }

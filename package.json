@@ -1,6 +1,6 @@
 {
   "name": "bcast",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Andrea Della Maggiora <fedrozenzero@gmail.com>",
   "scripts": {
     "ng": "ng",
