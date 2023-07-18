@@ -16,7 +16,7 @@ const routes: Routes = [
         component: BcastListComponent
       },
       {
-        path: 'creation',
+        path: 'create',
         component: BcastCreationComponent
       },
       {
