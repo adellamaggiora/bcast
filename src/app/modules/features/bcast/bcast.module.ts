@@ -8,12 +8,20 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { UiKitModule } from '../../shared/ui-kit/ui-kit.module';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { RouteReuseStrategy } from '@angular/router';
+import { BcastCreationComponent } from './components/bcast-creation/bcast-creation.component';
+import { ChatRoomComponent } from './components/chat-room/chat-room.component';
+import { HomeComponent } from './components/home/home.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
     BcastComponent,
+    BcastCreationComponent,
     BcastListComponent,
-    ChatListComponent
+    ChatListComponent,
+    ChatRoomComponent,
+    HomeComponent,
+    NotificationsComponent
   ],
   imports: [
     BcastRoutingModule,
