@@ -24,7 +24,7 @@ export class UserService {
     (async () => {
       const userSession = await this._getUserSession();
       if (userSession?.user?.id) {
-        this.userInfo.fetch(userSession.user.id);
+        this.userInfo.fetch();
       }
     })()
   }
@@ -36,7 +36,8 @@ export class UserService {
         filter(utilsFns.existy)
       ),
     get: () => this._userInfo$.getValue(),
-    fetch: async (userId: string) => {
+    fetch: async () => {
+      const userId = await this._getUserSession().then(session => session.user.id);
       const userInfo = await client.userInfo.get(userId);
       this._userInfo$.next(userInfo);
     }

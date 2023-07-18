@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
     const tag = this.formValidator.tag.value;
     const userId = await this.userService.userSession.getId();
     await client.userInfo.update(userId, { tag });
-    await this.userService.userInfo.fetch(userId);
+    await this.userService.userInfo.fetch();
     this.initializeFormValidator();
   }
 
