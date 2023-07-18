@@ -3,6 +3,7 @@ import { UserService } from "src/services/user.service";
 import { ProfileFormValidator } from './profile-form-validator';
 import client from 'src/api/client';
 import { Session } from '@supabase/supabase-js';
+import { IUserInfo } from 'src/interfaces/user-info';
 
 
 @Component({
@@ -35,10 +36,9 @@ export class ProfileComponent implements OnInit {
   }
 
   initializeFormValidator() {
-    const userInfo = this.userService.userInfo.get();
-    if (userInfo) {
+    this.userService.userInfo.get$().subscribe((userInfo: IUserInfo) => {
       this.formValidator = new ProfileFormValidator(userInfo);
-    }
+    })
   }
 
 }

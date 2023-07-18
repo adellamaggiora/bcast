@@ -9,7 +9,7 @@ export class ProfileFormValidator extends FormValidator {
     }
 
     get tag() {
-        return this._formGroup.controls['tag'] as FormArray;
+        return this._formGroup?.controls?.['tag'] as FormArray;
     }
     
     

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { toast } from 'src/api/utils/toast';
 import { BcastService } from 'src/services/bcast.service';
 import { UserService } from 'src/services/user.service';
 
@@ -20,7 +19,6 @@ export class BcastListComponent implements OnInit {
 
   onJoin(bcastId: string) {
     this.bcastService.bcast.join(bcastId)
-      .then(() => toast.success(`Broadcast joined`))
   }
 
   async fetchBcastList() {

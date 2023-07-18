@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Session } from '@supabase/supabase-js';
-import { BehaviorSubject, from, map, share } from 'rxjs';
+import { BehaviorSubject, filter, share } from 'rxjs';
 import client from 'src/api/client';
 import { IUserInfo } from 'src/interfaces/user-info';
 import { Preferences } from "@capacitor/preferences";
 import { StorageKeys } from 'src/constants/storage-keys';
+import { utilsFns } from 'src/functions/utils-fns';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,10 @@ export class UserService {
   }
 
   public userInfo = {
-    get$: () => this._userInfo$.asObservable().pipe(share()),
+    get$: () => this._userInfo$.asObservable().pipe(
+      share(),
+      filter(utilsFns.existy)
+    ),
     get: () => this._userInfo$.getValue(),
     fetch: async (userId: string) => {
       const userInfo = await client.userInfo.get(userId);
