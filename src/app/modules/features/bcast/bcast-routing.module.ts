@@ -4,6 +4,7 @@ import { BcastComponent } from './components/bcast/bcast.component';
 import { BcastListComponent } from './components/bcast-list/bcast-list.component';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { ChatRoomComponent } from './components/chat-room/chat-room.component';
+import { BcastCreationComponent } from './components/bcast-creation/bcast-creation.component';
 
 const routes: Routes = [
   {
@@ -15,8 +16,8 @@ const routes: Routes = [
         component: BcastListComponent
       },
       {
-        path: 'chatlist',
-        component: ChatListComponent
+        path: 'creation',
+        component: BcastCreationComponent
       },
       {
         // path: 'chatroom/:id',

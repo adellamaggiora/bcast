@@ -24,9 +24,9 @@ export class BcastListComponent implements OnInit {
   }
 
   async fetchBcastList() {
-    const maxDistanceKm = 50;
+    const maxDistanceMeters = 5000000;
     const { coords: { latitude: lat, longitude: lng } } = await this.geolocation.getCurrentPosition();
-    await this.bcastService.bcastList.fetch({ lat, lng }, maxDistanceKm);
+    await this.bcastService.bcastList.fetch({ lat, lng }, maxDistanceMeters);
   }
 
 }

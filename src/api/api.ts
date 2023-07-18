@@ -50,6 +50,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
           p_max_dist_meters: maxDistanceMeters
         })
         .range(offset, (offset + limit))
+        // .then(utilsFns.logger(`Bcast list`))
         .then(handlers.bcastListHandler),
 
       join: async (userId: string, bcastId: string) => {
@@ -80,7 +81,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
             console.log(_)
             return _;
           })
-          .then(handlers.messagesHandler),
+          .then(handlers.messageListHandler),
 
       insert: (userId: string, bcastId: string, content: string) =>
         supabase
@@ -101,7 +102,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
               filter: `bcast_id=eq.${bcastId}`,
             },
             data => {
-              const message = handlers.messageInsertedHandler({ payload: data?.new })
+              const message = handlers.messageInsertedHandler(data);
               console.log(message)
               cb(message)
             }

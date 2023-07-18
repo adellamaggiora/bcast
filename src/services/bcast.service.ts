@@ -19,7 +19,7 @@ export class BcastService {
     get: () => this._bcastList$.getValue(),
     fetch: async (location: IGeoLocation, maxDistanceMeters: number) => {
       const userId = await this.userService.userSession?.getId();
-      const bcastList: IListedBcast[] = await client.bcast.getList(userId, location, maxDistanceMeters)?.then(_ => _.bcastList);
+      const bcastList: IListedBcast[] = await client.bcast.getList(userId, location, maxDistanceMeters);
       this._bcastList$.next(bcastList);
     }   
   }
