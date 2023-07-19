@@ -27,4 +27,9 @@ export class BcastListComponent implements OnInit {
     await this.bcastService.bcastList.fetch({ lat, lng }, maxDistanceMeters);
   }
 
+  async handleRefresh(evt: any) {
+    await this.fetchBcastList();
+    evt.target.complete();
+  }
+
 }

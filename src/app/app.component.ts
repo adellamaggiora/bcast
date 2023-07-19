@@ -16,6 +16,10 @@ export class AppComponent {
     { title: 'Profile', url: '/profile', icon: 'person' }
   ];
 
+  get isLoginPage(): boolean {
+    return this.router.url === '/login';
+  }
+
   constructor(public router: Router, private authService: AuthService) { }
 
 
