@@ -11,7 +11,7 @@ import { UserAuth } from "src/interfaces/user-auth";
 import { IUserInfo } from "src/interfaces/user-info";
 
 
-const buildBcast = (rawBcast: IRawBcast): IBcast => {
+const buildBcast = (rawBcast: IRawBcast, imageBlob: Blob): IBcast => {
   const { lat, lng } = geoFns.parseGeoPoint(rawBcast?.location);
   return {
     id: rawBcast?.id,
@@ -23,7 +23,8 @@ const buildBcast = (rawBcast: IRawBcast): IBcast => {
     content: rawBcast?.content,
     title: rawBcast?.title,
     createdAt: rawBcast?.created_at,
-    imageName: rawBcast?.image_name
+    imageName: rawBcast?.image_name,
+    imageBlob
   }
 };
 

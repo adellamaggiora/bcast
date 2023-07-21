@@ -20,6 +20,10 @@ export class AppComponent {
     return this.router.url === '/login';
   }
 
+  get isBcastListPage(): boolean {
+    return this.router.url === '/bcast/list';
+  }
+
   constructor(public router: Router, private authService: AuthService) { }
 
 

@@ -1,4 +1,4 @@
-import { SupabaseClient } from "@supabase/supabase-js";
+import { PostgrestSingleResponse, SupabaseClient } from "@supabase/supabase-js";
 import { utilsFns } from "src/functions/utils-fns";
 import { IBcast } from "src/interfaces/bcast";
 import { IGeoLocation } from "src/interfaces/geo-location";
@@ -8,6 +8,14 @@ import { IUserInfo } from "src/interfaces/user-info";
 import { v4 as uuid } from "uuid";
 import outputDto from "./dto/output-dto";
 import handlers from "./utils/handlers";
+import { IRawBcast } from "src/interfaces/raw/raw-bcast";
+
+const BCAST_BUCKET = 'public/bcast';
+
+const getBcastImageBlob = (supabase: SupabaseClient<any, "public", any>, imageName: string) => supabase
+  .storage
+  .from(BCAST_BUCKET)
+  .download(imageName)
 
 
 const bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>, userId: string, bcastId: string) => {
@@ -40,7 +48,15 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
         .from("bcast")
         .select('*')
         .eq("id", id)
-        .then(handlers.bcastHandler),
+        .then(async (response: PostgrestSingleResponse<any[]>) => {
+          let imageBlob: Blob | undefined;
+          const rawBcast: IRawBcast = response.data.at(0);
+          if (rawBcast?.image_name) {
+            imageBlob = await getBcastImageBlob(supabase, rawBcast.image_name)?.then(_ => _.data);
+          }
+          return { response, imageBlob }
+        })
+        .then(({ response, imageBlob }) => handlers.bcastHandler(response, imageBlob)),
 
       getList: (userId: string, location: IGeoLocation, maxDistanceMeters: number, limit = 50, offset = 0) => supabase
         .rpc("nearby_bcast", {
@@ -147,7 +163,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
           .auth.signUp(signUp)
           .then(handlers.authHandler),
     }
-    
+
   }
 
 };

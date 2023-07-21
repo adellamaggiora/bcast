@@ -1,7 +1,7 @@
 import { IMessage } from "src/interfaces/message";
 import { IUserInfo } from "src/interfaces/user-info";
 import inputDto from '../dto/input-dto';
-import { AuthResponse, PostgrestSingleResponse, RealtimePostgresInsertPayload } from "@supabase/supabase-js";
+import { AuthResponse, PostgrestSingleResponse, RealtimePostgresInsertPayload, SupabaseClient } from "@supabase/supabase-js";
 import { IBcast } from "src/interfaces/bcast";
 import { IListedBcast } from "src/interfaces/listed-bcast";
 import { UserAuth } from "src/interfaces/user-auth";
@@ -14,6 +14,19 @@ const _errorHandler = ({ error }, errors?: string[]) => {
         throw error.message || `Generic API error`;
     }
 }
+
+const _getBcastImageBlob = (supabase: SupabaseClient<any, "public", any>, imageName: string) => supabase
+  .storage
+  .from('bcast/public')
+  .download(imageName)
+
+const _bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>, userId: string, bcastId: string) => {
+    return supabase.from("bcast_user")
+      .select('*')
+      .eq("user_id", userId)
+      .eq("bcast_id", bcastId)
+      .then(dataHasLengthHandler)
+  }
 
 const messageListHandler = (response: PostgrestSingleResponse<IRawMessage[]>): IMessage[] => {
     _errorHandler(response);
@@ -34,9 +47,9 @@ const bcastListHandler = (response: PostgrestSingleResponse<IRawListedBcast[]>):
     return bcastList;
 }
 
-const bcastHandler = (response: PostgrestSingleResponse<any>): IBcast => {
+const bcastHandler = (response: PostgrestSingleResponse<any[]>, imageBlob: Blob): IBcast => {
     _errorHandler(response);
-    const bcast: IBcast = inputDto.buildBcast(response?.data);
+    const bcast: IBcast = inputDto.buildBcast(response?.data?.at(0), imageBlob);
     return bcast;
 }
 

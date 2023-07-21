@@ -25,6 +25,7 @@ export class BcastService {
   }
 
   public bcast = {
+    get: async (bcastId: string) => client.bcast.get(bcastId),
     join: async (bcastId: string) => {
       const userId = await this.userService.userSession?.getId();
       await client.bcast.join(userId, bcastId);

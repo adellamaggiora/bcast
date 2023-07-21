@@ -11,4 +11,5 @@ export interface IBcast {
     location: IGeoLocation;
     content: string;
     imageName?: string;
+    imageBlob?: Blob;
 }
