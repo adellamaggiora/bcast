@@ -8,25 +8,15 @@ import { UserAuth } from "src/interfaces/user-auth";
 import { IRawMessage } from "src/interfaces/raw/raw-message";
 import { IRawListedBcast } from "src/interfaces/raw/raw-listed-bcast";
 import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
+import { IRawBcast } from "src/interfaces/raw/raw-bcast";
+import { apiUtils } from "./api-utils";
+
 
 const _errorHandler = ({ error }, errors?: string[]) => {
     if (error || errors) {
         throw error.message || `Generic API error`;
     }
 }
-
-const _getBcastImageBlob = (supabase: SupabaseClient<any, "public", any>, imageName: string) => supabase
-  .storage
-  .from('bcast/public')
-  .download(imageName)
-
-const _bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>, userId: string, bcastId: string) => {
-    return supabase.from("bcast_user")
-      .select('*')
-      .eq("user_id", userId)
-      .eq("bcast_id", bcastId)
-      .then(dataHasLengthHandler)
-  }
 
 const messageListHandler = (response: PostgrestSingleResponse<IRawMessage[]>): IMessage[] => {
     _errorHandler(response);
@@ -47,13 +37,26 @@ const bcastListHandler = (response: PostgrestSingleResponse<IRawListedBcast[]>):
     return bcastList;
 }
 
-const bcastHandler = (response: PostgrestSingleResponse<any[]>, imageBlob: Blob): IBcast => {
+const bcastHandler = 
+    (supabase: SupabaseClient<any, "public", any>) => 
+        async (response: PostgrestSingleResponse<any[]>): Promise<IBcast> => {
+
     _errorHandler(response);
+
+    let imageBlob: Blob | undefined;
+    const rawBcast: IRawBcast = response.data.at(0);
+    
+    if (rawBcast?.image_name) {
+      const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.image_name);
+      _errorHandler(blobResponse);
+      imageBlob = blobResponse.data;
+    }
+
     const bcast: IBcast = inputDto.buildBcast(response?.data?.at(0), imageBlob);
     return bcast;
 }
 
-const userInfoHandler = (response: PostgrestSingleResponse<{[x: string]: any}[]>): IUserInfo => {
+const userInfoHandler = (response: PostgrestSingleResponse<{ [x: string]: any }[]>): IUserInfo => {
     _errorHandler(response);
     const data = response?.data?.at(0) as IRawUserInfo;
     const userInfo: IUserInfo = inputDto.buildUserInfo(data);
@@ -63,7 +66,7 @@ const userInfoHandler = (response: PostgrestSingleResponse<{[x: string]: any}[]>
 const authHandler = (response: AuthResponse): UserAuth => {
     _errorHandler(response);
     const userAuth: UserAuth = inputDto.buildUserAuth(response?.data);
-    return userAuth; 
+    return userAuth;
 }
 
 const dataHasLengthHandler = (response: PostgrestSingleResponse<any>) => {
@@ -79,7 +82,7 @@ export default {
     bcastListHandler,
     bcastHandler,
     userInfoHandler,
-    authHandler,    
+    authHandler,
     dataHasLengthHandler
 }
 

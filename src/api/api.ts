@@ -8,23 +8,8 @@ import { IUserInfo } from "src/interfaces/user-info";
 import { v4 as uuid } from "uuid";
 import outputDto from "./dto/output-dto";
 import handlers from "./utils/handlers";
-import { IRawBcast } from "src/interfaces/raw/raw-bcast";
+import { apiUtils } from "./utils/api-utils";
 
-const BCAST_BUCKET = 'public/bcast';
-
-const getBcastImageBlob = (supabase: SupabaseClient<any, "public", any>, imageName: string) => supabase
-  .storage
-  .from(BCAST_BUCKET)
-  .download(imageName)
-
-
-const bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>, userId: string, bcastId: string) => {
-  return supabase.from("bcast_user")
-    .select('*')
-    .eq("user_id", userId)
-    .eq("bcast_id", bcastId)
-    .then(handlers.dataHasLengthHandler)
-}
 
 const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => {
   if (init) {
@@ -48,15 +33,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
         .from("bcast")
         .select('*')
         .eq("id", id)
-        .then(async (response: PostgrestSingleResponse<any[]>) => {
-          let imageBlob: Blob | undefined;
-          const rawBcast: IRawBcast = response.data.at(0);
-          if (rawBcast?.image_name) {
-            imageBlob = await getBcastImageBlob(supabase, rawBcast.image_name)?.then(_ => _.data);
-          }
-          return { response, imageBlob }
-        })
-        .then(({ response, imageBlob }) => handlers.bcastHandler(response, imageBlob)),
+        .then(handlers.bcastHandler(supabase)),
 
       getList: (userId: string, location: IGeoLocation, maxDistanceMeters: number, limit = 50, offset = 0) => supabase
         .rpc("nearby_bcast", {
@@ -70,7 +47,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
         .then(handlers.bcastListHandler),
 
       join: async (userId: string, bcastId: string) => {
-        const bcastUserExists = await bcastUserRecordExists(supabase, userId, bcastId)
+        const bcastUserExists = await apiUtils.bcastUserRecordExists(supabase, userId, bcastId)
         if (bcastUserExists) {
           return supabase
             .from("bcast_user")

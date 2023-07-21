@@ -26,8 +26,6 @@ export class BcastListComponent implements OnInit {
     const coordinates = await Geolocation.getCurrentPosition();
     const { latitude: lat, longitude: lng } = coordinates?.coords;
     await this.bcastService.bcastList.fetch({ lat, lng }, maxDistanceMeters);
-    const bcast = await this.bcastService.bcast.get(this.bcastService.bcastList.get().at(0)?.id);
-    console.log(bcast)
   }
 
   async handleRefresh(evt: any) {
