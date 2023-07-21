@@ -31,32 +31,51 @@ const messageInsertedHandler = (response: RealtimePostgresInsertPayload<{ [key: 
     return message;
 }
 
-const bcastListHandler = (response: PostgrestSingleResponse<IRawListedBcast[]>): IListedBcast[] => {
-    _errorHandler(response);
-    const bcastList: IListedBcast[] = response?.data?.map(inputDto.buildListedBcast);
-    return bcastList;
-}
+const bcastListHandler =
+    (supabase: SupabaseClient<any, "public", any>) =>
+        async (response: PostgrestSingleResponse<IRawListedBcast[]>): Promise<IListedBcast[]> => {
 
-const bcastHandler = 
-    (supabase: SupabaseClient<any, "public", any>) => 
-        async (response: PostgrestSingleResponse<any[]>): Promise<IBcast> => {
+            _errorHandler(response);
 
-    _errorHandler(response);
+            const rawListedBcast: IRawListedBcast[] = response.data;
 
-    let imageBlob: Blob | undefined;
-    const rawBcast: IRawBcast = response.data.at(0);
-    
-    if (rawBcast?.image_name) {
-      const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.image_name);
-      _errorHandler(blobResponse);
-      imageBlob = blobResponse.data;
-    }
+            const imagePromises = rawListedBcast?.map(async rawBcast => {
 
-    const bcast: IBcast = inputDto.buildBcast(response?.data?.at(0), imageBlob);
-    return bcast;
-}
+                let imageBlob: Blob | undefined;
 
-const userInfoHandler = (response: PostgrestSingleResponse<{ [x: string]: any }[]>): IUserInfo => {
+                if (rawBcast?.image_name?.length) {
+                    const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.image_name);
+                    _errorHandler(blobResponse);
+                    imageBlob = blobResponse.data;
+                }
+
+                const listedBcast: IListedBcast = inputDto.buildListedBcast(rawBcast, imageBlob);
+                return listedBcast;
+            });
+
+            return Promise.all(imagePromises);
+        }
+
+const bcastHandler =
+    (supabase: SupabaseClient<any, "public", any>) =>
+        async (response: PostgrestSingleResponse<IRawBcast[]>): Promise<IBcast> => {
+
+            _errorHandler(response);
+
+            let imageBlob: Blob | undefined;
+            const rawBcast: IRawBcast = response.data.at(0);
+
+            if (rawBcast?.image_name?.length) {
+                const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.image_name);
+                _errorHandler(blobResponse);
+                imageBlob = blobResponse.data;
+            }
+
+            const bcast: IBcast = inputDto.buildBcast(response?.data?.at(0), imageBlob);
+            return bcast;
+        }
+
+const userInfoHandler = (response: PostgrestSingleResponse<IRawUserInfo[]>): IUserInfo => {
     _errorHandler(response);
     const data = response?.data?.at(0) as IRawUserInfo;
     const userInfo: IUserInfo = inputDto.buildUserInfo(data);

@@ -9,6 +9,7 @@ export interface IListedBcast {
     title: string;
     location: IGeoLocation;
     imageName: string;
+    imageBlob: Blob | undefined;
     distMeters: number;
     joined: boolean;
 }

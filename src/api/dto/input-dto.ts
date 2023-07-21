@@ -11,7 +11,7 @@ import { UserAuth } from "src/interfaces/user-auth";
 import { IUserInfo } from "src/interfaces/user-info";
 
 
-const buildBcast = (rawBcast: IRawBcast, imageBlob: Blob): IBcast => {
+const buildBcast = (rawBcast: IRawBcast, imageBlob: Blob | undefined): IBcast => {
   const { lat, lng } = geoFns.parseGeoPoint(rawBcast?.location);
   return {
     id: rawBcast?.id,
@@ -28,7 +28,7 @@ const buildBcast = (rawBcast: IRawBcast, imageBlob: Blob): IBcast => {
   }
 };
 
-const buildListedBcast = (rawListedBcast: IRawListedBcast): IListedBcast => {
+const buildListedBcast = (rawListedBcast: IRawListedBcast, imageBlob: Blob | undefined): IListedBcast => {
   const { lat, lng } = geoFns.parseGeoPoint(rawListedBcast.location);
   return {
     id: rawListedBcast?.id,
@@ -40,7 +40,8 @@ const buildListedBcast = (rawListedBcast: IRawListedBcast): IListedBcast => {
     location: { lat, lng },
     maxUsers: rawListedBcast?.max_users,
     joined: rawListedBcast?.joined,
-    tag: rawListedBcast?.tag
+    tag: rawListedBcast?.tag,
+    imageBlob
   }
 }
 

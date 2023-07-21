@@ -44,7 +44,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
         })
         .range(offset, (offset + limit))
         // .then(utilsFns.logger(`Bcast list`))
-        .then(handlers.bcastListHandler),
+        .then(handlers.bcastListHandler(supabase)),
 
       join: async (userId: string, bcastId: string) => {
         const bcastUserExists = await apiUtils.bcastUserRecordExists(supabase, userId, bcastId)
