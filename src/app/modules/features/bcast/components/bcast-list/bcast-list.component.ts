@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BcastService } from 'src/services/bcast.service';
 import { UserService } from 'src/services/user.service';
+import { Geolocation } from '@capacitor/geolocation';
 
 
 @Component({
@@ -22,8 +23,9 @@ export class BcastListComponent implements OnInit {
 
   async fetchBcastList() {
     const maxDistanceMeters = 5000000;
-    // const { coords: { latitude: lat, longitude: lng } } = await this.geolocation.getCurrentPosition();
-    await this.bcastService.bcastList.fetch({ lat: 43.45, lng: 11.20 }, maxDistanceMeters);
+    const coordinates = await Geolocation.getCurrentPosition();
+    const { latitude: lat, longitude: lng } = coordinates?.coords;
+    await this.bcastService.bcastList.fetch({ lat, lng }, maxDistanceMeters);
   }
 
   async handleRefresh(evt: any) {
