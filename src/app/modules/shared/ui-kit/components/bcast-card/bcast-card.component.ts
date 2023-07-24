@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange } from '@angular/core';
+import { Observable } from 'rxjs';
 import dateFns from 'src/functions/date-fns';
 import { IListedBcast } from 'src/interfaces/listed-bcast';
 
@@ -15,14 +16,20 @@ export class BcastCardComponent implements OnChanges {
   @Output() join = new EventEmitter(null);
   @Output() chat = new EventEmitter(null);
 
-  public dateFns = dateFns;
+  dateFns = dateFns;
+  imageSrc: string;
 
   constructor() { }
 
   ngOnChanges(change) {
     // in questo hook puoi intercettare tutti i cambiamenti sulle prop di input @Input()
     console.log('ngOnChanges hook');
-    console.log(change)
+    console.log(change);
+
+    if (change?.listedBcast?.currentValue) {
+      const imageFile: File = change?.listedBcast?.currentValue?.imageFile;
+      this.setImageSrc(imageFile);
+    }
   }
 
   onJoin() {
@@ -31,6 +38,14 @@ export class BcastCardComponent implements OnChanges {
 
   onChat() {
     this.chat.emit(this.listedBcast.id);
+  }
+
+  setImageSrc(imageFile: File) {
+    if (imageFile) {
+      this.imageSrc = URL.createObjectURL(imageFile);
+    } else {
+      this.imageSrc = "https://ionicframework.com/docs/img/demos/card-media.png";
+    }
   }
 
 

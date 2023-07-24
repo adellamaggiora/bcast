@@ -14,7 +14,16 @@ const bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>, use
     .eq("bcast_id", bcastId)
     .then(handlers.dataHasLengthHandler)
 
+const insertBcastImage = (supabase: SupabaseClient<any, "public", any>, imageFile: File) => supabase
+    .storage
+    .from(BCAST_BUCKET)
+    .upload(imageFile.name, imageFile, {
+        cacheControl: '3600',
+        upsert: false
+    })
+
 export const apiUtils = {
     getBcastImageBlob,
-    bcastUserRecordExists
+    bcastUserRecordExists,
+    insertBcastImage
 }

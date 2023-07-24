@@ -41,15 +41,15 @@ const bcastListHandler =
 
             const imagePromises = rawListedBcast?.map(async rawBcast => {
 
-                let imageBlob: Blob | undefined;
+                let imageFile: File;
 
                 if (rawBcast?.image_name?.length) {
                     const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.image_name);
                     _errorHandler(blobResponse);
-                    imageBlob = blobResponse.data;
+                    imageFile = new File([blobResponse.data], rawBcast?.image_name);
                 }
 
-                const listedBcast: IListedBcast = inputDto.buildListedBcast(rawBcast, imageBlob);
+                const listedBcast: IListedBcast = inputDto.buildListedBcast(rawBcast, imageFile);
                 return listedBcast;
             });
 
@@ -62,16 +62,16 @@ const bcastHandler =
 
             _errorHandler(response);
 
-            let imageBlob: Blob | undefined;
+            let imageFile: File;
             const rawBcast: IRawBcast = response.data.at(0);
 
             if (rawBcast?.image_name?.length) {
                 const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.image_name);
                 _errorHandler(blobResponse);
-                imageBlob = blobResponse.data;
+                imageFile = new File([blobResponse.data], rawBcast?.image_name);
             }
 
-            const bcast: IBcast = inputDto.buildBcast(response?.data?.at(0), imageBlob);
+            const bcast: IBcast = inputDto.buildBcast(response?.data?.at(0), imageFile);
             return bcast;
         }
 

@@ -4,13 +4,15 @@ import { BcastCardComponent } from './components/bcast-card/bcast-card.component
 import { IonicModule } from '@ionic/angular';
 import { BcastDetailComponent } from './components/bcast-detail/bcast-detail.component';
 import { BcastFiltersComponent } from './components/bcast-filters/bcast-filters.component';
+import { BcastTemplateComponent } from './components/bcast-template/bcast-template.component';
 
 
 @NgModule({
   declarations: [
     BcastCardComponent,
     BcastDetailComponent,
-    BcastFiltersComponent
+    BcastFiltersComponent,
+    BcastTemplateComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { BcastFiltersComponent } from './components/bcast-filters/bcast-filters.
   exports: [
     BcastCardComponent,
     BcastDetailComponent,
-    BcastFiltersComponent
+    BcastFiltersComponent,
+    BcastTemplateComponent
   ]
 })
 export class UiKitModule { }

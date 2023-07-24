@@ -1,4 +1,4 @@
-import { PostgrestSingleResponse, SupabaseClient } from "@supabase/supabase-js";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { utilsFns } from "src/functions/utils-fns";
 import { IBcast } from "src/interfaces/bcast";
 import { IGeoLocation } from "src/interfaces/geo-location";
@@ -22,7 +22,10 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
     supabase,
 
     bcast: {
-      insert: (userId: string, bcast: IBcast) => {
+      insert: async (userId: string, bcast: Partial<IBcast>) => {
+        if (bcast?.imageFile) {
+          await apiUtils.insertBcastImage(supabase, bcast.imageFile);
+        }
         const rawBcast = outputDto.buildRawBcast(userId, bcast)
         return supabase
           .from("bcast")
