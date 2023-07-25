@@ -13,8 +13,8 @@ export class BcastCardComponent implements OnChanges {
   @Input() listedBcast: IListedBcast;
   @Input() userTag: string[];
 
-  @Output() join = new EventEmitter(null);
-  @Output() chat = new EventEmitter(null);
+  @Output() join = new EventEmitter<string>(null);
+  @Output() chat = new EventEmitter<string>(null);
 
   dateFns = dateFns;
   imageSrc: string;

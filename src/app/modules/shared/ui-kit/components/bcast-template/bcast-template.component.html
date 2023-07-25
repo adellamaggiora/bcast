@@ -1,0 +1,39 @@
+<form [formGroup]="formValidator.formGroup">
+  <ion-list>
+    <ion-item>
+      <!--img [src]="imageSrc"-->
+      <ion-text>{{ imageFile?.name }}</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <!-- <ion-button size="large" type="file">
+      <ion-icon name="attach-outline" size="large"></ion-icon>
+    </ion-button> -->
+      <ion-button size="large" (click)="takePicture()">
+        <ion-icon name="camera-outline" size="large"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="datetime"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-input label="Title:"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea label="Content:"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <ion-button slot="end" (click)="save()"> Save </ion-button>
+</form>

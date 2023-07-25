@@ -5,6 +5,7 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ProfileComponent } from './components/profile/profile.component';
+import { UiKitModule } from '../../shared/ui-kit/ui-kit.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     ProfileRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    IonicModule
+    IonicModule,
+    UiKitModule
   ]
 })
 export class ProfileModule { }
