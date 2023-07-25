@@ -42,16 +42,9 @@ export class BcastTemplateComponent  implements OnInit {
   async save() {
     const location = await Geolocation.getCurrentPosition();
     const { latitude, longitude } = location.coords;
-    const bcast: Partial<IBcast> = {
-      title: 'Gelato gusto branzino',
-      content: 'Alan Ford content',
-      expiresAt: new Date(2026, 10, 12),
-      image: this.image,
-      location: { lat: latitude, lng: longitude },
-      maxUsers: 10,
-      tag: ['tag1']
-    }
-    this.saveBcast.emit(bcast);
+    window.alert(`@todo`)
+    // const bcast: Partial<IBcast> = { }
+    // this.saveBcast.emit(bcast);
   }
 
   addTag(tagInput: IonInput) {

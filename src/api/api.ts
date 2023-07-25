@@ -23,13 +23,16 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
 
     bcast: {
       insert: async (userId: string, bcast: Partial<IBcast>) => {
-        if (bcast?.image) {
-          await apiUtils.insertBcastImage(supabase, bcast.id, bcast.image);
-        }
-        const rawBcast = outputDto.buildRawBcast(userId, bcast)
-        return supabase
+        const rawBcast = outputDto.buildRawBcast(userId, bcast);
+        const insertedBcastId: string = await supabase
           .from("bcast")
-          .insert(rawBcast);
+          .insert(rawBcast)
+          .select()
+          .then(handlers.insertedBcastHandler)
+
+        if (bcast?.image) {
+          await apiUtils.insertBcastImage(supabase, insertedBcastId, bcast.image);
+        }
       },
 
       get: (id: string) => supabase
@@ -128,7 +131,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
           .from("user_info")
           .update(obj)
           .eq('id', userId)
-      },
+      }
     },
 
     auth: {
@@ -141,7 +144,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
       signUp: (signUp: ISignIn) =>
         supabase
           .auth.signUp(signUp)
-          .then(handlers.authHandler),
+          .then(handlers.authHandler)
     }
 
   }

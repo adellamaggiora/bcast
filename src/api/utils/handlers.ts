@@ -108,6 +108,12 @@ const dataHasLengthHandler = (response: PostgrestSingleResponse<any>) => {
     return dataHasLength;
 }
 
+const insertedBcastHandler = (response: PostgrestSingleResponse<any[]>) => {
+    _errorHandler(response);
+    const id = response.data.at(0).id;
+    return id
+}
+
 
 export default {
     messageListHandler,
@@ -116,7 +122,8 @@ export default {
     bcastHandler,
     userInfoHandler,
     authHandler,
-    dataHasLengthHandler
+    dataHasLengthHandler,
+    insertedBcastHandler
 }
 
 

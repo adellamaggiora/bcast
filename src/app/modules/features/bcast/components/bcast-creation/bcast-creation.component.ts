@@ -14,8 +14,6 @@ export class BcastCreationComponent implements OnInit {
   ngOnInit() { }
 
   async onSaveBcast(bcast: Partial<IBcast>) {
-    console.log('[Saving bcast]');
-    console.log(bcast);
     await this.bcastService.bcast.insert(bcast);
   }
 
