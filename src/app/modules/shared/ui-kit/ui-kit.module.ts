@@ -4,22 +4,31 @@ import { BcastCardComponent } from './components/bcast-card/bcast-card.component
 import { IonicModule } from '@ionic/angular';
 import { BcastDetailComponent } from './components/bcast-detail/bcast-detail.component';
 import { BcastFiltersComponent } from './components/bcast-filters/bcast-filters.component';
+import { BcastTemplateComponent } from './components/bcast-template/bcast-template.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 
 @NgModule({
   declarations: [
     BcastCardComponent,
     BcastDetailComponent,
-    BcastFiltersComponent
+    BcastFiltersComponent,
+    BcastTemplateComponent,
+    LoginFormComponent
   ],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     BcastCardComponent,
     BcastDetailComponent,
-    BcastFiltersComponent
+    BcastFiltersComponent,
+    BcastTemplateComponent,
+    LoginFormComponent
   ]
 })
 export class UiKitModule { }

@@ -11,7 +11,7 @@ import { UserAuth } from "src/interfaces/user-auth";
 import { IUserInfo } from "src/interfaces/user-info";
 
 
-const buildBcast = (rawBcast: IRawBcast, imageBlob: Blob | undefined): IBcast => {
+const buildBcast = (rawBcast: IRawBcast, image: File): IBcast => {
   const { lat, lng } = geoFns.parseGeoPoint(rawBcast?.location);
   return {
     id: rawBcast?.id,
@@ -22,26 +22,24 @@ const buildBcast = (rawBcast: IRawBcast, imageBlob: Blob | undefined): IBcast =>
     tag: rawBcast?.tag,
     content: rawBcast?.content,
     title: rawBcast?.title,
-    createdAt: rawBcast?.created_at,
-    imageName: rawBcast?.image_name,
-    imageBlob
+    createdAt: new Date(rawBcast?.created_at),
+    image
   }
 };
 
-const buildListedBcast = (rawListedBcast: IRawListedBcast, imageBlob: Blob | undefined): IListedBcast => {
+const buildListedBcast = (rawListedBcast: IRawListedBcast, image: File): IListedBcast => {
   const { lat, lng } = geoFns.parseGeoPoint(rawListedBcast.location);
   return {
     id: rawListedBcast?.id,
     userId: rawListedBcast?.user_id,
     title: rawListedBcast?.title,
-    expiresAt: rawListedBcast?.expires_at,
+    expiresAt: new Date(rawListedBcast?.expires_at),
     distMeters: rawListedBcast?.dist_meters,
-    imageName: rawListedBcast?.image_name,
     location: { lat, lng },
     maxUsers: rawListedBcast?.max_users,
     joined: rawListedBcast?.joined,
     tag: rawListedBcast?.tag,
-    imageBlob
+    image
   }
 }
 

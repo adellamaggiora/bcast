@@ -4,6 +4,7 @@ import client from 'src/api/client';
 import { IGeoLocation } from 'src/interfaces/geo-location';
 import { UserService } from './user.service';
 import { IListedBcast } from 'src/interfaces/listed-bcast';
+import { IBcast } from 'src/interfaces/bcast';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class BcastService {
       const userId = await this.userService.userSession?.getId();
       const bcastList: IListedBcast[] = await client.bcast.getList(userId, location, maxDistanceMeters);
       this._bcastList$.next(bcastList);
-    }   
+    }
   }
 
   public bcast = {
@@ -29,9 +30,11 @@ export class BcastService {
     join: async (bcastId: string) => {
       const userId = await this.userService.userSession?.getId();
       await client.bcast.join(userId, bcastId);
+    },
+    insert: async (bcast: Partial<IBcast>) => {
+      const userId = await this.userService.userSession?.getId();
+      client.bcast.insert(userId, bcast);
     }
   }
-
-
 
 }

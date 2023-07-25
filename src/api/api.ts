@@ -1,4 +1,4 @@
-import { PostgrestSingleResponse, SupabaseClient } from "@supabase/supabase-js";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { utilsFns } from "src/functions/utils-fns";
 import { IBcast } from "src/interfaces/bcast";
 import { IGeoLocation } from "src/interfaces/geo-location";
@@ -22,11 +22,17 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
     supabase,
 
     bcast: {
-      insert: (userId: string, bcast: IBcast) => {
-        const rawBcast = outputDto.buildRawBcast(userId, bcast)
-        return supabase
+      insert: async (userId: string, bcast: Partial<IBcast>) => {
+        const rawBcast = outputDto.buildRawBcast(userId, bcast);
+        const insertedBcastId: string = await supabase
           .from("bcast")
-          .insert(rawBcast);
+          .insert(rawBcast)
+          .select()
+          .then(handlers.insertedBcastHandler)
+
+        if (bcast?.image) {
+          await apiUtils.insertBcastImage(supabase, insertedBcastId, bcast.image);
+        }
       },
 
       get: (id: string) => supabase
@@ -125,7 +131,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
           .from("user_info")
           .update(obj)
           .eq('id', userId)
-      },
+      }
     },
 
     auth: {
@@ -138,7 +144,7 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
       signUp: (signUp: ISignIn) =>
         supabase
           .auth.signUp(signUp)
-          .then(handlers.authHandler),
+          .then(handlers.authHandler)
     }
 
   }

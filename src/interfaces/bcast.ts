@@ -1,15 +1,14 @@
 import { IGeoLocation } from "./geo-location";
 
 export interface IBcast {
-    id?: string;
-    userId?: string;
-    createdAt: string | Date;
-    expiresAt: string | Date;
-    maxUsers: number;    
-    tag: string[];
+    id: string;
+    userId: string;
+    createdAt: Date;
+    expiresAt: Date;  
     title: string;
     location: IGeoLocation;
-    content: string;
-    imageName?: string;
-    imageBlob?: Blob;
+    maxUsers?: number;
+    tag?: string[];
+    image?: File;
+    content?: string;
 }

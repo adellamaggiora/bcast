@@ -13,15 +13,14 @@ const buildRawUserInfo = (userId: string, userInfo: Partial<IUserInfo> ): IRawUs
     tag: userInfo?.tag || [],
 });
 
-const buildRawBcast = (userId: string, bcast: IBcast): Partial<IRawBcast> => ({
+const buildRawBcast = (userId: string, bcast: Partial<IBcast>): Partial<IRawBcast> => ({
     user_id: userId,
     expires_at: bcast.expiresAt,
     max_users: bcast.maxUsers,
     tag: bcast.tag,
     title: bcast.title,
     content: bcast.content,
-    location: `POINT(${bcast.location.lng} ${bcast.location.lat})`,
-    image_name: bcast.imageName
+    location: `POINT(${bcast.location.lng} ${bcast.location.lat})`
 });
 
 const buildRawMessage = (userId: string, bcastId: string, message: IMessage): Partial<IRawMessage> => ({

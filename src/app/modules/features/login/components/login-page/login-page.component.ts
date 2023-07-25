@@ -21,19 +21,18 @@ export class LoginPageComponent {
     });
   }
 
-  doLogin() {
-    const email = this.loginForm.controls['email'].value;
-    const password = this.loginForm.controls['password'].value;
+  onLogin(evt) {
+    const { email, password } = evt;
     this.authService.login(email, password).then(console.log);
   }
 
-  doRegister() {
-
+  onRegister(evt) {
+    const { email, password } = evt;
+    window.alert('@todo register');
   }
 
   toggleRegister() {
     this.isRegistering = !this.isRegistering;
   }
-
 
 }

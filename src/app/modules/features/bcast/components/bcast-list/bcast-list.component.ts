@@ -13,7 +13,7 @@ export class BcastListComponent implements OnInit {
 
   constructor(public bcastService: BcastService, public userService: UserService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.fetchBcastList();
   }
 
@@ -31,6 +31,6 @@ export class BcastListComponent implements OnInit {
   async handleRefresh(evt: any) {
     await this.fetchBcastList();
     evt.target.complete();
-  }
-
+  }  
+  
 }
