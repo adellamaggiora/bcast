@@ -9,7 +9,6 @@ export interface IBcast {
     location: IGeoLocation;
     maxUsers?: number;
     tag?: string[];
-    imageName?: string;
-    imageFile?: File;
+    image?: File;
     content?: string;
 }

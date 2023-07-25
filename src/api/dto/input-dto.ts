@@ -11,7 +11,7 @@ import { UserAuth } from "src/interfaces/user-auth";
 import { IUserInfo } from "src/interfaces/user-info";
 
 
-const buildBcast = (rawBcast: IRawBcast, imageFile: File): IBcast => {
+const buildBcast = (rawBcast: IRawBcast, image: File): IBcast => {
   const { lat, lng } = geoFns.parseGeoPoint(rawBcast?.location);
   return {
     id: rawBcast?.id,
@@ -23,12 +23,11 @@ const buildBcast = (rawBcast: IRawBcast, imageFile: File): IBcast => {
     content: rawBcast?.content,
     title: rawBcast?.title,
     createdAt: new Date(rawBcast?.created_at),
-    imageName: rawBcast?.image_name,
-    imageFile
+    image
   }
 };
 
-const buildListedBcast = (rawListedBcast: IRawListedBcast, imageFile: File): IListedBcast => {
+const buildListedBcast = (rawListedBcast: IRawListedBcast, image: File): IListedBcast => {
   const { lat, lng } = geoFns.parseGeoPoint(rawListedBcast.location);
   return {
     id: rawListedBcast?.id,
@@ -36,12 +35,11 @@ const buildListedBcast = (rawListedBcast: IRawListedBcast, imageFile: File): ILi
     title: rawListedBcast?.title,
     expiresAt: new Date(rawListedBcast?.expires_at),
     distMeters: rawListedBcast?.dist_meters,
-    imageName: rawListedBcast?.image_name,
     location: { lat, lng },
     maxUsers: rawListedBcast?.max_users,
     joined: rawListedBcast?.joined,
     tag: rawListedBcast?.tag,
-    imageFile
+    image
   }
 }
 

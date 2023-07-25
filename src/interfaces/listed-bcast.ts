@@ -10,6 +10,5 @@ export interface IListedBcast {
     joined: boolean;
     maxUsers?: number;
     tag?: string [];
-    imageName?: string;
-    imageFile?: File;
+    image?: File;
 }

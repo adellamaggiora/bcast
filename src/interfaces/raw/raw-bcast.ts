@@ -6,7 +6,6 @@ export interface IRawBcast {
   tag: string[];
   title: string;
   content: string;
-  image_name: string;
   explicit: boolean;
   location: string;
   max_users: number;

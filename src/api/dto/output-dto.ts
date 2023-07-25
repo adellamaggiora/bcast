@@ -20,8 +20,7 @@ const buildRawBcast = (userId: string, bcast: Partial<IBcast>): Partial<IRawBcas
     tag: bcast.tag,
     title: bcast.title,
     content: bcast.content,
-    location: `POINT(${bcast.location.lng} ${bcast.location.lat})`,
-    image_name: bcast.imageName
+    location: `POINT(${bcast.location.lng} ${bcast.location.lat})`
 });
 
 const buildRawMessage = (userId: string, bcastId: string, message: IMessage): Partial<IRawMessage> => ({

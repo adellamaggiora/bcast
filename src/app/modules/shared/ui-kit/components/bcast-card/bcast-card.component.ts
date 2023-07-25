@@ -27,8 +27,8 @@ export class BcastCardComponent implements OnChanges {
     console.log(change);
 
     if (change?.listedBcast?.currentValue) {
-      const imageFile: File = change?.listedBcast?.currentValue?.imageFile;
-      this.setImageSrc(imageFile);
+      const image: File = change?.listedBcast?.currentValue?.image;
+      this.setImageSrc(image);
     }
   }
 

@@ -23,8 +23,8 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
 
     bcast: {
       insert: async (userId: string, bcast: Partial<IBcast>) => {
-        if (bcast?.imageFile) {
-          await apiUtils.insertBcastImage(supabase, bcast.imageFile);
+        if (bcast?.image) {
+          await apiUtils.insertBcastImage(supabase, bcast.image);
         }
         const rawBcast = outputDto.buildRawBcast(userId, bcast)
         return supabase

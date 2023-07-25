@@ -34,22 +34,28 @@ const messageInsertedHandler = (response: RealtimePostgresInsertPayload<{ [key: 
 const bcastListHandler =
     (supabase: SupabaseClient<any, "public", any>) =>
         async (response: PostgrestSingleResponse<IRawListedBcast[]>): Promise<IListedBcast[]> => {
-
             _errorHandler(response);
-
             const rawListedBcast: IRawListedBcast[] = response.data;
-
             const imagePromises = rawListedBcast?.map(async rawBcast => {
+                const listResponse = await supabase
+                    .storage
+                    .from('bcast')
+                    .list(rawBcast.id)
 
-                let imageFile: File;
+                _errorHandler(listResponse);
 
-                if (rawBcast?.image_name?.length) {
-                    const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.image_name);
-                    _errorHandler(blobResponse);
-                    imageFile = new File([blobResponse.data], rawBcast?.image_name);
+                let image: File;
+
+                if (listResponse?.data?.length) {
+                    const mainImage = listResponse?.data?.find(_ => _.name?.includes('main'));
+                    if (mainImage) {
+                        const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.id, mainImage.name);
+                        _errorHandler(blobResponse);
+                        image = new File([blobResponse.data], mainImage.name);
+                    }
                 }
 
-                const listedBcast: IListedBcast = inputDto.buildListedBcast(rawBcast, imageFile);
+                const listedBcast: IListedBcast = inputDto.buildListedBcast(rawBcast, image);
                 return listedBcast;
             });
 
@@ -59,19 +65,27 @@ const bcastListHandler =
 const bcastHandler =
     (supabase: SupabaseClient<any, "public", any>) =>
         async (response: PostgrestSingleResponse<IRawBcast[]>): Promise<IBcast> => {
-
             _errorHandler(response);
-
-            let imageFile: File;
             const rawBcast: IRawBcast = response.data.at(0);
+            const listResponse = await supabase
+                .storage
+                .from('bcast')
+                .list(rawBcast.id)
 
-            if (rawBcast?.image_name?.length) {
-                const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.image_name);
-                _errorHandler(blobResponse);
-                imageFile = new File([blobResponse.data], rawBcast?.image_name);
+            _errorHandler(listResponse);
+
+            let image: File;
+
+            if (listResponse?.data?.length) {
+                const mainImage = listResponse?.data?.find(_ => _.name?.includes('main'));
+                if (mainImage) {
+                    const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.id, mainImage.name);
+                    _errorHandler(blobResponse);
+                    image = new File([blobResponse.data], mainImage.name);
+                }
             }
-
-            const bcast: IBcast = inputDto.buildBcast(response?.data?.at(0), imageFile);
+            
+            const bcast: IBcast = inputDto.buildBcast(response?.data?.at(0), image);
             return bcast;
         }
 

@@ -1,9 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { IBcast } from 'src/interfaces/bcast';
-import { FormValidator } from 'src/models/form-validator';
 import { v4 as uuid } from "uuid";
 import { BcastTemplateFormValidator } from './bcast-template-form-validator';
+import { IonInput } from '@ionic/angular';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-bcast-template',
@@ -12,11 +13,11 @@ import { BcastTemplateFormValidator } from './bcast-template-form-validator';
 })
 export class BcastTemplateComponent  implements OnInit {
 
-  @Output() bcast: EventEmitter<Partial<IBcast>> = new EventEmitter(null);
+  @Output() saveBcast: EventEmitter<Partial<IBcast>> = new EventEmitter();
 
   imageSrc: string;
-  imageFile: File;
-  formValidator: FormValidator;
+  image: File;
+  formValidator: BcastTemplateFormValidator;
 
   constructor() { }
 
@@ -33,15 +34,32 @@ export class BcastTemplateComponent  implements OnInit {
     
     const response = await fetch(image.webPath);
     const blob = await response.blob();
-    this.imageFile = new File([blob], `${uuid()}.${image.format}`, { type: blob.type });
+    this.image = new File([blob], `${uuid()}.${image.format}`, { type: blob.type });
     this.imageSrc = image.webPath;
   
     // Can be set to the src of an image now
     //imageElement.src = imageUrl;
   };
 
-  save() {
-    //Camera.
+  async save() {
+    const location = await Geolocation.getCurrentPosition();
+    const { latitude, longitude } = location.coords;
+    const bcast: Partial<IBcast> = {
+      title: 'Gelato gusto branzino',
+      content: 'Alan Ford content',
+      expiresAt: new Date(2026, 10, 12),
+      image: this.image,
+      location: { lat: latitude, lng: longitude },
+      maxUsers: 10,
+      tag: ['tag1']
+    }
+    this.saveBcast.emit(bcast);
+  }
+
+  addTag(tagInput: IonInput) {
+    const tag = tagInput.value as string;
+    tagInput.value = '';
+    this.formValidator.addTag(tag);
   }
 
 
