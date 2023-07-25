@@ -5,6 +5,7 @@ import { v4 as uuid } from "uuid";
 import { BcastTemplateFormValidator } from './bcast-template-form-validator';
 import { IonInput } from '@ionic/angular';
 import { Geolocation } from '@capacitor/geolocation';
+import { BCAST_MAIN_IMAGE_NAME } from 'src/api/utils/api-utils';
 
 @Component({
   selector: 'app-bcast-template',
@@ -34,11 +35,8 @@ export class BcastTemplateComponent  implements OnInit {
     
     const response = await fetch(image.webPath);
     const blob = await response.blob();
-    this.image = new File([blob], `${uuid()}.${image.format}`, { type: blob.type });
+    this.image = new File([blob], `${BCAST_MAIN_IMAGE_NAME}.${image.format}`, { type: blob.type });
     this.imageSrc = image.webPath;
-  
-    // Can be set to the src of an image now
-    //imageElement.src = imageUrl;
   };
 
   async save() {

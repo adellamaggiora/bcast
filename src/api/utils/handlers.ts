@@ -9,7 +9,7 @@ import { IRawMessage } from "src/interfaces/raw/raw-message";
 import { IRawListedBcast } from "src/interfaces/raw/raw-listed-bcast";
 import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
 import { IRawBcast } from "src/interfaces/raw/raw-bcast";
-import { apiUtils } from "./api-utils";
+import { BCAST_MAIN_IMAGE_NAME, apiUtils } from "./api-utils";
 
 
 const _errorHandler = ({ error }, errors?: string[]) => {
@@ -47,7 +47,7 @@ const bcastListHandler =
                 let image: File;
 
                 if (listResponse?.data?.length) {
-                    const mainImage = listResponse?.data?.find(_ => _.name?.includes('main'));
+                    const mainImage = listResponse?.data?.find(_ => _.name?.includes(BCAST_MAIN_IMAGE_NAME));
                     if (mainImage) {
                         const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.id, mainImage.name);
                         _errorHandler(blobResponse);
