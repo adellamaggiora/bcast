@@ -11,4 +11,8 @@ export class MapExplorerComponent  implements OnInit {
 
   ngOnInit() {}
 
+  onExploreHereClick() {
+    
+  }
+
 }
