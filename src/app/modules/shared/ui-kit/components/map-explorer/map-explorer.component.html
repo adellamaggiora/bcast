@@ -2,7 +2,7 @@
   Explore here
   <div class="callout-tip"></div>
 </div>
-<ion-button class="position-button" shape="round" color="tertiary">
+<ion-button class="position-button" shape="round" color="tertiary" (click)="onPositionClick()">
   <ion-icon name="locate-outline"></ion-icon>
 </ion-button>
-<app-map></app-map>
+<div id="map" class="h-100 w-100"></div>

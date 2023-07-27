@@ -7,7 +7,6 @@ import { BcastFiltersComponent } from './components/bcast-filters/bcast-filters.
 import { BcastTemplateComponent } from './components/bcast-template/bcast-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './components/login-form/login-form.component';
-import { MapComponent } from './components/map/map.component';
 import { MapExplorerComponent } from './components/map-explorer/map-explorer.component';
 
 
@@ -18,7 +17,6 @@ import { MapExplorerComponent } from './components/map-explorer/map-explorer.com
     BcastFiltersComponent,
     BcastTemplateComponent,
     LoginFormComponent,
-    MapComponent,
     MapExplorerComponent
   ],
   imports: [
@@ -33,7 +31,6 @@ import { MapExplorerComponent } from './components/map-explorer/map-explorer.com
     BcastFiltersComponent,
     BcastTemplateComponent,
     LoginFormComponent,
-    MapComponent,
     MapExplorerComponent
   ]
 })
