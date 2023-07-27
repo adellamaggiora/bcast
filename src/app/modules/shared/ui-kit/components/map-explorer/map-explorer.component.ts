@@ -46,7 +46,7 @@ export class MapExplorerComponent implements AfterViewInit {
 
   async centerMapOnCurrentPosition() {
     const { coords: { latitude, longitude } } = await Geolocation.getCurrentPosition();
-    this.map.setView({ lat: latitude, lng: longitude }, 10);
+    this.map.setView({ lat: latitude, lng: longitude }, 12);
   }
 
 }
