@@ -21,7 +21,7 @@ export class MapComponent implements AfterViewInit {
     // la vista non è ancora pronta, vedere la funzione ionViewDidEnter()
     setTimeout(() => {
       map.invalidateSize();
-    }, 100)    
+    }, 500)    
   }
 
 }
