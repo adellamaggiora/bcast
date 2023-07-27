@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
 })
-export class NotificationsComponent  implements OnInit {
+export class NotificationsComponent {
 
   constructor() { }
 
-  ngOnInit() {}
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter');
+  }
 
 }
