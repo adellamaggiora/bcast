@@ -15,8 +15,14 @@ export class MapExplorerComponent implements AfterViewInit {
 
   constructor() { }
 
-  ngAfterViewInit() {
-    this.map = L.map('map').setView([51.505, -0.09], 13);
+  async ngAfterViewInit() {
+    this.initMap();
+  }
+
+  async initMap() {
+
+    this.map = L.map('map');
+    this.centerMapOnCurrentPosition();
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -34,19 +40,13 @@ export class MapExplorerComponent implements AfterViewInit {
     this.location.emit(location);
   }
 
-  async onPositionClick() {
-    const { coords: { latitude, longitude } } = await Geolocation.getCurrentPosition();
-    if (latitude && longitude) {
-      this.map.flyTo({
-        lat: latitude,
-        lng: latitude
-      }, 10);
+  onPositionClick() {
+    this.centerMapOnCurrentPosition();
+  }
 
-      // this.map.setView({
-      //   lat: latitude,
-      //   lng: latitude
-      // }, 10);
-    }
+  async centerMapOnCurrentPosition() {
+    const { coords: { latitude, longitude } } = await Geolocation.getCurrentPosition();
+    this.map.setView({ lat: latitude, lng: longitude }, 10);
   }
 
 }
