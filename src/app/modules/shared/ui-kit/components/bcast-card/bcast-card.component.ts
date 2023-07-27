@@ -21,13 +21,13 @@ export class BcastCardComponent implements OnChanges {
 
   constructor() { }
 
-  ngOnChanges(change) {
+  ngOnChanges(changes) {
     // in questo hook puoi intercettare tutti i cambiamenti sulle prop di input @Input()
     console.log('ngOnChanges hook');
-    console.log(change);
+    console.log(changes);
 
-    if (change?.listedBcast?.currentValue) {
-      const image: File = change?.listedBcast?.currentValue?.image;
+    if (changes?.listedBcast?.currentValue) {
+      const image: File = changes?.listedBcast?.currentValue?.image;
       this.setImageSrc(image);
     }
   }

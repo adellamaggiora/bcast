@@ -7,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationsComponent  implements OnInit {
 
+
   constructor() { }
 
   ngOnInit() {}
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter');
+  }
 
 }

@@ -7,6 +7,7 @@ import { BcastFiltersComponent } from './components/bcast-filters/bcast-filters.
 import { BcastTemplateComponent } from './components/bcast-template/bcast-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { MapComponent } from './components/map/map.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     BcastDetailComponent,
     BcastFiltersComponent,
     BcastTemplateComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    MapComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     BcastDetailComponent,
     BcastFiltersComponent,
     BcastTemplateComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    MapComponent
   ]
 })
 export class UiKitModule { }

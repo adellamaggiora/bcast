@@ -1,0 +1,27 @@
+$callout-color: #3498db;
+$triangle-height: 20px;
+
+.callout {
+    position: absolute;
+    top: calc(50% - $triangle-height);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background-color: $callout-color;
+    color: #fff;
+    border-radius: 5px;
+    z-index: 999;
+}
+
+.callout-tip {
+    position: absolute;
+    bottom: - calc($triangle-height - 1px);
+    left: 50%;
+    margin-left: -10px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: $triangle-height solid $callout-color;
+    z-index: 999;
+}
