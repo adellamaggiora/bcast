@@ -1,0 +1,16 @@
+<ion-chip *ngIf="location">
+  <ion-icon name="pin" color="primary"></ion-icon>
+  <ion-label>lat:{{ location.lat | number: '1.4-4' }}, lng:{{ location.lng | number: '1.4-4' }}</ion-label>
+  <ion-icon name="close" (click)="clearLocation()"></ion-icon>
+</ion-chip>
+
+<ion-chip *ngIf="!location" class="px-4" (click)="openModal()">
+  <ion-icon name="rocket" color="primary"></ion-icon>
+  <ion-label>Explore</ion-label>
+</ion-chip>
+
+<ion-modal>
+  <ng-template>
+    <app-map-explorer (selectedLocation)="onSelectedLocation($event)"></app-map-explorer>
+  </ng-template>
+</ion-modal>
