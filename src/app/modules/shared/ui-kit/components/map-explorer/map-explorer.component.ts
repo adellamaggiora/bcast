@@ -11,7 +11,7 @@ import { IGeoLocation } from 'src/interfaces/geo-location';
 export class MapExplorerComponent implements AfterViewInit {
 
   map: L.Map;
-  @Output() location = new EventEmitter<IGeoLocation>(null);
+  @Output() selectedLocation = new EventEmitter<IGeoLocation>(null);
 
   constructor() { }
 
@@ -37,7 +37,7 @@ export class MapExplorerComponent implements AfterViewInit {
 
   onExploreHereClick() {
     const location = this.map.getCenter();
-    this.location.emit(location);
+    this.selectedLocation.emit(location);
   }
 
   onPositionClick() {

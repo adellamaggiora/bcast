@@ -4,7 +4,9 @@
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-
+      <ion-item *ngIf="isBcastListPage">
+        <app-location-selector></app-location-selector>
+      </ion-item>
     </ion-toolbar>
     <ion-item *ngIf="isBcastListPage" style="overflow-x: scroll; white-space: nowrap;">
       <app-bcast-filters></app-bcast-filters>
@@ -26,7 +28,7 @@
           </ion-menu-toggle>
         </ion-list>
 
-        
+
         <ion-menu-toggle>
           <!-- <ion-text>
             <p class="px-2">
