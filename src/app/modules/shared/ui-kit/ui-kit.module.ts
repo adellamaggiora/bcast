@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MapExplorerComponent } from './components/map-explorer/map-explorer.component';
 import { LocationSelectorComponent } from './components/location-selector/location-selector.component';
+import { MetersToKmPipe } from './pipes/meters-to-km.pipe';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { LocationSelectorComponent } from './components/location-selector/locati
     BcastTemplateComponent,
     LoginFormComponent,
     MapExplorerComponent,
-    LocationSelectorComponent
+    LocationSelectorComponent,
+    MetersToKmPipe
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { LocationSelectorComponent } from './components/location-selector/locati
     BcastTemplateComponent,
     LoginFormComponent,
     MapExplorerComponent,
-    LocationSelectorComponent
+    LocationSelectorComponent,
+    MetersToKmPipe
   ]
 })
 export class UiKitModule { }

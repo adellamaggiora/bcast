@@ -7,7 +7,7 @@
     <div>
       <span class="me-2">
         <span>
-          {{ listedBcast?.distMeters }} meters
+          {{ listedBcast?.distMeters | metersToKm | number: '1.0-1' }} Km
         </span>
         <ion-icon name="rocket"></ion-icon>
       </span>
@@ -23,7 +23,7 @@
   </ion-card-content>
 
   <ion-card-content>
-    Expires at:
+    Date:
     <ion-icon name="calendar" class="mx-2"></ion-icon>
     {{ listedBcast?.expiresAt | date: dateFns.formatString() }}
   </ion-card-content>

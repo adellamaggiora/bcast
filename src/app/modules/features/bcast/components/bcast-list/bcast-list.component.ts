@@ -14,10 +14,6 @@ export class BcastListComponent implements OnInit {
 
   constructor(public bcastService: BcastService, public userService: UserService) { }
 
-  async ionViewWillEnter() {
-    console.log('0dfvdfa')
-  }
-
   async ngOnInit() {
     this.bcastService.selectedLocation.get$().subscribe(selectedLocation => {
       this.fetchBcastList(selectedLocation);
