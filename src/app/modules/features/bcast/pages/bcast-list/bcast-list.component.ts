@@ -21,7 +21,7 @@ export class BcastListComponent implements OnInit {
   }
 
   async fetchBcastList(selectedLocation: IGeoLocation) {
-    const maxDistanceMeters = 5000000;
+    const maxDistanceMeters = null;
     if (selectedLocation) {
       await this.bcastService.bcastList.fetch(selectedLocation, maxDistanceMeters);
     } else {
