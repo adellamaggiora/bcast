@@ -40,6 +40,7 @@ export class BcastService {
 
   public selectedLocation = {
     get$: () => this._selectedLocation$.asObservable().pipe(share()),
+    get: () => this._selectedLocation$.getValue(),
     set: (location: IGeoLocation) => this._selectedLocation$.next(location)
   }
 

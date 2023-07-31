@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { IGeoLocation } from 'src/interfaces/geo-location';
 
@@ -11,7 +11,7 @@ export class LocationSelectorComponent {
 
   @ViewChild(IonModal) modal: IonModal;
 
-  location: IGeoLocation;
+  @Input() location: IGeoLocation;
   @Output() selectedLocation = new EventEmitter<IGeoLocation>(null);
 
   constructor() { }

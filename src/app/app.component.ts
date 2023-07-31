@@ -26,7 +26,7 @@ export class AppComponent {
     return this.router.url === '/bcast/list';
   }
 
-  constructor(private bcastService: BcastService, private router: Router, private authService: AuthService) { }
+  constructor(public bcastService: BcastService, private router: Router, private authService: AuthService) { }
 
   logout() {
     this.authService.logout();

@@ -14,14 +14,17 @@ export class BcastListComponent implements OnInit {
 
   constructor(public bcastService: BcastService, public userService: UserService) { }
 
+  async ionViewWillEnter() {
+    console.log('0dfvdfa')
+  }
+
   async ngOnInit() {
-    this.fetchBcastList();
     this.bcastService.selectedLocation.get$().subscribe(selectedLocation => {
       this.fetchBcastList(selectedLocation);
     })
   }
 
-  async fetchBcastList(selectedLocation?: IGeoLocation) {
+  async fetchBcastList(selectedLocation: IGeoLocation) {
     const maxDistanceMeters = 5000000;
     if (selectedLocation) {
       await this.bcastService.bcastList.fetch(selectedLocation, maxDistanceMeters);
@@ -33,7 +36,8 @@ export class BcastListComponent implements OnInit {
   }
 
   async handleRefresh(evt: any) {
-    await this.fetchBcastList();
+    const selectedLocation = this.bcastService.selectedLocation.get();
+    await this.fetchBcastList(selectedLocation);
     evt.target.complete();
   }  
   
