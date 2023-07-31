@@ -48,8 +48,7 @@ const buildUserInfo = (rawUserInfo: IRawUserInfo): IUserInfo => {
     bcast: {
       toGet: rawUserInfo.bcast_to_get,
       toSend: rawUserInfo.bcast_to_send,
-    },
-    tag: rawUserInfo.tag,
+    }
   }
 };
 

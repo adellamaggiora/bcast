@@ -11,7 +11,8 @@ import { IBcast } from 'src/interfaces/bcast';
 })
 export class BcastService {
 
-  private _bcastList$: BehaviorSubject<IListedBcast[]> = new BehaviorSubject([]);
+  private _bcastList$ = new BehaviorSubject<IListedBcast[]>([]);
+  private _selectedLocation$ = new BehaviorSubject<IGeoLocation>(null);
 
   constructor(private userService: UserService) { }
 
@@ -35,6 +36,11 @@ export class BcastService {
       const userId = await this.userService.userSession?.getId();
       client.bcast.insert(userId, bcast);
     }
+  }
+
+  public selectedLocation = {
+    get$: () => this._selectedLocation$.asObservable().pipe(share()),
+    set: (location: IGeoLocation) => this._selectedLocation$.next(location)
   }
 
 }

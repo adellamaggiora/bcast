@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BcastService } from 'src/services/bcast.service';
 import { UserService } from 'src/services/user.service';
 import { Geolocation } from '@capacitor/geolocation';
+import { IGeoLocation } from 'src/interfaces/geo-location';
 
 
 @Component({
@@ -15,17 +16,24 @@ export class BcastListComponent implements OnInit {
 
   async ngOnInit() {
     this.fetchBcastList();
+    this.bcastService.selectedLocation.get$().subscribe(selectedLocation => {
+      this.fetchBcastList(selectedLocation);
+    })
   }
 
   onJoin(bcastId: string) {
     this.bcastService.bcast.join(bcastId)
   }
 
-  async fetchBcastList() {
+  async fetchBcastList(selectedLocation?: IGeoLocation) {
     const maxDistanceMeters = 5000000;
-    const coordinates = await Geolocation.getCurrentPosition();
-    const { latitude: lat, longitude: lng } = coordinates?.coords;
-    await this.bcastService.bcastList.fetch({ lat, lng }, maxDistanceMeters);
+    if (selectedLocation) {
+      await this.bcastService.bcastList.fetch(selectedLocation, maxDistanceMeters);
+    } else {
+      const coordinates = await Geolocation.getCurrentPosition();
+      const { latitude: lat, longitude: lng } = coordinates?.coords;
+      await this.bcastService.bcastList.fetch({ lat, lng }, maxDistanceMeters);
+    }
   }
 
   async handleRefresh(evt: any) {

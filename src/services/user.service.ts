@@ -12,7 +12,7 @@ import { utilsFns } from 'src/functions/utils-fns';
 })
 export class UserService {
 
-  private _userInfo$: BehaviorSubject<IUserInfo> = new BehaviorSubject(null);
+  private _userInfo$ = new BehaviorSubject<IUserInfo>(null);
 
   private async _getUserSession() {
     const data = await Preferences.get({ key: StorageKeys.USER_SESSION });

@@ -19,6 +19,7 @@ export class LocationSelectorComponent {
   onSelectedLocation(location: IGeoLocation) {
     this.location = location;
     this.modal.dismiss();
+    this.emitLocation();
   }
 
   clearLocation() {

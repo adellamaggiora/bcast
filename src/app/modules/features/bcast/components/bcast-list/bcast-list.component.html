@@ -1,12 +1,22 @@
+<ion-item style="overflow-x: scroll; white-space: nowrap;">
+    <app-bcast-filters></app-bcast-filters>
+</ion-item>
+
 <ion-content>
     <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
+    <ng-container *ngIf="(bcastService.bcastList.get$() | async)?.length">
+        <div *ngFor="let listedBcast of bcastService.bcastList.get$() | async">
+            <app-bcast-card [listedBcast]="listedBcast" (join)="onJoin($event)">
+            </app-bcast-card>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!(bcastService.bcastList.get$() | async)?.length">
+        <ion-text class="ion-padding">
+            <h2>No braodcast match this area</h2>
+        </ion-text>
+    </ng-container>
 
-    <div *ngFor="let listedBcast of bcastService.bcastList.get$() | async">
-        <app-bcast-card [listedBcast]="listedBcast" [userTag]="(userService?.userInfo.get$() | async)?.tag"
-            (join)="onJoin($event)">
-        </app-bcast-card>
-    </div>
 </ion-content>

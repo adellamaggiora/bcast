@@ -20,7 +20,7 @@
 
 
   <ion-card-content>
-    <span class="blockquote-footer" [ngClass]="userTag?.includes(tag) ? 'fw-bold' : null"
+    <span class="blockquote-footer" [ngClass]="matchingTag?.includes(tag) ? 'fw-bold' : null"
       *ngFor="let tag of listedBcast?.tag">
       {{ tag }}
     </span>

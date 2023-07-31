@@ -11,7 +11,7 @@ import { IListedBcast } from 'src/interfaces/listed-bcast';
 export class BcastCardComponent implements OnChanges {
 
   @Input() listedBcast: IListedBcast;
-  @Input() userTag: string[];
+  @Input() matchingTag: string[];
 
   @Output() join = new EventEmitter<string>(null);
   @Output() chat = new EventEmitter<string>(null);
