@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { DEFALT_FILTERS } from 'src/constants';
-import { BcastFilters } from 'src/interfaces/bcast-filters';
+import { IBcastFilters } from 'src/interfaces/bcast-filters';
 
 @Component({
   selector: 'app-bcast-filters',
@@ -13,8 +13,8 @@ export class BcastFiltersComponent {
 
   @ViewChild(IonModal) modal: IonModal;
 
-  @Input() filters: BcastFilters = DEFALT_FILTERS;
-  @Output() filtersChange = new EventEmitter<BcastFilters>(null);
+  @Input() filters: IBcastFilters = DEFALT_FILTERS;
+  @Output() filtersChange = new EventEmitter<IBcastFilters>(null);
   
   constructor() { }
 

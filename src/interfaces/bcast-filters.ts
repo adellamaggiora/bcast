@@ -1,4 +1,4 @@
-export interface BcastFilters {
+export interface IBcastFilters {
     maxDistMeters: {
         favorite: number;
         all: boolean;

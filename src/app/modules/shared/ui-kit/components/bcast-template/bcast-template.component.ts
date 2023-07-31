@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { IBcast } from 'src/interfaces/bcast';
-import { v4 as uuid } from "uuid";
 import { BcastTemplateFormValidator } from './bcast-template-form-validator';
 import { IonInput } from '@ionic/angular';
 import { Geolocation } from '@capacitor/geolocation';
@@ -40,11 +39,24 @@ export class BcastTemplateComponent  implements OnInit {
   };
 
   async save() {
-    const location = await Geolocation.getCurrentPosition();
-    const { latitude, longitude } = location.coords;
-    window.alert(`@todo`)
-    // const bcast: Partial<IBcast> = { }
-    // this.saveBcast.emit(bcast);
+    try {
+      const formValue = this.formValidator.formGroup.value;
+      const location = await Geolocation.getCurrentPosition();
+      const { latitude, longitude } = location.coords;
+      const bcast: Partial<IBcast> = {
+        image: this.image,
+        content: formValue.content,
+        title: formValue.title,
+        expiresAt: formValue.expiresAt,
+        location: { lat: latitude, lng: longitude },
+        tag: formValue.tag,
+        maxUsers: formValue.maxUsers
+      }
+      this.saveBcast.emit(bcast);
+
+    } catch (error) {
+      window.alert('an error occourred');
+    }
   }
 
   addTag(tagInput: IonInput) {

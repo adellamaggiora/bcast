@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IBcast } from 'src/interfaces/bcast';
 import { BcastService } from 'src/services/bcast.service';
 
@@ -9,12 +10,13 @@ import { BcastService } from 'src/services/bcast.service';
 })
 export class BcastCreationComponent implements OnInit {
 
-  constructor(private bcastService: BcastService) { }
+  constructor(private bcastService: BcastService, private router: Router) { }
 
   ngOnInit() { }
 
   async onSaveBcast(bcast: Partial<IBcast>) {
     await this.bcastService.bcast.insert(bcast);
+    this.router.navigate(['bcast', 'list']);
   }
 
 }
