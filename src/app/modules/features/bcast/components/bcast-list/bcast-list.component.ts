@@ -21,10 +21,6 @@ export class BcastListComponent implements OnInit {
     })
   }
 
-  onJoin(bcastId: string) {
-    this.bcastService.bcast.join(bcastId)
-  }
-
   async fetchBcastList(selectedLocation?: IGeoLocation) {
     const maxDistanceMeters = 5000000;
     if (selectedLocation) {

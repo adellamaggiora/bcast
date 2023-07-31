@@ -9,7 +9,7 @@
 
     <ng-container *ngIf="(bcastService.bcastList.get$() | async)?.length">
         <div *ngFor="let listedBcast of bcastService.bcastList.get$() | async">
-            <app-bcast-card [listedBcast]="listedBcast" (join)="onJoin($event)">
+            <app-bcast-card [listedBcast]="listedBcast">
             </app-bcast-card>
         </div>
     </ng-container>

@@ -12,9 +12,8 @@ export class BcastCardComponent implements OnChanges {
 
   @Input() listedBcast: IListedBcast;
   @Input() matchingTag: string[];
-
-  @Output() join = new EventEmitter<string>(null);
-  @Output() chat = new EventEmitter<string>(null);
+  // output example
+  // @Output() chat = new EventEmitter<string>(null);
 
   dateFns = dateFns;
   imageSrc: string;
@@ -30,14 +29,6 @@ export class BcastCardComponent implements OnChanges {
       const image: File = changes?.listedBcast?.currentValue?.image;
       this.setImageSrc(image);
     }
-  }
-
-  onJoin() {
-    this.join.emit(this.listedBcast.id);
-  }
-
-  onChat() {
-    this.chat.emit(this.listedBcast.id);
   }
 
   setImageSrc(imageFile: File) {
