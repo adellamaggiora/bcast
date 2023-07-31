@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BcastComponent } from './components/bcast/bcast.component';
-import { BcastListComponent } from './components/bcast-list/bcast-list.component';
-import { ChatRoomComponent } from './components/chat-room/chat-room.component';
-import { BcastCreationComponent } from './components/bcast-creation/bcast-creation.component';
-import { NotificationsComponent } from './components/notifications/notifications.component';
-import { HomeComponent } from './components/home/home.component';
+import { BcastComponent } from './pages/bcast/bcast.component';
+import { BcastListComponent } from './pages/bcast-list/bcast-list.component';
+import { ChatRoomComponent } from './pages/chat-room/chat-room.component';
+import { BcastCreationComponent } from './pages/bcast-creation/bcast-creation.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {

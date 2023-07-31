@@ -10,7 +10,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 export class BcastFiltersComponent {
 
   @ViewChild(IonModal) modal: IonModal;
-  name: string;
+  
 
   constructor() { }
 
@@ -19,7 +19,7 @@ export class BcastFiltersComponent {
   }
 
   confirm() {
-    this.modal.dismiss(this.name, 'confirm');
+    this.modal.dismiss('some value', 'confirm');
   }
 
   onWillDismiss(event: Event) {

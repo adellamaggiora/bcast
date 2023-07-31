@@ -16,7 +16,7 @@ export class UserService {
 
   private async _getUserSession() {
     const data = await Preferences.get({ key: StorageKeys.USER_SESSION });
-    const userSession: Session = JSON.parse(data.value);
+    const userSession: Session = JSON.parse(data?.value);
     return userSession;
   }
 

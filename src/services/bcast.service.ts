@@ -5,6 +5,9 @@ import { IGeoLocation } from 'src/interfaces/geo-location';
 import { UserService } from './user.service';
 import { IListedBcast } from 'src/interfaces/listed-bcast';
 import { IBcast } from 'src/interfaces/bcast';
+import { Preferences } from '@capacitor/preferences';
+import { StorageKeys } from 'src/constants/storage-keys';
+import { BcastFilters } from 'src/interfaces/bcast-filters';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +45,18 @@ export class BcastService {
     get$: () => this._selectedLocation$.asObservable().pipe(share()),
     get: () => this._selectedLocation$.getValue(),
     set: (location: IGeoLocation) => this._selectedLocation$.next(location)
+  }
+
+  public bcastFilters = {
+    get: async () => {
+      const data = await Preferences.get({ key: StorageKeys.BCAST_FILTERS });
+      const bcastFilters: BcastFilters = JSON.parse(data?.value);
+      return bcastFilters;
+    },
+    set: async (bcastFilters: BcastFilters) => {
+      const data = JSON.stringify(bcastFilters);
+      return await Preferences.set({ key: StorageKeys.BCAST_FILTERS, value: data });
+    }
   }
 
 }

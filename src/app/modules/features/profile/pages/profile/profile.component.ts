@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "src/services/user.service";
 import { Session } from '@supabase/supabase-js';
-import { IUserInfo } from 'src/interfaces/user-info';
-
 
 @Component({
   selector: 'app-profile',
