@@ -10,12 +10,20 @@ import { IListedBcast } from 'src/interfaces/listed-bcast';
 export class BcastCardListComponent implements OnChanges {
 
   @Input() listedBcast: IListedBcast;
-  @Input() matchingTag: string[];
+  @Input() favoriteTag: string[] = [];
   // output example
   // @Output() chat = new EventEmitter<string>(null);
 
   dateFns = dateFns;
   imageSrc: string;
+
+  get seatsLeft(): number {
+    let result = null;
+    if (this.listedBcast?.maxUsers && this.listedBcast?.joinedUsers) {
+      result = this.listedBcast.maxUsers - this.listedBcast.joinedUsers;
+    }
+    return result;
+  }
 
   constructor() { }
 
@@ -36,6 +44,10 @@ export class BcastCardListComponent implements OnChanges {
     } else {
       this.imageSrc = "https://ionicframework.com/docs/img/demos/card-media.png";
     }
+  }
+
+  tagMatchesFavorite(tag: string) {
+    return this.favoriteTag.includes(tag);
   }
 
 

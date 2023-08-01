@@ -37,6 +37,7 @@ const buildListedBcast = (rawListedBcast: IRawListedBcast, image: File): IListed
     distMeters: rawListedBcast?.dist_meters,
     location: { lat, lng },
     maxUsers: rawListedBcast?.max_users,
+    joinedUsers: rawListedBcast?.joined_users,
     joined: rawListedBcast?.joined,
     tag: rawListedBcast?.tag,
     image

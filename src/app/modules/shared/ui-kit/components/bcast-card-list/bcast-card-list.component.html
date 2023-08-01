@@ -1,31 +1,56 @@
-<ion-card>
-  
-  <img [src]="imageSrc"/>
-
-  <ion-card-header class="d-flex justify-content-between">
-    <ion-card-title>{{ listedBcast?.title }}</ion-card-title>
+<ion-card class="ion-padding">
+  <div class="d-flex">
     <div>
-      <span class="me-2">
-        <span>
-          {{ listedBcast?.distMeters | metersToKm | number: '1.0-1' }} Km
-        </span>
-        <ion-icon name="rocket"></ion-icon>
-      </span>
+      <ion-thumbnail>
+        <img [src]="imageSrc" />
+      </ion-thumbnail>
     </div>
-  </ion-card-header>
 
+    <ion-card-content>
 
-  <ion-card-content>
-    <span class="blockquote-footer" [ngClass]="matchingTag?.includes(tag) ? 'fw-bold' : null"
-      *ngFor="let tag of listedBcast?.tag">
-      {{ tag }}
-    </span>
-  </ion-card-content>
+      <ion-card-subtitle color="primary">
+        <ion-icon name="calendar" class="mx-2"></ion-icon>
+        {{ listedBcast?.expiresAt | date: dateFns.formatString() }}
+      </ion-card-subtitle>
 
-  <ion-card-content>
-    Date:
-    <ion-icon name="calendar" class="mx-2"></ion-icon>
-    {{ listedBcast?.expiresAt | date: dateFns.formatString() }}
-  </ion-card-content>
+      <div>
+        <ion-text color="dark">
+          {{ listedBcast?.title }}
+        </ion-text>
+      </div>
+
+      <div>
+        <ion-text>
+          <ion-icon name="rocket"></ion-icon>
+          <span> {{ listedBcast?.distMeters | metersToKm | number: '1.0-1' }} Km </span>
+        </ion-text>
+      </div>
+
+      <div>
+        <ion-text>
+          <ion-icon name="people-outline"></ion-icon>
+          <span> {{ listedBcast?.joinedUsers || 0 }} participants </span>
+        </ion-text>
+      </div>
+
+      <div>
+        <ion-text color="success" *ngIf="!listedBcast?.joined">
+            You already partecipate
+        </ion-text>
+        <ion-text color="warning" *ngIf="listedBcast?.joined">
+            {{ seatsLeft }} seats left
+        </ion-text>
+      </div>
+      
+    </ion-card-content>
+
+  </div>
+
+  <div class="mt-1">
+    <ng-container *ngFor="let tag of listedBcast?.tag">
+      <ion-chip color="secondary" [outline]="true" *ngIf="!tagMatchesFavorite(tag)">{{ tag }}</ion-chip>
+      <ion-chip color="secondary" *ngIf="tagMatchesFavorite(tag)">{{ tag }}</ion-chip>
+    </ng-container>
+  </div>
 
 </ion-card>

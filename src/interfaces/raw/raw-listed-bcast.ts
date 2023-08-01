@@ -8,4 +8,5 @@ export interface IRawListedBcast {
     location: string;
     dist_meters: number;
     joined: boolean;
+    joined_users: number;
 }
