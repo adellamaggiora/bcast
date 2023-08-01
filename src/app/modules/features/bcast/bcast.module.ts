@@ -11,6 +11,7 @@ import { ChatRoomComponent } from './pages/chat-room/chat-room.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { BcastDetailComponent } from './pages/bcast-detail/bcast-detail.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { BcastDetailComponent } from './pages/bcast-detail/bcast-detail.componen
     BcastRoutingModule,
     CommonModule, 
     IonicModule,
-    UiKitModule
+    UiKitModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

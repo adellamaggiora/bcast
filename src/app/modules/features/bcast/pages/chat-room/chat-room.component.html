@@ -1,13 +1,16 @@
-<div class="container">
-  <div class="messages">
-    <div *ngFor="let message of messages" class="message">
-      <div class="sender">{{ message.userId }}</div>
-      <div class="content">{{ message.content }}</div>
-    </div>
-  </div>
+<ion-content class="ion-padding">
 
-  <div class="message-input">
-    <input #message (keyup.enter)="sendMessage(message.value)" placeholder="Type your message here..." />
-    <button (click)="sendMessage(message.value)">Send</button>
-  </div>
-</div>
+  <ng-container *ngFor="let message of messages" class="message">
+    <ion-card [ngClass]="isMyMessage(message) ? 'ms-5' : 'me-5'">
+      <ion-card-content>
+        {{ message.content }}
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+</ion-content>
+
+<ion-item class="ion-padding">
+  <ion-input (keyup.enter)="sendMessage()" placeholder="Type your message here..." [(ngModel)]="message">
+  </ion-input>
+</ion-item>
