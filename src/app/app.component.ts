@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AuthService } from 'src/services/auth.service';
 import packageJson from '../../package.json';
 import { Session } from '@supabase/supabase-js';
 import { Router } from '@angular/router';
 import { BcastService } from 'src/services/bcast.service';
 import { IGeoLocation } from 'src/interfaces/geo-location';
+import { Platform, IonRouterOutlet } from '@ionic/angular';
+import { App } from '@capacitor/app';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +15,7 @@ import { IGeoLocation } from 'src/interfaces/geo-location';
 })
 export class AppComponent {
 
+  @ViewChild(IonRouterOutlet, { static : true }) routerOutlet: IonRouterOutlet;
   userSession: Session;
   appVersion: string = packageJson.version;
   appPages = [
@@ -26,7 +30,16 @@ export class AppComponent {
     return this.router.url === '/bcast/list';
   }
 
-  constructor(public bcastService: BcastService, private router: Router, private authService: AuthService) { }
+  constructor(
+    public bcastService: BcastService, 
+    private router: Router, 
+    private location: Location,
+    private authService: AuthService,
+    private platform: Platform) { 
+      this.platform.backButton.subscribeWithPriority(-1, () => {
+          this.location.back();
+      });
+    }
 
   logout() {
     this.authService.logout();
