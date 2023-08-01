@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import dateFns from 'src/functions/date-fns';
 import { IMessage } from 'src/interfaces/message';
 import { ChatService } from 'src/services/chat.service';
 import { UserService } from 'src/services/user.service';
@@ -15,6 +16,7 @@ export class ChatRoomComponent implements OnInit {
   messages: IMessage[];
   bcastId: string;
   userId: string;
+  dateFns = dateFns;
 
   constructor(private route: ActivatedRoute, private chatService: ChatService, private userService: UserService) { }
 

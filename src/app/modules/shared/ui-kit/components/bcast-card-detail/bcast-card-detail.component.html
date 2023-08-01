@@ -1,8 +1,9 @@
-<p>
-  bcast-card-detail works!
-</p>
-
-<ng-container *ngIf="bcastDetail">
+<ion-card *ngIf="bcastDetail" class="ion-padding">
+  <ion-card-header>
+    <ion-card-title>
+      Broadcast card detail
+    </ion-card-title>
+  </ion-card-header>
   <ion-button (click)="onChatClick()" *ngIf="bcastDetail.joined">Chat</ion-button>
   <ion-button (click)="onJoinClick()" *ngIf="!bcastDetail.joined">Join</ion-button>
-</ng-container>
+</ion-card>
