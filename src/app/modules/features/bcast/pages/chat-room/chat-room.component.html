@@ -1,3 +1,13 @@
-<p>
-  chat-room works!
-</p>
+<div class="container">
+  <div class="messages">
+    <div *ngFor="let message of messages" class="message">
+      <div class="sender">{{ message.userId }}</div>
+      <div class="content">{{ message.content }}</div>
+    </div>
+  </div>
+
+  <div class="message-input">
+    <input #message (keyup.enter)="sendMessage(message.value)" placeholder="Type your message here..." />
+    <button (click)="sendMessage(message.value)">Send</button>
+  </div>
+</div>

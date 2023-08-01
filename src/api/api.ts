@@ -5,7 +5,6 @@ import { IGeoLocation } from "src/interfaces/geo-location";
 import { IMessage } from "src/interfaces/message";
 import { ISignIn } from "src/interfaces/sign-in";
 import { IUserInfo } from "src/interfaces/user-info";
-import { v4 as uuid } from "uuid";
 import outputDto from "./dto/output-dto";
 import handlers from "./utils/handlers";
 import { apiUtils } from "./utils/api-utils";
@@ -89,9 +88,9 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
             { content, user_id: userId, bcast_id: bcastId }
           ]),
 
-      onInsert: (bcastId: string, cb: (payload: IMessage) => void, channelId = uuid()) =>
+      onInsert: (bcastId: string, cb: (payload: IMessage) => void) =>
         supabase
-          .channel(channelId)
+          .channel(bcastId)
           .on(
             "postgres_changes",
             {

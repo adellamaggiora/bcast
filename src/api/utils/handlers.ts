@@ -12,9 +12,9 @@ import { IRawBcast } from "src/interfaces/raw/raw-bcast";
 import { BCAST_MAIN_IMAGE_NAME, apiUtils } from "./api-utils";
 
 
-const _errorHandler = ({ error }, errors?: string[]) => {
-    if (error || errors) {
-        throw error.message || `Generic API error`;
+const _errorHandler = (response: any) => {
+    if (response?.error || response?.errors) {
+        throw response?.error?.message || response.errors || `Generic API error`;
     }
 }
 
@@ -25,7 +25,7 @@ const messageListHandler = (response: PostgrestSingleResponse<IRawMessage[]>): I
 }
 
 const messageInsertedHandler = (response: RealtimePostgresInsertPayload<{ [key: string]: any }>): IMessage => {
-    _errorHandler(null, response?.errors);
+    _errorHandler(response);
     const rawMessage = response?.new as IRawMessage;
     const message: IMessage = inputDto.buildMessage(rawMessage);
     return message;
