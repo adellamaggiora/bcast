@@ -5,22 +5,22 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { BcastComponent } from './pages/bcast/bcast.component';
 import { BcastListComponent } from './pages/bcast-list/bcast-list.component';
 import { UiKitModule } from '../../shared/ui-kit/ui-kit.module';
-import { ChatListComponent } from './pages/chat-list/chat-list.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { BcastCreationComponent } from './pages/bcast-creation/bcast-creation.component';
 import { ChatRoomComponent } from './pages/chat-room/chat-room.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { BcastDetailComponent } from './pages/bcast-detail/bcast-detail.component';
 
 @NgModule({
   declarations: [
     BcastComponent,
     BcastCreationComponent,
     BcastListComponent,
-    ChatListComponent,
     ChatRoomComponent,
     HomeComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    BcastDetailComponent
   ],
   imports: [
     BcastRoutingModule,

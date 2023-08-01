@@ -1,14 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Input, OnChanges } from '@angular/core';
 import dateFns from 'src/functions/date-fns';
 import { IListedBcast } from 'src/interfaces/listed-bcast';
 
 @Component({
-  selector: 'app-bcast-card',
-  templateUrl: './bcast-card.component.html',
-  styleUrls: ['./bcast-card.component.scss'],
+  selector: 'app-bcast-card-list',
+  templateUrl: './bcast-card-list.component.html',
+  styleUrls: ['./bcast-card-list.component.scss'],
 })
-export class BcastCardComponent implements OnChanges {
+export class BcastCardListComponent implements OnChanges {
 
   @Input() listedBcast: IListedBcast;
   @Input() matchingTag: string[];

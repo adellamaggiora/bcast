@@ -9,8 +9,8 @@
 
     <ng-container *ngIf="(bcastService.bcastList.get$() | async)?.length">
         <div *ngFor="let listedBcast of bcastService.bcastList.get$() | async">
-            <app-bcast-card [listedBcast]="listedBcast">
-            </app-bcast-card>
+            <app-bcast-card-list [listedBcast]="listedBcast" (click)="onBcastCardClick(listedBcast)">
+            </app-bcast-card-list>
         </div>
     </ng-container>
     <ng-container *ngIf="!(bcastService.bcastList.get$() | async)?.length">
