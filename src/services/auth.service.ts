@@ -12,7 +12,15 @@ export class AuthService {
   constructor(private router: Router, private userService: UserService) { }
 
   public login(email: string, password: string) {
-    return client.auth.signIn({email, password})
+    return client.auth.signIn({ email, password })
+      .then((userAuth: UserAuth) => {
+        this.userService.userSession.set(userAuth.session);
+        this.router.navigate(['bcast', 'list']);
+      })
+  }
+
+  public register(email: string, password: string) {
+    return client.auth.signUp({ email, password })
       .then((userAuth: UserAuth) => {
         this.userService.userSession.set(userAuth.session);
         this.router.navigate(['bcast', 'list']);

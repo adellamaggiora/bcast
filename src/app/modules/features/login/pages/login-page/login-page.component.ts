@@ -21,14 +21,14 @@ export class LoginPageComponent {
     });
   }
 
-  onLogin(evt) {
+  async onLogin(evt) {
     const { email, password } = evt;
-    this.authService.login(email, password).then(console.log);
+    await this.authService.login(email, password);
   }
 
-  onRegister(evt) {
+  async onRegister(evt) {
     const { email, password } = evt;
-    window.alert('@todo register');
+    await this.authService.register(email, password);
   }
 
   toggleRegister() {
