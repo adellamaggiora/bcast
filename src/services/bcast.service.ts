@@ -37,7 +37,7 @@ export class BcastService {
     },
     insert: async (bcast: Partial<IBcast>) => {
       const userId = await this.userService.userSession?.getId();
-      client.bcast.insert(userId, bcast);
+      await client.bcast.insert(userId, bcast);
     }
   }
 
@@ -55,7 +55,7 @@ export class BcastService {
     },
     set: async (bcastFilters: IBcastFilters) => {
       const data = JSON.stringify(bcastFilters);
-      return await Preferences.set({ key: StorageKeys.BCAST_FILTERS, value: data });
+      await Preferences.set({ key: StorageKeys.BCAST_FILTERS, value: data });
     }
   }
 

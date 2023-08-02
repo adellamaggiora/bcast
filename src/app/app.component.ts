@@ -8,6 +8,7 @@ import { IGeoLocation } from 'src/interfaces/geo-location';
 import { Platform, IonRouterOutlet } from '@ionic/angular';
 import { App } from '@capacitor/app';
 import { Location } from '@angular/common';
+import { LoaderService } from 'src/services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,8 @@ export class AppComponent {
   }
 
   constructor(
-    public bcastService: BcastService, 
+    public bcastService: BcastService,
+    public loaderService: LoaderService,
     private router: Router, 
     private location: Location,
     private authService: AuthService,

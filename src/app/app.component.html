@@ -40,4 +40,6 @@
     </ion-split-pane>
   </ion-content>
 
+  <ion-loading [isOpen]="loaderService.isVisible$() | async" [message]="loaderService.getMessage$() | async"></ion-loading>
+
 </ion-app>

@@ -16,13 +16,13 @@ export class MapExplorerComponent implements AfterViewInit {
   constructor() { }
 
   async ngAfterViewInit() {
-    this.initMap();
+    await this.initMap();
   }
 
   async initMap() {
-
+    
     this.map = L.map('map');
-    this.centerMapOnCurrentPosition();
+    await this.centerMapOnCurrentPosition();
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
