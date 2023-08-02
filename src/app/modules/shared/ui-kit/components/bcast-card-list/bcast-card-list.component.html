@@ -37,7 +37,7 @@
         <ion-text color="success" *ngIf="listedBcast?.joined">
             You already partecipate
         </ion-text>
-        <ion-text color="warning" *ngIf="!listedBcast?.joined">
+        <ion-text color="warning" *ngIf="!listedBcast?.joined && seatsLeft">
             {{ seatsLeft }} seats left
         </ion-text>
       </div>
