@@ -9,7 +9,8 @@ import { IRawMessage } from "src/interfaces/raw/raw-message";
 import { IRawListedBcast } from "src/interfaces/raw/raw-listed-bcast";
 import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
 import { IRawBcast } from "src/interfaces/raw/raw-bcast";
-import { BCAST_MAIN_IMAGE_NAME, apiUtils } from "./api-utils";
+import { apiUtils } from "./api-utils";
+import { BCAST_MAIN_IMAGE_NAME } from "src/constants";
 
 
 const _errorHandler = (response: any) => {

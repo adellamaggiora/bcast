@@ -1,8 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js"
 import handlers from "./handlers"
 
-export const BCAST_MAIN_IMAGE_NAME = 'main';
-
 const getBcastImageBlob = (supabase: SupabaseClient<any, "public", any>, bcastId: string, imageName: string) => supabase
     .storage
     .from('public/bcast')

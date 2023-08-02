@@ -1,8 +1,7 @@
 <form [formGroup]="formValidator.formGroup">
   <ion-list>
-    <ion-item>
-      <img [src]="imageSrc">
-      <ion-text>{{ image?.name }}</ion-text>
+    <ion-item *ngIf="formValidator?.imageUrl">
+      <img [src]="formValidator.imageUrl">
     </ion-item>
 
     <ion-item>
@@ -27,7 +26,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-textarea label="Content:" formControlName="title"></ion-textarea>
+      <ion-textarea label="Content:" formControlName="content"></ion-textarea>
     </ion-item>
 
     <ion-item>

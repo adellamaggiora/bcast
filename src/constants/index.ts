@@ -1,5 +1,7 @@
 import { IBcastFilters } from "src/interfaces/bcast-filters";
 
+export const BCAST_MAIN_IMAGE_NAME = 'main';
+
 export const DEFALT_FILTERS: IBcastFilters = {
     maxDistMeters: {
         all: true,
