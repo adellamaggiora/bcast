@@ -16,8 +16,8 @@ export class BcastDetailComponent implements OnInit {
 
   async ngOnInit() {
     const queryParams = this.route.snapshot.queryParamMap;
-    const joined = Boolean(queryParams.get('joined'));
-    const distMeters = Number(queryParams.get('distMeters'));
+    const joined = JSON.parse(queryParams.get('joined'));
+    const distMeters = JSON.parse(queryParams.get('distMeters'));
     const bcastId = this.route.snapshot.paramMap.get('id');
     const bcast = await this.bcastService.bcast.get(bcastId);
     this.bcastDetail = { ...bcast, joined, distMeters };
