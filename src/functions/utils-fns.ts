@@ -10,8 +10,20 @@ const logger = (label: any) => (data: any) => { console.log(`[${label}]:: ${JSON
 
 const existy = (el: any) => el !== null && el !== undefined;
 
+const getErrorMsgFromCatchBlock = (error: any) => {
+  let message: string;
+  if (typeof error === 'string') {
+    message = error;
+  }
+  else {
+    message = error?.message || error?.error || 'Unknown error';
+  }
+  return message;
+};
+
 export const utilsFns = {
   removeUndefinedOrNullProps,
   logger,
-  existy
+  existy,
+  getErrorMsgFromCatchBlock
 }

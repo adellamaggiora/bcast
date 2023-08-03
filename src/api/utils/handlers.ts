@@ -50,9 +50,8 @@ const bcastListHandler =
                 if (listResponse?.data?.length) {
                     const mainImage = listResponse?.data?.find(_ => _.name?.includes(BCAST_MAIN_IMAGE_NAME));
                     if (mainImage) {
-                        const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.id, mainImage.name);
-                        _errorHandler(blobResponse);
-                        image = new File([blobResponse.data], mainImage.name);
+                        const blob = await apiUtils.getBcastImageBlob(supabase, rawBcast.id, mainImage.name);
+                        image = new File([blob], mainImage.name);
                     }
                 }
 
@@ -80,9 +79,8 @@ const bcastHandler =
             if (listResponse?.data?.length) {
                 const mainImage = listResponse?.data?.find(_ => _.name?.includes('main'));
                 if (mainImage) {
-                    const blobResponse = await apiUtils.getBcastImageBlob(supabase, rawBcast.id, mainImage.name);
-                    _errorHandler(blobResponse);
-                    image = new File([blobResponse.data], mainImage.name);
+                    const blob = await apiUtils.getBcastImageBlob(supabase, rawBcast.id, mainImage.name);
+                    image = new File([blob], mainImage.name);
                 }
             }
             
@@ -112,7 +110,17 @@ const dataHasLengthHandler = (response: PostgrestSingleResponse<any>) => {
 const insertedBcastHandler = (response: PostgrestSingleResponse<any[]>) => {
     _errorHandler(response);
     const id = response.data.at(0).id;
-    return id
+    return id;
+}
+
+const insertedImageHandler = (response: {data: { path: string }; error: any}) => {
+    _errorHandler(response);
+    return response.data.path;
+}
+
+const bcastBlobHandler = (response: { data: Blob; error: null }) => {
+    _errorHandler(response);
+    return response.data;
 }
 
 
@@ -124,7 +132,9 @@ export default {
     userInfoHandler,
     authHandler,
     dataHasLengthHandler,
-    insertedBcastHandler
+    insertedBcastHandler,
+    insertedImageHandler,
+    bcastBlobHandler
 }
 
 

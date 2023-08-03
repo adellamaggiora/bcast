@@ -23,11 +23,11 @@ const toastBuilder = _toastBuilder('bottom', 3000);
 
 const success = toastBuilder('success');
 const warning = toastBuilder('warning');
-const danger = toastBuilder('danger');
+const fail = toastBuilder('danger');
 
 export const toast = {
     success,
     warning,
-    danger
+    fail
 }
 

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { toast } from 'src/functions/notifiers/toast';
+import { utilsFns } from 'src/functions/utils-fns';
 import { IBcast } from 'src/interfaces/bcast';
 import { BcastService } from 'src/services/bcast.service';
 import { LoaderService } from 'src/services/loader.service';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-bcast-creation',
@@ -17,9 +20,18 @@ export class BcastCreationComponent implements OnInit {
 
   async onSaveBcast(bcast: Partial<IBcast>) {
     this.loaderService.show(`Saving broadcast...`);
-    await this.bcastService.bcast.insert(bcast);
+    try {
+      if (!bcast.location) {
+        const { latitude: lat, longitude: lng } = await Geolocation.getCurrentPosition()?.then(_ => _.coords);
+        bcast = { ...bcast, location: { lat, lng } };
+      }
+      await this.bcastService.bcast.insert(bcast);
+      this.router.navigate(['bcast', 'list']);
+    } catch (error) {
+      const message = utilsFns.getErrorMsgFromCatchBlock(error);
+      toast.fail(message);
+    }
     this.loaderService.hide();
-    this.router.navigate(['bcast', 'list']);
   }
 
 }

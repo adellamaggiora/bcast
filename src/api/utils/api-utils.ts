@@ -5,6 +5,7 @@ const getBcastImageBlob = (supabase: SupabaseClient<any, "public", any>, bcastId
     .storage
     .from('public/bcast')
     .download(`${bcastId}/${imageName}`)
+    .then(handlers.bcastBlobHandler)
 
 const bcastUserRecordExists = (supabase: SupabaseClient<any, "public", any>, userId: string, bcastId: string) => supabase.from("bcast_user")
     .select('*')
@@ -19,6 +20,7 @@ const insertBcastImage = (supabase: SupabaseClient<any, "public", any>, bcastId:
         cacheControl: '3600',
         upsert: false
     })
+    .then(handlers.insertedImageHandler)
 
 export const apiUtils = {
     getBcastImageBlob,

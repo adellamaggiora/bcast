@@ -1,15 +1,13 @@
 <ion-app>
-  
+
   <ion-header *ngIf="!isLoginPage">
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-item *ngIf="isBcastListPage">
-        <app-location-selector 
-        (selectedLocation)="onSelectedLocation($event)"
-        [location]="bcastService?.selectedLocation?.get$() | async"
-        ></app-location-selector>
+        <app-location-selector (selectedLocation)="onSelectedLocation($event)"
+          [location]="bcastService?.selectedLocation?.get$() | async"></app-location-selector>
       </ion-item>
     </ion-toolbar>
   </ion-header>
@@ -40,6 +38,7 @@
     </ion-split-pane>
   </ion-content>
 
-  <ion-loading [isOpen]="loaderService.isVisible$() | async" [message]="loaderService.getMessage$() | async"></ion-loading>
+  <ion-loading [isOpen]="loaderService.isVisible$() | async"
+    [message]="loaderService.getMessage$() | async"></ion-loading>
 
 </ion-app>

@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { BcastService } from 'src/services/bcast.service';
 import { IGeoLocation } from 'src/interfaces/geo-location';
 import { Platform, IonRouterOutlet } from '@ionic/angular';
-import { App } from '@capacitor/app';
 import { Location } from '@angular/common';
 import { LoaderService } from 'src/services/loader.service';
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { toast } from 'src/api/utils/toast';
 import { UserService } from '../user.service';
 import { utilsFns } from 'src/functions/utils-fns';
+import { toast } from 'src/functions/notifiers/toast';
 
 @Injectable({
   providedIn: 'root'

@@ -3,7 +3,6 @@ import { Camera, CameraResultType } from '@capacitor/camera';
 import { IBcast } from 'src/interfaces/bcast';
 import { BcastTemplateFormValidator } from './bcast-template-form-validator';
 import { IonInput } from '@ionic/angular';
-import { Geolocation } from '@capacitor/geolocation';
 import { BCAST_MAIN_IMAGE_NAME } from 'src/constants';
 
 @Component({
@@ -37,13 +36,11 @@ export class BcastTemplateComponent  implements OnInit {
   async save() {
     try {
       const formValue = this.formValidator.formGroup.value;
-      const { latitude: lat, longitude: lng } = await Geolocation.getCurrentPosition()?.then(_ => _.coords);
       const bcast: Partial<IBcast> = {
         image: formValue.image,
         content: formValue.content,
         title: formValue.title,
         expiresAt: formValue.expiresAt,
-        location: { lat, lng },
         tag: formValue.tag,
         maxUsers: formValue.maxUsers
       }
