@@ -1,4 +1,4 @@
-<ng-container *ngIf="map">
+<div *ngIf="map">
   <div class="callout pointer" (click)="onExploreHereClick()">
     Explore here
     <div class="callout-tip"></div>
@@ -6,7 +6,7 @@
   <ion-button class="position-button" shape="round" color="tertiary" (click)="onPositionClick()">
     <ion-icon name="locate-outline"></ion-icon>
   </ion-button>
-</ng-container>
+</div>
 
 <div *ngIf="!map" class="h-100 w-100 d-flex align-items-center justify-content-center">
   <ion-spinner color="primary"></ion-spinner>

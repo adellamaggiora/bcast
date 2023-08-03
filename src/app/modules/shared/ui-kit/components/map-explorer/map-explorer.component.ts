@@ -9,6 +9,7 @@ import { IGeoLocation } from 'src/interfaces/geo-location';
   styleUrls: ['./map-explorer.component.scss'],
 })
 export class MapExplorerComponent implements AfterViewInit {
+  
   map: L.Map;
   @Output() selectedLocation = new EventEmitter<IGeoLocation>(null);
 
