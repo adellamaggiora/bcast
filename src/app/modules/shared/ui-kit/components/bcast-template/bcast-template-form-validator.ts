@@ -22,10 +22,10 @@ export class BcastTemplateFormValidator extends FormValidator {
         this._formGroup = new FormGroup({
             title: new FormControl<string>('', [Validators.required]),
             content: new FormControl<string>(''),
-            maxUsers: new FormControl<number>(10),
+            maxUsers: new FormControl<number>(10, [Validators.min(2)]),
             tempTag: new FormControl<string>('', [Validators.minLength(3), Validators.maxLength(16)]),
             tag: new FormArray([]),
-            expiresAt: new FormControl<Date>(new Date()),
+            expiresAt: new FormControl<Date>(null),
             location: new FormControl<IGeoLocation>({ lat: null, lng: null }, [Validators.required]),
             image: this._generateFormControlImage(null)     
         })

@@ -14,7 +14,7 @@ const buildRawUserInfo = (userId: string, userInfo: Partial<IUserInfo> ): IRawUs
 
 const buildRawBcast = (userId: string, bcast: Partial<IBcast>): Partial<IRawBcast> => ({
     user_id: userId,
-    expires_at: bcast.expiresAt,
+    expires_at: new Date(bcast.expiresAt),
     max_users: bcast.maxUsers,
     tag: bcast.tag,
     title: bcast.title,

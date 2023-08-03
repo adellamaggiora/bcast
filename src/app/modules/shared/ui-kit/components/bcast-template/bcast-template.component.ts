@@ -4,6 +4,7 @@ import { IBcast } from 'src/interfaces/bcast';
 import { BcastTemplateFormValidator } from './bcast-template-form-validator';
 import { IonInput } from '@ionic/angular';
 import { BCAST_MAIN_IMAGE_NAME } from 'src/constants';
+import dateFns from 'src/functions/date-fns';
 
 @Component({
   selector: 'app-bcast-template',
@@ -14,6 +15,7 @@ export class BcastTemplateComponent  implements OnInit {
 
   @Output() saveBcast: EventEmitter<Partial<IBcast>> = new EventEmitter();
   formValidator: BcastTemplateFormValidator;
+  dateFns = dateFns;
 
   constructor() { }
 
