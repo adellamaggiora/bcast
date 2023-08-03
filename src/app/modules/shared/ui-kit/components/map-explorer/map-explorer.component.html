@@ -1,8 +1,17 @@
-<div class="callout pointer" (click)="onExploreHereClick()">
-  Explore here
-  <div class="callout-tip"></div>
+<ng-container *ngIf="map">
+  <div class="callout pointer" (click)="onExploreHereClick()">
+    Explore here
+    <div class="callout-tip"></div>
+  </div>
+  <ion-button class="position-button" shape="round" color="tertiary" (click)="onPositionClick()">
+    <ion-icon name="locate-outline"></ion-icon>
+  </ion-button>
+</ng-container>
+
+<div *ngIf="!map" class="h-100 w-100 d-flex align-items-center justify-content-center">
+  <ion-spinner color="primary"></ion-spinner>
 </div>
-<ion-button class="position-button" shape="round" color="tertiary" (click)="onPositionClick()">
-  <ion-icon name="locate-outline"></ion-icon>
-</ion-button>
-<div id="map" style="height: 1200px;"></div>
+
+<div id="map" class="h-100 w-100"></div>
+
+

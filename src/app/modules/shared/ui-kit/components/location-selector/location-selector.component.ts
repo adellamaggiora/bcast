@@ -32,7 +32,7 @@ export class LocationSelectorComponent {
   }
 
   openModal() {
-    this.modal.present()
+    this.modal.present();
   }
 
 }

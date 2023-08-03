@@ -9,30 +9,28 @@ import { IGeoLocation } from 'src/interfaces/geo-location';
   styleUrls: ['./map-explorer.component.scss'],
 })
 export class MapExplorerComponent implements AfterViewInit {
-
   map: L.Map;
   @Output() selectedLocation = new EventEmitter<IGeoLocation>(null);
 
   constructor() { }
 
   async ngAfterViewInit() {
-    await this.initMap();
+    try {
+      const currentLocation = await this.getCurrentLocation();  
+      await this.initMap(currentLocation);
+    } catch (error) {
+      window.alert(`Cannot get GeoLocation`)
+    }
   }
 
-  async initMap() {
-    
+  async initMap(location: IGeoLocation) {
     this.map = L.map('map');
-    await this.centerMapOnCurrentPosition();
+    this.centerMap(location);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: '© OpenStreetMap',
+      attribution: '© OpenStreetMap'
     }).addTo(this.map);
-
-    // la vista non è ancora pronta, vedere la funzione ionViewDidEnter()
-    setTimeout(() => {
-      this.map.invalidateSize();
-    }, 500)
   }
 
   onExploreHereClick() {
@@ -40,13 +38,18 @@ export class MapExplorerComponent implements AfterViewInit {
     this.selectedLocation.emit(location);
   }
 
-  onPositionClick() {
-    this.centerMapOnCurrentPosition();
+  async onPositionClick() {
+    const currentLocation = await this.getCurrentLocation();
+    this.centerMap(currentLocation);
   }
 
-  async centerMapOnCurrentPosition() {
-    const { coords: { latitude, longitude } } = await Geolocation.getCurrentPosition();
-    this.map.setView({ lat: latitude, lng: longitude }, 12);
+  async getCurrentLocation(): Promise<IGeoLocation> {
+    const { coords: { latitude: lat, longitude: lng } } = await Geolocation.getCurrentPosition();
+    return { lat, lng };
+  }
+
+  centerMap(location: IGeoLocation) {
+    this.map.setView({ lat: location.lat, lng: location.lng }, 12);
   }
 
 }
