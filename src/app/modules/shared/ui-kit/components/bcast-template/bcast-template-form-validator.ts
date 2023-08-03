@@ -25,7 +25,7 @@ export class BcastTemplateFormValidator extends FormValidator {
             maxUsers: new FormControl<number>(10, [Validators.min(2)]),
             tempTag: new FormControl<string>('', [Validators.minLength(3), Validators.maxLength(16)]),
             tag: new FormArray([]),
-            expiresAt: new FormControl<Date>(null),
+            expiresAt: new FormControl<Date>(null, [Validators.required]),
             location: new FormControl<IGeoLocation>({ lat: null, lng: null }, [Validators.required]),
             image: this._generateFormControlImage(null)     
         })
