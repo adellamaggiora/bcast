@@ -20,7 +20,6 @@ export interface IBcastFilters {
     partecipation: {
         isPartecipating: boolean;
         isNotPartecipating: boolean;
-        isInterested: boolean;
         all: boolean;
     };
 }

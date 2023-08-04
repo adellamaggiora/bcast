@@ -35,13 +35,12 @@ export class BcastListComponent implements OnInit {
   }
 
   async fetchBcastList(selectedLocation: IGeoLocation | null) {
-    const maxDistanceMeters = null;
     if (selectedLocation) {
-      await this.bcastService.bcastList.fetch(selectedLocation, maxDistanceMeters);
+      await this.bcastService.bcastList.fetch(selectedLocation);
     } else {
       const coordinates = await Geolocation.getCurrentPosition();
       const { latitude: lat, longitude: lng } = coordinates?.coords;
-      await this.bcastService.bcastList.fetch({ lat, lng }, maxDistanceMeters);
+      await this.bcastService.bcastList.fetch({ lat, lng });
     }
   }
 

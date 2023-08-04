@@ -19,7 +19,6 @@ export const DEFALT_FILTERS: IBcastFilters = {
     },
     partecipation: {
       all: true,
-      isInterested: false,
       isNotPartecipating: false,
       isPartecipating: false
     },

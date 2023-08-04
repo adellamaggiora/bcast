@@ -21,7 +21,7 @@ export class BcastService {
   public bcastList = {
     get$: () => this._bcastList$.asObservable().pipe(share()),
     get: () => this._bcastList$.getValue(),
-    fetch: async (location: IGeoLocation, maxDistanceMeters: number) => {
+    fetch: async (location: IGeoLocation, maxDistanceMeters?: number) => {
       const userId = await this.userService.userSession?.getId();
       const bcastList: IListedBcast[] = await client.bcast.getList(userId, location, maxDistanceMeters);
       this._bcastList$.next(bcastList);

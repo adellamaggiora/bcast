@@ -40,14 +40,28 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
         .eq("id", id)
         .then(handlers.bcastHandler(supabase)),
 
-      getList: (userId: string, location: IGeoLocation, maxDistanceMeters: number, limit = 50, offset = 0) => supabase
-        .rpc("nearby_bcast", {
+      getList: (
+        userId: string, 
+        location: IGeoLocation, 
+        maxDistanceMeters: number | null = null,
+        tag: string[] | null = null,
+        availability: 'vacant' | 'soldOut' | null = null,
+        author: 'me' | 'others' | null = null,
+        partecipation: 'partecipating' | 'notPartecipating' | null = null,
+        limit = 50, 
+        offset = 0
+        ) => supabase
+        .rpc("bcast_list", {
           p_user_id: userId,
           p_lng: location.lng,
           p_lat: location.lat,
-          p_max_dist_meters: maxDistanceMeters
+          p_max_dist_meters: maxDistanceMeters,
+          p_tag: tag,
+          p_availability: availability,
+          p_author: author,
+          p_partecipation: partecipation
         })
-        .range(offset, (offset + limit))
+        //.range(offset, (offset + limit))
         // .then(utilsFns.logger(`Bcast list`))
         .then(handlers.bcastListHandler(supabase)),
 
