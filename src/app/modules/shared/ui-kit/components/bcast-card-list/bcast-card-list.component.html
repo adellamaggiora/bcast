@@ -7,22 +7,21 @@
     </div>
 
     <ion-card-content>
-
       <ion-card-subtitle color="primary">
-        <ion-icon name="calendar" class="mx-2"></ion-icon>
-        {{ listedBcast?.expiresAt | date: dateFns.formatString() }}
+        <ion-icon name="calendar"></ion-icon>
+        {{ listedBcast?.expiresAt | date : dateFns.formatString() }}
       </ion-card-subtitle>
 
-      <div>
-        <ion-text color="dark">
-          {{ listedBcast?.title }}
-        </ion-text>
-      </div>
+      <ion-card-title color="dark">
+        {{ listedBcast?.title }}
+      </ion-card-title>
 
       <div>
         <ion-text>
           <ion-icon name="rocket"></ion-icon>
-          <span> {{ listedBcast?.distMeters | metersToKm | number: '1.0-1' }} Km </span>
+          <span>
+            {{ listedBcast?.distMeters | metersToKm | number : "1.0-1" }} Km
+          </span>
         </ion-text>
       </div>
 
@@ -35,22 +34,26 @@
 
       <div>
         <ion-text color="success" *ngIf="listedBcast?.joined">
-            You already partecipate
+          You already partecipate
         </ion-text>
         <ion-text color="warning" *ngIf="!listedBcast?.joined && seatsLeft">
-            {{ seatsLeft }} seats left
+          {{ seatsLeft }} seats left
         </ion-text>
       </div>
-      
     </ion-card-content>
-
   </div>
 
   <div class="mt-1">
     <ng-container *ngFor="let tag of listedBcast?.tag">
-      <ion-chip color="secondary" [outline]="true" *ngIf="!tagMatchesFavorite(tag)">{{ tag }}</ion-chip>
-      <ion-chip color="secondary" *ngIf="tagMatchesFavorite(tag)">{{ tag }}</ion-chip>
+      <ion-chip
+        color="secondary"
+        [outline]="true"
+        *ngIf="!tagMatchesFavorite(tag)"
+        >{{ tag }}</ion-chip
+      >
+      <ion-chip color="secondary" *ngIf="tagMatchesFavorite(tag)">{{
+        tag
+      }}</ion-chip>
     </ng-container>
   </div>
-
 </ion-card>
