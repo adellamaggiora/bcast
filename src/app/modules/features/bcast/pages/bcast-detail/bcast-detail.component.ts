@@ -1,26 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { IBcastDetail } from 'src/interfaces/bcast-detail';
+import { IListedBcast } from 'src/interfaces/listed-bcast';
 import { BcastService } from 'src/services/bcast.service';
+import { DataService } from 'src/services/data.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-bcast-detail',
   templateUrl: './bcast-detail.component.html',
   styleUrls: ['./bcast-detail.component.scss'],
 })
-export class BcastDetailComponent implements OnInit {
+export class BcastDetailComponent {
 
   bcastDetail: IBcastDetail;
 
-  constructor(private route: ActivatedRoute, private bcastService: BcastService, private router: Router) { }
+  constructor(
+    private bcastService: BcastService, 
+    private router: Router,
+    private dataService: DataService,
+    private location: Location,
+    ) { }
 
-  async ngOnInit() {
-    const queryParams = this.route.snapshot.queryParamMap;
-    const joined = JSON.parse(queryParams.get('joined'));
-    const distMeters = JSON.parse(queryParams.get('distMeters'));
-    const bcastId = this.route.snapshot.paramMap.get('id');
-    const bcast = await this.bcastService.bcast.get(bcastId);
-    this.bcastDetail = { ...bcast, joined, distMeters };
+  async ionViewWillEnter() {
+    const selectedListedBcast: IListedBcast = this.dataService.selectedListedBcast.get();
+    if (selectedListedBcast) {
+      const { joined, distMeters, id } = selectedListedBcast;
+      const bcast = await this.bcastService.bcast.get(id);
+      this.bcastDetail = { ...bcast, joined, distMeters };
+    }
+    else {
+      this.location.back();
+    }
+  }
+
+  ionViewDidLeave() {
+    this.dataService.selectedListedBcast.set(null);
   }
 
   onChat(bcastId: string) {
@@ -33,7 +48,7 @@ export class BcastDetailComponent implements OnInit {
   }
 
   navigateToChat(bcastId: string) {
-    this.router.navigate(['bcast', 'chat', this.bcastDetail.id]);
+    this.router.navigate(['bcast', 'chat', bcastId]);
   }
 
 }

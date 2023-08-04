@@ -7,7 +7,7 @@
       </ion-buttons>
       <ion-item *ngIf="isBcastListPage">
         <app-location-selector (selectedLocation)="onSelectedLocation($event)"
-          [location]="bcastService?.selectedLocation?.get$() | async"></app-location-selector>
+          [location]="dataService?.selectedLocation?.get$() | async"></app-location-selector>
       </ion-item>
     </ion-toolbar>
   </ion-header>

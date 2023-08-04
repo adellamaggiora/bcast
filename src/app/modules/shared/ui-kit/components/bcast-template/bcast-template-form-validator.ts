@@ -16,7 +16,6 @@ export class BcastTemplateFormValidator extends FormValidator {
         return this._imageUrl;
     }
 
-
     constructor() {
         super();
         this._formGroup = new FormGroup({
@@ -25,6 +24,7 @@ export class BcastTemplateFormValidator extends FormValidator {
             maxUsers: new FormControl<number>(10, [Validators.min(2)]),
             tempTag: new FormControl<string>('', [Validators.minLength(3), Validators.maxLength(16)]),
             tag: new FormArray([]),
+            // IONIC BUG - if you pass a Date instance to the init value it will raise an error 
             expiresAt: new FormControl<Date>(null, [Validators.required]),
             location: new FormControl<IGeoLocation>({ lat: null, lng: null }, [Validators.required]),
             image: this._generateFormControlImage(null)     
@@ -43,8 +43,8 @@ export class BcastTemplateFormValidator extends FormValidator {
 
     //#region public
 
-    addTag(tag: any) {
-        this.tag.push(this._generateTagFormControl(tag));
+    addTag(tag: string) {
+        this.tag.push(this._generateTagFormControl(tag?.toLowerCase()));
     }
 
     removeTag(index: number) {

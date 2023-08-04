@@ -28,10 +28,10 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
           .insert(rawBcast)
           .select()
           .then(handlers.insertedBcastHandler)
-
         if (bcast?.image) {
           await apiUtils.insertBcastImage(supabase, insertedBcastId, bcast.image);
         }
+        return insertedBcastId;
       },
 
       get: (id: string) => supabase

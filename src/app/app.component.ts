@@ -8,6 +8,7 @@ import { IGeoLocation } from 'src/interfaces/geo-location';
 import { Platform, IonRouterOutlet } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { LoaderService } from 'src/services/loader.service';
+import { DataService } from 'src/services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +34,7 @@ export class AppComponent {
   constructor(
     public bcastService: BcastService,
     public loaderService: LoaderService,
+    public dataService: DataService,
     private router: Router, 
     private location: Location,
     private authService: AuthService,
@@ -47,7 +49,7 @@ export class AppComponent {
   }
 
   onSelectedLocation(location: IGeoLocation) {
-    this.bcastService.selectedLocation.set(location);
+    this.dataService.selectedLocation.set(location);
   }
 
 }

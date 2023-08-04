@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { IBcast } from 'src/interfaces/bcast';
 import { BcastTemplateFormValidator } from './bcast-template-form-validator';
@@ -13,6 +13,7 @@ import dateFns from 'src/functions/date-fns';
 })
 export class BcastTemplateComponent  implements OnInit {
 
+  @Input() initForm: boolean
   @Output() saveBcast: EventEmitter<Partial<IBcast>> = new EventEmitter();
   formValidator: BcastTemplateFormValidator;
   dateFns = dateFns;
@@ -20,12 +21,22 @@ export class BcastTemplateComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.initFormValidator();
+  }
+
+  ngOnChanges(changes) {
+    if (changes?.initForm?.currentValue === true) {
+      this.initFormValidator();
+    }
+  }
+
+  initFormValidator() {
     this.formValidator = new BcastTemplateFormValidator();
   }
 
   async takePicture() {
     const photo = await Camera.getPhoto({
-      quality: 90,
+      quality: 70,
       allowEditing: false,
       resultType: CameraResultType.Uri
     });

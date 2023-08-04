@@ -15,7 +15,6 @@ import { IBcastFilters } from 'src/interfaces/bcast-filters';
 export class BcastService {
 
   private _bcastList$ = new BehaviorSubject<IListedBcast[]>([]);
-  private _selectedLocation$ = new BehaviorSubject<IGeoLocation>(null);
 
   constructor(private userService: UserService) { }
 
@@ -33,18 +32,12 @@ export class BcastService {
     get: async (bcastId: string) => client.bcast.get(bcastId),
     join: async (bcastId: string) => {
       const userId = await this.userService.userSession?.getId();
-      await client.bcast.join(userId, bcastId);
+      return await client.bcast.join(userId, bcastId);
     },
     insert: async (bcast: Partial<IBcast>) => {
       const userId = await this.userService.userSession?.getId();
-      await client.bcast.insert(userId, bcast);
+      return await client.bcast.insert(userId, bcast);
     }
-  }
-
-  public selectedLocation = {
-    get$: () => this._selectedLocation$.asObservable().pipe(share()),
-    get: () => this._selectedLocation$.getValue(),
-    set: (location: IGeoLocation) => this._selectedLocation$.next(location)
   }
 
   public bcastFilters = {
@@ -55,7 +48,7 @@ export class BcastService {
     },
     set: async (bcastFilters: IBcastFilters) => {
       const data = JSON.stringify(bcastFilters);
-      await Preferences.set({ key: StorageKeys.BCAST_FILTERS, value: data });
+      return await Preferences.set({ key: StorageKeys.BCAST_FILTERS, value: data });
     }
   }
 

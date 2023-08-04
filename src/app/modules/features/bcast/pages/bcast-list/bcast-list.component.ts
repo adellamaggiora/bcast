@@ -5,6 +5,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { IGeoLocation } from 'src/interfaces/geo-location';
 import { Router } from '@angular/router';
 import { IListedBcast } from 'src/interfaces/listed-bcast';
+import { DataService } from 'src/services/data.service';
 
 
 @Component({
@@ -14,15 +15,26 @@ import { IListedBcast } from 'src/interfaces/listed-bcast';
 })
 export class BcastListComponent implements OnInit {
 
-  constructor(public bcastService: BcastService, public userService: UserService, private router: Router) { }
+  constructor(
+    public bcastService: BcastService, 
+    public userService: UserService,
+    private dataService: DataService,
+    private router: Router
+    ) { }
 
-  async ngOnInit() {
-    this.bcastService.selectedLocation.get$().subscribe(selectedLocation => {
+  ngOnInit() {
+    this.dataService.selectedLocation.get$().subscribe(async selectedLocation => {
       this.fetchBcastList(selectedLocation);
+    })
+    this.dataService.refreshBcastList.get$().subscribe(async refresh => {
+      if (refresh) {
+        const selectedLocation = this.dataService.selectedLocation.get();
+        this.fetchBcastList(selectedLocation);
+      }
     })
   }
 
-  async fetchBcastList(selectedLocation: IGeoLocation) {
+  async fetchBcastList(selectedLocation: IGeoLocation | null) {
     const maxDistanceMeters = null;
     if (selectedLocation) {
       await this.bcastService.bcastList.fetch(selectedLocation, maxDistanceMeters);
@@ -34,14 +46,14 @@ export class BcastListComponent implements OnInit {
   }
 
   async handleRefresh(evt: any) {
-    const selectedLocation = this.bcastService.selectedLocation.get();
+    const selectedLocation = this.dataService.selectedLocation.get();
     await this.fetchBcastList(selectedLocation);
     evt.target.complete();
   }
 
   onBcastCardClick(listedBcast: IListedBcast) {
-    const { id, joined, distMeters } = listedBcast;
-    this.router.navigate(['bcast', 'detail', id], { queryParams: { joined, distMeters } });
+    this.dataService.selectedListedBcast.set(listedBcast);
+    this.router.navigate(['bcast', 'detail', listedBcast.id]);
   }
   
 }

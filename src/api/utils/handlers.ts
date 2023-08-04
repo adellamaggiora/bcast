@@ -109,7 +109,7 @@ const dataHasLengthHandler = (response: PostgrestSingleResponse<any>) => {
 
 const insertedBcastHandler = (response: PostgrestSingleResponse<any[]>) => {
     _errorHandler(response);
-    const id = response.data.at(0).id;
+    const id: string = response.data.at(0).id;
     return id;
 }
 
@@ -118,7 +118,7 @@ const insertedImageHandler = (response: {data: { path: string }; error: any}) =>
     return response.data.path;
 }
 
-const bcastBlobHandler = (response: { data: Blob; error: null }) => {
+const bcastBlobHandler = (response: { data: Blob; error: any }) => {
     _errorHandler(response);
     return response.data;
 }

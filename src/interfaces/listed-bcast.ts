@@ -3,13 +3,13 @@ import { IGeoLocation } from "./geo-location";
 export interface IListedBcast {
     id: string;
     userId: string;
-    expiresAt: Date;
     title: string;
+    expiresAt: Date;
     location: IGeoLocation;
+    maxUsers: number;
+    tag: string[];
+    image: File;
     distMeters: number;
     joined: boolean;
     joinedUsers: number;
-    maxUsers?: number;
-    tag?: string [];
-    image?: File;
 }
