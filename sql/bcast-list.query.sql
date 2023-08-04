@@ -65,7 +65,7 @@ WHERE
             )
         )
     )
-GROUP BY b.id
+GROUP BY b.id, b.user_id, b.expires_at, b.title, b.max_users, b.tag, b.location
 HAVING 
     -- availability filter
     (
@@ -74,12 +74,18 @@ HAVING
             p_availability = 'vacant'
             AND (
                 b.max_users IS NULL
-                OR count(bu.bcast_id) < b.max_users
+                OR (
+                    SELECT count(*) FROM bcast_user bu_sub
+                    WHERE bu_sub.bcast_id = b.id
+                ) < b.max_users
             )
         )
         OR (
             p_availability = 'soldOut'
-            AND count(bu.bcast_id) = b.max_users
+            AND (
+                SELECT count(*) FROM bcast_user bu_sub
+                WHERE bu_sub.bcast_id = b.id
+            ) = b.max_users
         )
     )
 ORDER BY location <-> st_point(p_lng, p_lat)::geography;
