@@ -5,7 +5,7 @@ import { AuthGuard } from 'src/services/guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'bcast',
     pathMatch: 'full'
   },
   {

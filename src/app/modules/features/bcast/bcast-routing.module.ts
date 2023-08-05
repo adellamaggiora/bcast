@@ -1,48 +1,53 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { BcastComponent } from './pages/bcast/bcast.component';
-import { BcastListComponent } from './pages/bcast-list/bcast-list.component';
-import { ChatRoomComponent } from './pages/chat-room/chat-room.component';
-import { BcastCreationComponent } from './pages/bcast-creation/bcast-creation.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
-import { HomeComponent } from './pages/home/home.component';
-import { BcastDetailComponent } from './pages/bcast-detail/bcast-detail.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { BcastComponent } from "./pages/bcast/bcast.component";
+import { BcastListComponent } from "./pages/bcast-list/bcast-list.component";
+import { ChatRoomComponent } from "./pages/chat-room/chat-room.component";
+import { BcastCreationComponent } from "./pages/bcast-creation/bcast-creation.component";
+import { NotificationsComponent } from "./pages/notifications/notifications.component";
+import { HomeComponent } from "./pages/home/home.component";
+import { BcastDetailComponent } from "./pages/bcast-detail/bcast-detail.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: BcastComponent,
     children: [
       {
-        path: 'home',
-        component: HomeComponent
+        path: "",
+        redirectTo: "list",
+        pathMatch: "full",
       },
       {
-        path: 'list',
-        component: BcastListComponent
+        path: "home",
+        component: HomeComponent,
       },
       {
-        path: 'create',
-        component: BcastCreationComponent
+        path: "list",
+        component: BcastListComponent,
       },
       {
-        path: 'detail/:id',
-        component: BcastDetailComponent
+        path: "create",
+        component: BcastCreationComponent,
       },
       {
-        path: 'chat/:id',
-        component: ChatRoomComponent
+        path: "detail/:id",
+        component: BcastDetailComponent,
       },
       {
-        path: 'notifications',
-        component: NotificationsComponent
-      }
-    ]
-  }
+        path: "chat/:id",
+        component: ChatRoomComponent,
+      },
+      {
+        path: "notifications",
+        component: NotificationsComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class BcastRoutingModule { }
+export class BcastRoutingModule {}

@@ -14,19 +14,28 @@ export class UserService {
 
   private _userInfo$ = new BehaviorSubject<IUserInfo>(null);
 
-  private async _getUserSession() {
+  private async _getUserSessionStorage() {
     const data = await Preferences.get({ key: StorageKeys.USER_SESSION });
     const userSession: Session = JSON.parse(data?.value);
     return userSession;
   }
 
+  private async _getRefreshedSession() {
+    const userAuth = await client.auth.refresh();
+    return userAuth.session;
+  }
+
+  private async _init() {
+    const storedSession = await this._getUserSessionStorage();
+    if (storedSession) {
+      const refreshedSession = await this._getRefreshedSession();
+      this.userSession.set(refreshedSession);
+      await this.userInfo.fetch();
+    }
+  }
+
   constructor() {
-    (async () => {
-      const userSession = await this._getUserSession();
-      if (userSession?.user?.id) {
-        this.userInfo.fetch();
-      }
-    })()
+    this._init();
   }
 
   public userInfo = {
@@ -37,18 +46,18 @@ export class UserService {
       ),
     get: () => this._userInfo$.getValue(),
     fetch: async () => {
-      const userId = await this._getUserSession().then(session => session.user.id);
+      const userId = await this._getUserSessionStorage().then(session => session.user.id);
       const userInfo = await client.userInfo.get(userId);
       this._userInfo$.next(userInfo);
     }
   }
 
   public userSession = {
-    get: this._getUserSession,
+    get: this._getUserSessionStorage,
     set: (userSession: Session) => {
       Preferences.set({ key: StorageKeys.USER_SESSION, value: JSON.stringify(userSession) });
     },
-    getId: () => this._getUserSession().then(_ => _?.user?.id)
+    getUserId: () => this._getUserSessionStorage().then(_ => _?.user?.id)
   }
 
 }

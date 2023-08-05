@@ -21,7 +21,7 @@ export class ChatRoomComponent implements OnInit {
   constructor(private route: ActivatedRoute, private chatService: ChatService, private userService: UserService) { }
 
   async ngOnInit() {
-    this.userId = await this.userService.userSession.getId();
+    this.userId = await this.userService.userSession.getUserId();
     this.bcastId = this.route.snapshot.paramMap.get('id');
     this.messages = await this.chatService.message.get(this.bcastId);
     this.chatService.message.listen(this.bcastId)

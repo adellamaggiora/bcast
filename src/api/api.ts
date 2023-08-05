@@ -157,6 +157,12 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
       signUp: (signUp: ISignIn) =>
         supabase
           .auth.signUp(signUp)
+          .then(handlers.authHandler),
+      
+      refresh: () => 
+        supabase
+          .auth
+          .refreshSession()
           .then(handlers.authHandler)
     }
 

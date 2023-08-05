@@ -13,7 +13,7 @@ export class ChatService {
 
   message = {
     send: async (bcastId: string, message: string) => {
-      const userId = await this.userService.userSession.getId();
+      const userId = await this.userService.userSession.getUserId();
       return client.message.insert(userId, bcastId, message);
     },
     listen: (bcastId: string) => {

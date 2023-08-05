@@ -20,7 +20,7 @@ export class MapExplorerComponent implements AfterViewInit {
       const currentLocation = await this.getCurrentLocation();  
       await this.initMap(currentLocation);
     } catch (error) {
-      window.alert(`Cannot get GeoLocation`)
+      window.alert(`Cannot get GeoLocation`);
     }
   }
 

@@ -22,7 +22,7 @@ export class BcastService {
     get$: () => this._bcastList$.asObservable().pipe(share()),
     get: () => this._bcastList$.getValue(),
     fetch: async (location: IGeoLocation, maxDistanceMeters?: number) => {
-      const userId = await this.userService.userSession?.getId();
+      const userId = await this.userService.userSession?.getUserId();
       const bcastList: IListedBcast[] = await client.bcast.getList(userId, location, maxDistanceMeters);
       this._bcastList$.next(bcastList);
     }
@@ -31,11 +31,11 @@ export class BcastService {
   public bcast = {
     get: async (bcastId: string) => client.bcast.get(bcastId),
     join: async (bcastId: string) => {
-      const userId = await this.userService.userSession?.getId();
+      const userId = await this.userService.userSession?.getUserId();
       return await client.bcast.join(userId, bcastId);
     },
     insert: async (bcast: Partial<IBcast>) => {
-      const userId = await this.userService.userSession?.getId();
+      const userId = await this.userService.userSession?.getUserId();
       return await client.bcast.insert(userId, bcast);
     }
   }
