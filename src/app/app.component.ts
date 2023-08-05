@@ -9,6 +9,7 @@ import { Platform, IonRouterOutlet } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { LoaderService } from 'src/services/loader.service';
 import { DataService } from 'src/services/data.service';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,11 @@ export class AppComponent {
     private authService: AuthService,
     private platform: Platform) { 
       this.platform.backButton.subscribeWithPriority(-1, () => {
-          this.location.back();
+          // this.location.back();
+          if (this.router.url === '/bcast/list') {
+            App.exitApp();
+          }
+          this.router.navigate(['bcast', 'list']);
       });
     }
 

@@ -7,6 +7,7 @@
     </div>
 
     <ion-card-content>
+
       <ion-card-subtitle color="primary">
         <ion-icon name="calendar"></ion-icon>
         {{ listedBcast?.expiresAt | date : dateFns.formatString() }}
@@ -39,10 +40,14 @@
         <ion-text color="warning" *ngIf="!listedBcast?.joined && seatsLeft">
           {{ seatsLeft }} seats left
         </ion-text>
-        <ion-text color="danger" *ngIf="seatsLeft === 0">
+      </div>
+
+      <div *ngIf="seatsLeft === 0 && !listedBcast.joined">
+        <ion-text color="danger">
           No seats left
         </ion-text>
       </div>
+
     </ion-card-content>
   </div>
 
