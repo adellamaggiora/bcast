@@ -17,12 +17,20 @@
         <ion-input type="password" formControlName="confirmPassword"></ion-input>
       </ion-item>
     </ion-list>
-    <ion-button expand="block" (click)="doRegister()" [disabled]="formValidator.formButtonDisabled">Register</ion-button>
+    <ion-button expand="block" (click)="doRegister()"
+      [disabled]="formValidator.formButtonDisabled">Register</ion-button>
     <p class="ion-text-center">Already have an account? <a (click)="toggleRegister()">Login</a></p>
   </div>
 
   <div *ngIf="!isRegistering">
-    <ion-button expand="block" (click)="doLogin()" [disabled]="formValidator.formButtonDisabled">Login</ion-button>
-    <p class="ion-text-center">Don't have an account yet? <a (click)="toggleRegister()">Register</a></p>
+    <ion-button expand="block" (click)="doLogin()" [disabled]="formValidator.formButtonDisabled"
+    color="secondary" fill="outline" class="my-4">Login</ion-button>
+    <ion-button expand="block" (click)="doGoogleLogin()" color="tertiary" fill="outline" class="my-4">
+      Login with Google
+      <ion-icon slot="end" name="logo-google"></ion-icon>
+    </ion-button>
+    <ion-text>
+      <p>Don't have an account yet? <a (click)="toggleRegister()">Register</a></p>
+    </ion-text>
   </div>
 </form>

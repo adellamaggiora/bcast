@@ -163,7 +163,20 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
         supabase
           .auth
           .refreshSession()
-          .then(handlers.authHandler)
+          .then(handlers.authHandler),
+
+      signInWithGoogle: () => 
+        supabase
+        .auth
+        .signInWithOAuth({
+          provider: "google",
+          options: {
+            queryParams: {
+              access_type: 'offline',
+              prompt: 'consent',
+            }
+          }
+        })
     }
 
   }
