@@ -1,9 +1,42 @@
-<ion-card *ngIf="bcastDetail" class="ion-padding">
-  <ion-card-header>
-    <ion-card-title>
-      Broadcast card detail
-    </ion-card-title>
+<div *ngIf="bcastDetail" class="ion-padding">
+  <!-- bcast image -->
+  <img [src]="imageSrc" alt="Immagine del broadcast" />
+
+  <!-- HEADER -->
+  <ion-card-header class="pb-1">
+    <!-- bcast title -->
+    <ion-text>
+      <h1>
+        {{ bcastDetail.title }}
+      </h1>
+    </ion-text>
+
+    <!-- bcast expires at -->
+    <ion-text color="primary">
+      <h2>
+        <ion-icon name="calendar"></ion-icon>
+        {{ bcastDetail.expiresAt | date : dateFns.formatString() }}
+      </h2>
+    </ion-text>
+
+    <!-- bcast location -->
+    <ion-text>
+      <h2>
+        <ion-icon name="rocket"></ion-icon>
+        {{ bcastDetail.distMeters | metersToKm | number : "1.0-1" }} Km
+      </h2>
+    </ion-text>
   </ion-card-header>
-  <ion-button (click)="onChatClick()" *ngIf="bcastDetail.joined">Chat</ion-button>
-  <ion-button (click)="onJoinClick()" *ngIf="!bcastDetail.joined">Join</ion-button>
-</ion-card>
+
+  <!-- CONTENT -->
+  <ion-card-content>
+    <p>Descrizione</p>
+    <p>{{ bcastDetail.content }}</p>
+  </ion-card-content>
+  <ion-button (click)="onChatClick()" *ngIf="bcastDetail.joined"
+    >Chat</ion-button
+  >
+  <ion-button (click)="onJoinClick()" *ngIf="!bcastDetail.joined"
+    >Join</ion-button
+  >
+</div>
