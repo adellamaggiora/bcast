@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import dateFns from 'src/functions/date-fns';
 import { IBcastDetail } from 'src/interfaces/bcast-detail';
-
 @Component({
   selector: 'app-bcast-card-detail',
   templateUrl: './bcast-card-detail.component.html',
@@ -19,7 +18,9 @@ export class BcastCardDetailComponent  implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.bcastDetail)
+  }
 
   onChatClick() {
     this.chat.emit(this.bcastDetail.id);

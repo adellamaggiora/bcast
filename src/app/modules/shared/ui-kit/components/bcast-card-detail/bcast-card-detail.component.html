@@ -1,48 +1,60 @@
 <div *ngIf="bcastDetail" class="p-4">
   <!-- bcast image -->
-  <img [src]="imageSrc" alt="Immagine del broadcast" class="pb-4" />
+  <img [src]="imageSrc" alt="Immagine del broadcast" class="mb-3" />
 
   <!-- bcast title -->
-  <h1>
-    <ion-text>
-      {{ bcastDetail.title }}
-    </ion-text>
-  </h1>
+  <div class="fs-1 mb-3">
+    {{ bcastDetail.title }}
+  </div>
 
   <!-- bcast expires at -->
-  <div>
-    <ion-text color="primary">
-      <ion-icon name="calendar"></ion-icon>
-      {{ bcastDetail.expiresAt | date : dateFns.formatString() }}
-    </ion-text>
+  <div class="fs-6">
+    <ion-icon name="calendar"></ion-icon>
+    {{ bcastDetail.expiresAt | date : dateFns.formatString() }}
+  </div>
+
+  <!-- bcast location -->
+  <div class="fs-6 mb-2">
+    <ion-icon name="rocket"></ion-icon>
+    {{ bcastDetail.distMeters | metersToKm | number : "1.0-1" }} Km
+  </div>
+
+  <div class="mb-3">
+    <ng-container *ngFor="let tag of bcastDetail?.tag">
+      <ion-chip
+        color="secondary"
+        [outline]="true"
+        class="m-0 me-1"
+        >{{ tag }}</ion-chip
+      >
+    </ng-container>
   </div>
 
 
-  <!-- bcast location -->
-  <div class="pb-4">
-    <ion-text>
-      <ion-icon name="rocket"></ion-icon>
-      {{ bcastDetail.distMeters | metersToKm | number : "1.0-1" }} Km
-    </ion-text>
+  <div class="fs-6 fw-bold lh-sm"> Descrizione </div>
+  <div class="mb-3">{{ bcastDetail.content }}</div>
+
+  <div class="mb-3">
+    <app-map-preview
+    [position]="bcastDetail.location"
+  ></app-map-preview>
   </div>
 
 
   <!-- CONTENT -->
-  <b>
-    <ion-text> Descrizione </ion-text>
-  </b>
-  <p>{{ bcastDetail.content }}</p>
 
   <ion-button
     (click)="onChatClick()"
     *ngIf="bcastDetail.joined"
-    style="width: 100%"
+    expand="block"
+    size="large"
     >Chat</ion-button
   >
   <ion-button
     (click)="onJoinClick()"
     *ngIf="!bcastDetail.joined"
-    style="width: 100%"
+    expand="block"
+    size="large"
     >Join</ion-button
   >
 </div>
