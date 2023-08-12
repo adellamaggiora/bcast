@@ -32,4 +32,8 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 
+  public googleLogin() {
+    return client.auth.signInWithGoogle();
+  }
+
 }

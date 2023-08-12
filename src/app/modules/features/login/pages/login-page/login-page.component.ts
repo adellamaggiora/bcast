@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import client from 'src/api/client';
 import { AuthService } from 'src/services/auth.service';
+
 
 @Component({
   selector: 'app-login-page',
@@ -38,9 +38,8 @@ export class LoginPageComponent {
 
   async onOauthLogin(evt: 'google' | 'facebook') {
     if (evt === 'google') {
-      const { data, error } = await client.auth.signInWithGoogle();  
-    }
-    
+      await this.authService.googleLogin();
+    }    
   }
 
 }

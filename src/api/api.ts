@@ -1,4 +1,4 @@
-import { SupabaseClient } from "@supabase/supabase-js";
+import { Session, SupabaseClient } from "@supabase/supabase-js";
 import { utilsFns } from "src/functions/utils-fns";
 import { IBcast } from "src/interfaces/bcast";
 import { IGeoLocation } from "src/interfaces/geo-location";
@@ -159,10 +159,16 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
           .auth.signUp(signUp)
           .then(handlers.authHandler),
       
-      refresh: () => 
+      refreshSession: () => 
         supabase
           .auth
           .refreshSession()
+          .then(handlers.authHandler),
+
+      setSession: (session: Session | null) => 
+        supabase
+          .auth
+          .setSession(session)
           .then(handlers.authHandler),
 
       signInWithGoogle: () => 
@@ -173,8 +179,9 @@ const api = (init = false) => (supabase: SupabaseClient<any, "public", any>) => 
           options: {
             queryParams: {
               access_type: 'offline',
-              prompt: 'consent',
-            }
+              prompt: 'consent'
+            },
+            redirectTo: 'https://it.wikipedia.org'
           }
         })
     }
