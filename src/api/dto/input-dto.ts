@@ -5,9 +5,7 @@ import { IMessage } from "src/interfaces/message";
 import { IRawBcast } from "src/interfaces/raw/raw-bcast";
 import { IRawListedBcast } from "src/interfaces/raw/raw-listed-bcast";
 import { IRawMessage } from "src/interfaces/raw/raw-message";
-import { IRawUserAuth } from "src/interfaces/raw/raw-user-auth";
 import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
-import { UserAuth } from "src/interfaces/user-auth";
 import { IUserInfo } from "src/interfaces/user-info";
 
 
@@ -62,15 +60,9 @@ const buildMessage = (rawMessage: IRawMessage): IMessage => {
   }
 };
 
-const buildUserAuth = (rawUserInfo: IRawUserAuth): UserAuth => {
-  return rawUserInfo;
-}
-
-
 export default {
   buildBcast,
   buildUserInfo,
   buildMessage,
-  buildUserAuth,
   buildListedBcast
 }

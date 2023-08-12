@@ -1,16 +1,16 @@
 import { IMessage } from "src/interfaces/message";
 import { IUserInfo } from "src/interfaces/user-info";
 import inputDto from '../dto/input-dto';
-import { AuthResponse, PostgrestSingleResponse, RealtimePostgresInsertPayload, SupabaseClient } from "@supabase/supabase-js";
+import { AuthError, AuthResponse, PostgrestSingleResponse, RealtimePostgresInsertPayload, Session, SupabaseClient } from "@supabase/supabase-js";
 import { IBcast } from "src/interfaces/bcast";
 import { IListedBcast } from "src/interfaces/listed-bcast";
-import { UserAuth } from "src/interfaces/user-auth";
 import { IRawMessage } from "src/interfaces/raw/raw-message";
 import { IRawListedBcast } from "src/interfaces/raw/raw-listed-bcast";
 import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
 import { IRawBcast } from "src/interfaces/raw/raw-bcast";
 import { apiUtils } from "./api-utils";
 import { BCAST_MAIN_IMAGE_NAME } from "src/constants";
+import { error } from "console";
 
 
 const _errorHandler = (response: any) => {
@@ -95,10 +95,10 @@ const userInfoHandler = (response: PostgrestSingleResponse<IRawUserInfo[]>): IUs
     return userInfo;
 }
 
-const authHandler = (response: AuthResponse): UserAuth => {
+const authHandler = (response: AuthResponse): Session => {
     _errorHandler(response);
-    const userAuth: UserAuth = inputDto.buildUserAuth(response?.data);
-    return userAuth;
+    const session: Session = response.data.session;
+    return session;
 }
 
 const dataHasLengthHandler = (response: PostgrestSingleResponse<any>) => {
@@ -123,6 +123,10 @@ const bcastBlobHandler = (response: { data: Blob; error: any }) => {
     return response.data;
 }
 
+const signoutHandler = (response: { error: AuthError }) => {
+    _errorHandler(response);
+}
+
 
 export default {
     messageListHandler,
@@ -134,7 +138,8 @@ export default {
     dataHasLengthHandler,
     insertedBcastHandler,
     insertedImageHandler,
-    bcastBlobHandler
+    bcastBlobHandler,
+    signoutHandler
 }
 
 
