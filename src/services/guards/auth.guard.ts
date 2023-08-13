@@ -11,7 +11,7 @@ import client from 'src/api/client';
 })
 export class AuthGuard  {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private router: Router) { }
 
   private _parseFragmentUrl(fragment: string): Partial<Session> | null {
     const paramsArray = fragment?.split('&');
@@ -27,20 +27,17 @@ export class AuthGuard  {
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
 
-    console.log('auth guard triggered');
-
     const oauthUserSession = this._parseFragmentUrl(route?.fragment) as Session;
     console.log('oauthUserSession:');
     console.log(oauthUserSession);
 
-    if (oauthUserSession?.access_token) {
-      // await this.userService.userSession.set(oauthUserSession);
-      const refreshed =  await client.auth.refreshSession();
-      console.log('refreshed');
-      console.log(refreshed);
-    }
+    // if (oauthUserSession?.access_token) {
+    //   const session = await client.auth.initilaizeSession();
+    //   console.log('session');
+    //   console.log(session);
+    // }
 
-    const userSessionExists = await this.userService.userSession.get().then(utilsFns.existy);
+    const userSessionExists = client.auth.getSession().then(utilsFns.existy);
 
     console.log('user session exists');
     console.log(userSessionExists);

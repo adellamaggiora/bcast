@@ -45,18 +45,18 @@ const buildListedBcast = (rawListedBcast: IRawListedBcast, image: File): IListed
 const buildUserInfo = (rawUserInfo: IRawUserInfo): IUserInfo => {
   return {
     bcast: {
-      toGet: rawUserInfo.bcast_to_get,
-      toSend: rawUserInfo.bcast_to_send,
+      toGet: rawUserInfo?.bcast_to_get,
+      toSend: rawUserInfo?.bcast_to_send,
     }
   }
 };
 
 const buildMessage = (rawMessage: IRawMessage): IMessage => {
   return {
-    bcastId: rawMessage.bcast_id,
-    content: rawMessage.content,
-    userId: rawMessage.user_id,
-    createdAt: new Date(rawMessage.created_at),
+    bcastId: rawMessage?.bcast_id,
+    content: rawMessage?.content,
+    userId: rawMessage?.user_id,
+    createdAt: new Date(rawMessage?.created_at),
   }
 };
 

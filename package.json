@@ -21,7 +21,6 @@
     "@angular/router": "^16.1.6",
     "@capacitor/android": "5.2.2",
     "@capacitor/app": "5.0.6",
-    "@capacitor/browser": "^5.0.6",
     "@capacitor/camera": "^5.0.6",
     "@capacitor/core": "5.2.2",
     "@capacitor/geolocation": "^5.0.6",

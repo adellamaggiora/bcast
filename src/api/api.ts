@@ -169,12 +169,25 @@ const api =
             .signInWithPassword(signIn)
             .then(handlers.authHandler),
 
+        signInWithGoogle: () =>
+          supabase
+            .auth
+            .signInWithOAuth({
+              provider: "google",
+              options: {
+                queryParams: {
+                  access_type: 'offline',
+                  prompt: 'consent'
+                }
+              }
+            }),
+
         signUp: (signUp: ISignIn) =>
           supabase
             .auth.signUp(signUp)
             .then(handlers.authHandler),
 
-        signOut: () => 
+        signOut: () =>
           supabase
             .auth
             .signOut()
@@ -192,24 +205,16 @@ const api =
             .setSession(session)
             .then(handlers.authHandler),
 
-        getSession: () => 
+        getSession: () =>
           supabase
             .auth
             .getSession()
             .then(handlers.authHandler),
 
-        signInWithGoogle: () =>
+        initilaizeSession: () =>
           supabase
             .auth
-            .signInWithOAuth({
-              provider: "google",
-              // options: {
-              //   queryParams: {
-              //     access_type: 'offline',
-              //     prompt: 'consent'
-              //   }
-              // }
-            }),
+            .initialize(),
       },
     };
   };
