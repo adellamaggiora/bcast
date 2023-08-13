@@ -163,12 +163,6 @@ const api =
       },
 
       auth: {
-        signIn: (signIn: ISignIn) =>
-          supabase
-            .auth
-            .signInWithPassword(signIn)
-            .then(handlers.authHandler),
-
         signInWithGoogle: () =>
           supabase
             .auth
@@ -176,11 +170,17 @@ const api =
               provider: "google",
               options: {
                 queryParams: {
-                  access_type: 'offline',
-                  prompt: 'consent'
-                }
-              }
+                  access_type: "offline",
+                  prompt: "consent",
+                },
+              },
             }),
+
+        signIn: (signIn: ISignIn) =>
+          supabase
+            .auth
+            .signInWithPassword(signIn)
+            .then(handlers.authHandler),
 
         signUp: (signUp: ISignIn) =>
           supabase

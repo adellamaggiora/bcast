@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { UserService } from '../user.service';
 import { utilsFns } from 'src/functions/utils-fns';
-import { toast } from 'src/functions/notifiers/toast';
 import { Session } from '@supabase/supabase-js';
 import client from 'src/api/client';
 
@@ -31,19 +29,12 @@ export class AuthGuard  {
     console.log('oauthUserSession:');
     console.log(oauthUserSession);
 
-    // if (oauthUserSession?.access_token) {
-    //   const session = await client.auth.initilaizeSession();
-    //   console.log('session');
-    //   console.log(session);
-    // }
-
-    const userSessionExists = client.auth.getSession().then(utilsFns.existy);
+    const userSessionExists = await client.auth.getSession().then(utilsFns.existy);
 
     console.log('user session exists');
     console.log(userSessionExists);
 
     if (!userSessionExists) {
-      toast.warning(`User is not allowed to the route`);
       this.router.navigate(['login']);
     }
     return userSessionExists;
