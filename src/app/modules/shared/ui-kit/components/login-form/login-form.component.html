@@ -25,10 +25,10 @@
   <div *ngIf="!isRegistering">
     <ion-button expand="block" (click)="doLogin()" [disabled]="formValidator.formButtonDisabled"
     color="secondary" fill="outline" class="my-4">Login</ion-button>
-    <!--ion-button expand="block" (click)="doGoogleLogin()" color="tertiary" fill="outline" class="my-4">
+    <ion-button expand="block" (click)="doGoogleLogin()" color="tertiary" fill="outline" class="my-4">
       Login with Google
       <ion-icon slot="end" name="logo-google"></ion-icon>
-    </ion-button-->
+    </ion-button>
     <ion-text>
       <p>Don't have an account yet? <a (click)="toggleRegister()">Register</a></p>
     </ion-text>
