@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'src/services/auth.service';
 
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -33,6 +34,12 @@ export class LoginPageComponent {
 
   toggleRegister() {
     this.isRegistering = !this.isRegistering;
+  }
+
+  async onOauthLogin(evt: 'google' | 'facebook') {
+    if (evt === 'google') {
+      await this.authService.googleLogin();
+    }    
   }
 
 }

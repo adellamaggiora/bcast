@@ -19,6 +19,8 @@ export class ProfileComponent implements OnInit {
 
   async readUserSession() {
     this.userSession = await this.userService.userSession.get();
+    console.log('user session:');
+    console.log(this.userSession);
   }
 
   async save() {
