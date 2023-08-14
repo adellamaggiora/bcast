@@ -21,6 +21,7 @@ const buildBcast = (rawBcast: IRawBcast, image: File): IBcast => {
     content: rawBcast?.content,
     title: rawBcast?.title,
     createdAt: new Date(rawBcast?.created_at),
+    hidePosition: rawBcast?.hide_position,
     image
   }
 };

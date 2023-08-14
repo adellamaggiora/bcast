@@ -19,7 +19,8 @@ const buildRawBcast = (userId: string, bcast: Partial<IBcast>): Partial<IRawBcas
     tag: bcast.tag,
     title: bcast.title,
     content: bcast.content,
-    location: `POINT(${bcast.location.lng} ${bcast.location.lat})`
+    location: `POINT(${bcast.location.lng} ${bcast.location.lat})`,
+    hide_position: bcast?.hidePosition
 });
 
 const buildRawMessage = (userId: string, bcastId: string, message: IMessage): Partial<IRawMessage> => ({
