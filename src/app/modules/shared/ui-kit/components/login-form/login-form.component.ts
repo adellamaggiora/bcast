@@ -13,6 +13,7 @@ export class LoginFormComponent  implements OnInit {
   
   @Output() login = new EventEmitter<{ email: string, password: string }>();
   @Output() register = new EventEmitter<{ email: string, password: string }>();
+  @Output() oauthLogin = new EventEmitter<'google' | 'facebook'>(null);
 
   constructor() { }
 
@@ -32,6 +33,10 @@ export class LoginFormComponent  implements OnInit {
   doRegister() {
     const credentials = this.formValidator.getCredentials();
     this.register.emit(credentials);
+  }
+
+  doGoogleLogin() {
+    this.oauthLogin.emit('google');
   }
 
 }

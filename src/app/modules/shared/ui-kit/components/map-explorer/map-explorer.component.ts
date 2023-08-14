@@ -21,6 +21,7 @@ export class MapExplorerComponent implements AfterViewInit {
       await this.initMap(currentLocation);
     } catch (error) {
       window.alert(`Cannot get GeoLocation`);
+      window.alert(error);
     }
   }
 
@@ -50,7 +51,7 @@ export class MapExplorerComponent implements AfterViewInit {
   }
 
   centerMap(location: IGeoLocation) {
-    this.map.setView({ lat: location.lat, lng: location.lng }, 12);
+    this.map.setView({ lat: location.lat, lng: location.lng }, 14);
   }
 
 }

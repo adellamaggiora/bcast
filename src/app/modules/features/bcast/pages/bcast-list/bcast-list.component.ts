@@ -52,6 +52,12 @@ export class BcastListComponent implements OnInit {
 
   onBcastCardClick(listedBcast: IListedBcast) {
     this.dataService.selectedListedBcast.set(listedBcast);
+    // if (listedBcast.joined) {
+    //   this.router.navigate(['bcast', 'chat', listedBcast.id]);
+    // }
+    // else {      
+    //   this.router.navigate(['bcast', 'detail', listedBcast.id]);
+    // }
     this.router.navigate(['bcast', 'detail', listedBcast.id]);
   }
   

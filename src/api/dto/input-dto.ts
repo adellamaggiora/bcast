@@ -5,9 +5,7 @@ import { IMessage } from "src/interfaces/message";
 import { IRawBcast } from "src/interfaces/raw/raw-bcast";
 import { IRawListedBcast } from "src/interfaces/raw/raw-listed-bcast";
 import { IRawMessage } from "src/interfaces/raw/raw-message";
-import { IRawUserAuth } from "src/interfaces/raw/raw-user-auth";
 import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
-import { UserAuth } from "src/interfaces/user-auth";
 import { IUserInfo } from "src/interfaces/user-info";
 
 
@@ -23,6 +21,7 @@ const buildBcast = (rawBcast: IRawBcast, image: File): IBcast => {
     content: rawBcast?.content,
     title: rawBcast?.title,
     createdAt: new Date(rawBcast?.created_at),
+    hidePosition: rawBcast?.hide_position,
     image
   }
 };
@@ -47,30 +46,24 @@ const buildListedBcast = (rawListedBcast: IRawListedBcast, image: File): IListed
 const buildUserInfo = (rawUserInfo: IRawUserInfo): IUserInfo => {
   return {
     bcast: {
-      toGet: rawUserInfo.bcast_to_get,
-      toSend: rawUserInfo.bcast_to_send,
+      toGet: rawUserInfo?.bcast_to_get,
+      toSend: rawUserInfo?.bcast_to_send,
     }
   }
 };
 
 const buildMessage = (rawMessage: IRawMessage): IMessage => {
   return {
-    bcastId: rawMessage.bcast_id,
-    content: rawMessage.content,
-    userId: rawMessage.user_id,
-    createdAt: new Date(rawMessage.created_at),
+    bcastId: rawMessage?.bcast_id,
+    content: rawMessage?.content,
+    userId: rawMessage?.user_id,
+    createdAt: new Date(rawMessage?.created_at),
   }
 };
-
-const buildUserAuth = (rawUserInfo: IRawUserAuth): UserAuth => {
-  return rawUserInfo;
-}
-
 
 export default {
   buildBcast,
   buildUserInfo,
   buildMessage,
-  buildUserAuth,
   buildListedBcast
 }

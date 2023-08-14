@@ -9,5 +9,6 @@ export interface IRawBcast {
   explicit: boolean;
   location: string;
   max_users: number;
+  hide_position: boolean;
 }
 

@@ -11,4 +11,5 @@ export interface IBcast {
     image: File;
     createdAt: Date;
     content: string;
+    hidePosition: boolean;
 }
