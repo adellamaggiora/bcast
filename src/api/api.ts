@@ -41,12 +41,19 @@ const api =
           return insertedBcastId;
         },
 
-        get: (id: string) =>
+        getDetail: (
+          userId: string,
+          bcastId: string,
+          location: IGeoLocation,
+        ) =>
           supabase
-            .from("bcast")
-            .select("*")
-            .eq("id", id)
-            .then(handlers.bcastHandler(supabase)),
+            .rpc("bcast_detail", {
+              p_user_id: userId,
+              p_bcast_id: bcastId,
+              p_lng: location.lng,
+              p_lat: location.lat,
+            })
+            .then(handlers.bcastDetailHandler(supabase)),
 
         getList: (
           userId: string,

@@ -63,7 +63,6 @@ export class BcastListComponent implements OnInit {
   }
 
   onBcastCardClick(listedBcast: IListedBcast) {
-    this.dataService.selectedListedBcast.set(listedBcast);
 
     // @todo attivare la navigazione diretta sulla chat se è già stato fatto il join?
     // al momento viene sempre fatta la navigazione sul dettaglio del bcast.

@@ -1,11 +1,10 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { IBcastDetail } from "src/interfaces/bcast-detail";
-import { IListedBcast } from "src/interfaces/listed-bcast";
 import { BcastService } from "src/services/bcast.service";
-import { DataService } from "src/services/data.service";
-import { Location } from "@angular/common";
 import { LoaderService } from "src/services/loader.service";
+import { ActivatedRoute } from "@angular/router";
+import { Geolocation } from "@capacitor/geolocation";
 
 @Component({
   selector: "app-bcast-detail",
@@ -18,30 +17,28 @@ export class BcastDetailComponent {
   constructor(
     private bcastService: BcastService,
     private router: Router,
-    private dataService: DataService,
-    private location: Location,
     private loader: LoaderService,
+    private route: ActivatedRoute,
   ) {}
 
   async ionViewWillEnter() {
     this.loader.show("Loading braodcast...");
-    try {
-      const selectedListedBcast: IListedBcast = this.dataService.selectedListedBcast.get();
-      if (selectedListedBcast) {
-        const { joined, distMeters, id } = selectedListedBcast;
-        const bcast = await this.bcastService.bcast.get(id);
-        this.bcastDetail = { ...bcast, joined, distMeters };
-      } else {
-        this.location.back();
-      }
-    } catch (error) {
-      this.loader.hide();
-    }
-    this.loader.hide();
-  }
 
-  ionViewDidLeave() {
-    this.dataService.selectedListedBcast.set(null);
+    this.route.params.subscribe(async (params) => {
+      try {
+        const bcastId = params["id"];
+        const coordinates = await Geolocation.getCurrentPosition();
+        const { latitude, longitude } = coordinates.coords;
+        this.bcastDetail = await this.bcastService.bcast.getDetail(bcastId, {
+          lng: longitude,
+          lat: latitude,
+        });
+      } catch (error) {
+        window.alert(error);
+      } finally {
+        this.loader.hide();
+      }
+    });
   }
 
   onChat(bcastId: string) {

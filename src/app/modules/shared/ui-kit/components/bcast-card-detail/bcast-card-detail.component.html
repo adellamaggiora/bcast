@@ -34,7 +34,7 @@
   <div class="fs-6 fw-bold lh-sm"> Descrizione </div>
   <div class="mb-3">{{ bcastDetail.content }}</div>
 
-  <div class="mb-3">
+  <div class="mb-3" *ngIf="bcastDetail?.location">
     <app-map-preview
     [position]="bcastDetail.location"
   ></app-map-preview>

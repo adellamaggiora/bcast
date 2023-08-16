@@ -29,7 +29,10 @@ export class BcastService {
   }
 
   public bcast = {
-    get: async (bcastId: string) => client.bcast.get(bcastId),
+    getDetail: async (bcastId: string, location: IGeoLocation) => {
+      const userId = await this.userService.userSession?.getUserId();
+      return await client.bcast.getDetail(userId, bcastId, location);
+    },
     join: async (bcastId: string) => {
       const userId = await this.userService.userSession?.getUserId();
       return await client.bcast.join(userId, bcastId);
