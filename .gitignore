@@ -68,4 +68,8 @@ testem.log
 Thumbs.db
 
 # Compiled native code
-android
+
+/android/*
+!/android/app/src/main/
+/android/app/src/main/*
+!/android/app/src/main/AndroidManifest.xml
