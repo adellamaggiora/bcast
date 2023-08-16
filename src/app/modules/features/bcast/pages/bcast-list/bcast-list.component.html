@@ -13,7 +13,12 @@
             </app-bcast-card-list>
         </div>
     </ng-container>
-    <ng-container *ngIf="!(bcastService.bcastList.get$() | async)?.length">
+
+    <ng-container *ngIf="!(bcastService.bcastList.get$() | async)?.length && isLoading">
+        @todo add skeleton
+    </ng-container>
+
+    <ng-container *ngIf="!(bcastService.bcastList.get$() | async)?.length && !isLoading">
         <ion-text class="ion-padding">
             <h2>No braodcast match this area</h2>
         </ion-text>
