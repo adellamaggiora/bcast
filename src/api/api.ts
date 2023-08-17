@@ -102,7 +102,7 @@ const api =
       },
 
       message: {
-        get: (bcastId: string, limit = 50, offset = 0) =>
+        getAll: (bcastId: string, limit = 50, offset = 0) =>
           supabase
             .from("message")
             .select("*")

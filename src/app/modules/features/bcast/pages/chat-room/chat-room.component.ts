@@ -31,7 +31,7 @@ export class ChatRoomComponent {
   async ngAfterViewInit() {
     this.userId = await this.userService.userSession.getUserId();
     this.bcastId = this.route.snapshot.paramMap.get("id");
-    this.messages = await this.chatService.message.get(this.bcastId);
+    this.messages = await this.chatService.message.getAll(this.bcastId);
     this.chatService.message.listen(this.bcastId)
       .subscribe((message) => {
         this.messages.push(message);
@@ -49,7 +49,7 @@ export class ChatRoomComponent {
   scrollToBottom() {
     setTimeout(() => {
       this.chatContainer.scrollToBottom(100);
-    }, 200);
+    }, 300);
   }
 
   sendMessage() {

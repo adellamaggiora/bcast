@@ -3,6 +3,7 @@ import client from "src/api/client";
 import { UserService } from "./user.service";
 import { IMessage } from "src/interfaces/message";
 import { Observable } from "rxjs";
+import { utilsFns } from "src/functions/utils-fns";
 
 @Injectable({
   providedIn: "root",
@@ -43,13 +44,14 @@ export class ChatService {
         });
       });
     },
-    get: (bcastId: string) => client.message.get(bcastId).then(async messages => {
+    getAll: (bcastId: string) => client.message.getAll(bcastId).then(async messages => {
       for (const message of messages) {
         const { bcastId, userId } = message;
         await this._cacheUsername(bcastId, userId); 
       }
       return messages;
     }),
-    getUsername: (bcastId: string, userId: string) => this._cache.get(bcastId)?.get(userId)
+    getUsername: (bcastId: string, userId: string) => this._cache.get(bcastId)?.get(userId),
+    getUserColor: (userId: string) => utilsFns.generateUniqueColorHex(userId)
   };
 }

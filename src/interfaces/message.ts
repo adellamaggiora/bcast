@@ -3,4 +3,6 @@ export interface IMessage {
     userId: string;
     bcastId: string;
     content: string;
+    username?: string;
+    usernameColorHex?: string;
   }
