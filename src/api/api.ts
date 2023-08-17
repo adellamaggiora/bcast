@@ -108,13 +108,6 @@ const api =
             .select("*")
             .eq("bcast_id", bcastId)
             .range(offset, offset + limit)
-            .then((_) => {
-              console.log(
-                `@todo IMPORTANT::check if metadata from pagination is present`,
-              );
-              console.log(_);
-              return _;
-            })
             .then(handlers.messageListHandler),
 
         insert: (userId: string, bcastId: string, content: string) =>
@@ -137,7 +130,6 @@ const api =
               },
               (data) => {
                 const message = handlers.messageInsertedHandler(data);
-                console.log(message);
                 cb(message);
               },
             )

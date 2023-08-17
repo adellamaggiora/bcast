@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IonContent } from '@ionic/angular';
+import { delay } from 'rxjs';
 import dateFns from 'src/functions/date-fns';
 import { IMessage } from 'src/interfaces/message';
 import { ChatService } from 'src/services/chat.service';
@@ -10,7 +12,7 @@ import { UserService } from 'src/services/user.service';
   templateUrl: './chat-room.component.html',
   styleUrls: ['./chat-room.component.scss'],
 })
-export class ChatRoomComponent implements OnInit {
+export class ChatRoomComponent {
 
   message: string = '';
   messages: IMessage[];
@@ -18,14 +20,30 @@ export class ChatRoomComponent implements OnInit {
   userId: string;
   dateFns = dateFns;
 
-  constructor(private route: ActivatedRoute, private chatService: ChatService, private userService: UserService) { }
+  @ViewChild('chatContainer') private chatContainer: IonContent;
 
-  async ngOnInit() {
+  constructor(
+    private route: ActivatedRoute, 
+    private chatService: ChatService, 
+    private userService: UserService
+    ) { }
+
+  async ngAfterViewInit() {
     this.userId = await this.userService.userSession.getUserId();
     this.bcastId = this.route.snapshot.paramMap.get('id');
     this.messages = await this.chatService.message.get(this.bcastId);
     this.chatService.message.listen(this.bcastId)
-      .subscribe(message => this.messages.push(message))
+      .subscribe(message => {
+        this.messages.push(message);
+        this.scrollToBottom();
+      });
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      this.chatContainer.scrollToBottom(100);
+    }, 200)    
   }
 
   sendMessage() {
@@ -40,5 +58,6 @@ export class ChatRoomComponent implements OnInit {
   isMyMessage(message: IMessage) {
     return message.userId === this.userId;
   }
+
 
 }

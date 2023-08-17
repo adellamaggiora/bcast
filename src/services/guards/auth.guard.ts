@@ -25,14 +25,14 @@ export class AuthGuard  {
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
 
-    const oauthUserSession = this._parseFragmentUrl(route?.fragment) as Session;
-    console.log('oauthUserSession:');
-    console.log(oauthUserSession);
+    // const oauthUserSession = this._parseFragmentUrl(route?.fragment) as Session;
+    // console.log('oauthUserSession:');
+    // console.log(oauthUserSession);
 
     const userSessionExists = await client.auth.getSession().then(utilsFns.existy);
 
-    console.log('user session exists');
-    console.log(userSessionExists);
+    // console.log('user session exists');
+    // console.log(userSessionExists);
 
     if (!userSessionExists) {
       this.router.navigate(['login']);
