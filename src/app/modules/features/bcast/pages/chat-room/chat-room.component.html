@@ -5,7 +5,7 @@
 
       <ion-card-header>
         <ion-text>
-          <small [style.color]="chatService.message.getUserColor(message.userId)">
+          <small [style.color]="chatService.message.getUserColor(message.bcastId, message.userId)">
             {{ chatService.message.getUsername(message.bcastId, message.userId) }}
           </small>
           <small>

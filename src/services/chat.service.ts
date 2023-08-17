@@ -10,7 +10,7 @@ import { utilsFns } from "src/functions/utils-fns";
 })
 export class ChatService {
   // usernames caching
-  private _cache: Map<string, Map<string, string>> = new Map(); //{ [bcastId: string]: { [userId: string]: string } } = {};
+  private _cache: Map<string, Map<string, { username: string, usernameColorHex: string }>> = new Map(); //{ [bcastId: string]: { [userId: string]: string } } = {};
 
   constructor(private userService: UserService) {}
 
@@ -20,13 +20,15 @@ export class ChatService {
       if (!existingMap.has(userId)) {
         console.log('fetching username');
         const username = await client.userInfo.getUsername(userId);
-        existingMap.set(userId, username);
+        const usernameColorHex = utilsFns.generateUniqueColorHex(userId);
+        existingMap.set(userId, { username, usernameColorHex });
       }
     }
     else {
       console.log('fetching username');
       const username = await client.userInfo.getUsername(userId);
-      const map = new Map([ [userId, username] ]);
+      const usernameColorHex = utilsFns.generateUniqueColorHex(userId);
+      const map = new Map([ [userId, { username, usernameColorHex }] ]);
       this._cache.set(bcastId, map);
     }
   }
@@ -51,7 +53,7 @@ export class ChatService {
       }
       return messages;
     }),
-    getUsername: (bcastId: string, userId: string) => this._cache.get(bcastId)?.get(userId),
-    getUserColor: (userId: string) => utilsFns.generateUniqueColorHex(userId)
+    getUsername: (bcastId: string, userId: string) => this._cache.get(bcastId)?.get(userId)?.username,
+    getUserColor: (bcastId: string, userId: string) => this._cache.get(bcastId)?.get(userId)?.usernameColorHex
   };
 }
