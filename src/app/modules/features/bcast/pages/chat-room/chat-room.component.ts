@@ -24,8 +24,8 @@ export class ChatRoomComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private chatService: ChatService,
     private userService: UserService,
+    public chatService: ChatService
   ) {}
 
   async ngAfterViewInit() {

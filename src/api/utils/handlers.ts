@@ -160,6 +160,12 @@ const signoutHandler = (response: { error: AuthError }) => {
   _errorHandler(response);
 };
 
+const usernameHandler = (response: PostgrestSingleResponse<{ username: string }[]>) => {
+  _errorHandler(response);
+  const username = response.data?.at(0)?.username || 'Unkown username';
+  return username
+}
+
 export default {
   messageListHandler,
   messageInsertedHandler,
@@ -172,4 +178,5 @@ export default {
   insertedImageHandler,
   bcastBlobHandler,
   signoutHandler,
+  usernameHandler
 };

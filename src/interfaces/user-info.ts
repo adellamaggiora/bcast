@@ -1,5 +1,6 @@
 export interface IUserInfo {
-    bcast: {
+    username: string;
+    readonly bcast: {
         toGet: number
         toSend: number
     }

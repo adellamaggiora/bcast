@@ -6,20 +6,19 @@ import { IRawUserInfo } from "src/interfaces/raw/raw-user-info";
 import { IUserInfo } from "src/interfaces/user-info";
 
 
-const buildRawUserInfo = (userId: string, userInfo: Partial<IUserInfo> ): IRawUserInfo => ({
+const buildRawUserInfo = (userId: string, userInfo: Partial<IUserInfo> ): Partial<IRawUserInfo> => ({
     id: userId,
-    bcast_to_get: userInfo?.bcast?.toGet || 0,
-    bcast_to_send: userInfo?.bcast?.toSend || 0
+    username: userInfo?.username
 });
 
 const buildRawBcast = (userId: string, bcast: Partial<IBcast>): Partial<IRawBcast> => ({
     user_id: userId,
-    expires_at: new Date(bcast.expiresAt),
-    max_users: bcast.maxUsers,
-    tag: bcast.tag,
-    title: bcast.title,
-    content: bcast.content,
-    location: `POINT(${bcast.location.lng} ${bcast.location.lat})`,
+    expires_at: new Date(bcast?.expiresAt),
+    max_users: bcast?.maxUsers,
+    tag: bcast?.tag,
+    title: bcast?.title,
+    content: bcast?.content,
+    location: `POINT(${bcast?.location.lng} ${bcast?.location.lat})`,
     hide_position: bcast?.hidePosition
 });
 

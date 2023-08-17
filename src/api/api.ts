@@ -144,21 +144,12 @@ const api =
             .eq("id", userId)
             .then(handlers.userInfoHandler),
 
-        insert: (userId: string, userInfo: IUserInfo) => {
-          const rawUserInfo = outputDto.buildRawUserInfo(userId, userInfo);
-          return supabase
+        getUsername: (userId: string) =>
+          supabase
             .from("user_info")
-            .insert(rawUserInfo);
-        },
-
-        update: (userId: string, userInfo: Partial<IUserInfo>) => {
-          const rawUserInfo = outputDto.buildRawUserInfo(userId, userInfo);
-          const obj = utilsFns.removeUndefinedOrNullProps(rawUserInfo);
-          return supabase
-            .from("user_info")
-            .update(obj)
-            .eq("id", userId);
-        },
+            .select("username")
+            .eq('id', userId)
+            .then(handlers.usernameHandler)
       },
 
       auth: {
