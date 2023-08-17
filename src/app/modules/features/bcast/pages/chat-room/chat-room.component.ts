@@ -1,49 +1,55 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { IonContent } from '@ionic/angular';
-import { delay } from 'rxjs';
-import dateFns from 'src/functions/date-fns';
-import { IMessage } from 'src/interfaces/message';
-import { ChatService } from 'src/services/chat.service';
-import { UserService } from 'src/services/user.service';
+import { Component, ViewChild } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { IonContent } from "@ionic/angular";
+import dateFns from "src/functions/date-fns";
+import { IMessage } from "src/interfaces/message";
+import { ChatService } from "src/services/chat.service";
+import { UserService } from "src/services/user.service";
+import { Keyboard } from "@capacitor/keyboard";
 
 @Component({
-  selector: 'app-chat-room',
-  templateUrl: './chat-room.component.html',
-  styleUrls: ['./chat-room.component.scss'],
+  selector: "app-chat-room",
+  templateUrl: "./chat-room.component.html",
+  styleUrls: ["./chat-room.component.scss"],
 })
 export class ChatRoomComponent {
-
-  message: string = '';
+  message: string = "";
   messages: IMessage[];
   bcastId: string;
   userId: string;
   dateFns = dateFns;
 
-  @ViewChild('chatContainer') private chatContainer: IonContent;
+  @ViewChild("chatContainer")
+  private chatContainer: IonContent;
 
   constructor(
-    private route: ActivatedRoute, 
-    private chatService: ChatService, 
-    private userService: UserService
-    ) { }
+    private route: ActivatedRoute,
+    private chatService: ChatService,
+    private userService: UserService,
+  ) {}
 
   async ngAfterViewInit() {
     this.userId = await this.userService.userSession.getUserId();
-    this.bcastId = this.route.snapshot.paramMap.get('id');
+    this.bcastId = this.route.snapshot.paramMap.get("id");
     this.messages = await this.chatService.message.get(this.bcastId);
     this.chatService.message.listen(this.bcastId)
-      .subscribe(message => {
+      .subscribe((message) => {
         this.messages.push(message);
         this.scrollToBottom();
       });
+    Keyboard.addListener("keyboardDidShow", (info) => {
+      this.scrollToBottom();
+    });
+    Keyboard.addListener("keyboardDidHide", () => {
+      this.scrollToBottom();
+    });
     this.scrollToBottom();
   }
 
   scrollToBottom() {
     setTimeout(() => {
       this.chatContainer.scrollToBottom(100);
-    }, 200)    
+    }, 200);
   }
 
   sendMessage() {
@@ -52,12 +58,10 @@ export class ChatRoomComponent {
   }
 
   clearMessage() {
-    this.message = '';
+    this.message = "";
   }
 
   isMyMessage(message: IMessage) {
     return message.userId === this.userId;
   }
-
-
 }
