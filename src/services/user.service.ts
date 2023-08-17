@@ -9,13 +9,10 @@ import { utilsFns } from "src/functions/utils-fns";
 })
 export class UserService {
 
-  private _userInfo$ = new BehaviorSubject<IUserInfo>(null);
-
   private async _init() {
     const currentSession = await client.auth.getSession();
     if (currentSession) {
-      await client.auth.refreshSession();;
-      await this.userInfo.fetch();
+      await client.auth.refreshSession();
     }
   }
 
@@ -24,18 +21,15 @@ export class UserService {
   }
 
   public userInfo = {
-    get$: (): Observable<IUserInfo> =>
-      this._userInfo$.asObservable()
-        .pipe(
-          share(),
-          filter(utilsFns.existy),
-        ),
-    get: () => this._userInfo$.getValue(),
-    fetch: async () => {
-      const userId = await client.auth.getSession().then((session) => session.user.id);
+    get: async () => {
+      const userId = await this.userSession.getUserId();
       const userInfo = await client.userInfo.get(userId);
-      this._userInfo$.next(userInfo);
+      return userInfo;
     },
+    setUsername: async (username: string) => {
+      const userId = await this.userSession.getUserId();
+      await client.userInfo.setUsername(userId, username);
+    }
   };
 
   public userSession = {

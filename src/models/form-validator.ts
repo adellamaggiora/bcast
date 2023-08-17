@@ -14,4 +14,8 @@ export class FormValidator {
 
     constructor() { }
 
+    getFormControlValue(formControlName: string) {
+        return this._formGroup.controls[formControlName]?.value;
+    }
+
 }

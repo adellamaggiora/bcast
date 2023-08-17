@@ -1,8 +1,15 @@
-<ion-list>
-  <ion-item>
-    <ion-label>Email: </ion-label>
-    <ion-label color="primary">{{ userSession?.user?.email }}</ion-label>
-  </ion-item>
-</ion-list>
+<ng-container *ngIf="formValidator?.formGroup" [formGroup]="formValidator.formGroup">
+  <ion-list>
+    <ion-item>
+      <ion-label>Email: </ion-label>
+      <ion-label color="primary">{{ userSession?.user?.email }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Name: </ion-label>
+      <ion-input color="primary" formControlName="username" slot="end"></ion-input>
+      <span slot="error">Name must be between 2 and 16 characters</span>
+    </ion-item>
+  </ion-list>
 
-<!--ion-button (click)="save()"> Save </ion-button-->
+  <ion-button (click)="save()" [disabled]="formValidator.formButtonDisabled"> Save </ion-button>
+</ng-container>

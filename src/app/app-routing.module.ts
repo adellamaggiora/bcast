@@ -18,6 +18,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'chat',
+    loadChildren: () => import('./modules/features/chat/chat.module').then( m => m.ChatModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'profile',
     loadChildren: () => import('./modules/features/profile/profile.module').then( m => m.ProfileModule),
     canActivate: [AuthGuard]

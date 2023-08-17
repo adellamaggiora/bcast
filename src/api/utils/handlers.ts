@@ -160,10 +160,14 @@ const signoutHandler = (response: { error: AuthError }) => {
   _errorHandler(response);
 };
 
-const usernameHandler = (response: PostgrestSingleResponse<{ username: string }[]>) => {
+const getUsernameHandler = (response: PostgrestSingleResponse<{ username: string }[]>) => {
   _errorHandler(response);
   const username = response.data?.at(0)?.username || 'Unkown username';
   return username
+}
+
+const setUsernameHandler = (response: PostgrestSingleResponse<null>) => {
+  _errorHandler(response);
 }
 
 export default {
@@ -178,5 +182,6 @@ export default {
   insertedImageHandler,
   bcastBlobHandler,
   signoutHandler,
-  usernameHandler
+  getUsernameHandler,
+  setUsernameHandler
 };

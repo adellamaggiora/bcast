@@ -7,7 +7,6 @@ import { BcastListComponent } from './pages/bcast-list/bcast-list.component';
 import { UiKitModule } from '../../shared/ui-kit/ui-kit.module';
 import { RouteReuseStrategy } from '@angular/router';
 import { BcastCreationComponent } from './pages/bcast-creation/bcast-creation.component';
-import { ChatRoomComponent } from './pages/chat-room/chat-room.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { BcastDetailComponent } from './pages/bcast-detail/bcast-detail.component';
@@ -18,7 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BcastComponent,
     BcastCreationComponent,
     BcastListComponent,
-    ChatRoomComponent,
     HomeComponent,
     NotificationsComponent,
     BcastDetailComponent

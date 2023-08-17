@@ -51,6 +51,6 @@ export class BcastDetailComponent {
   }
 
   navigateToChat(bcastId: string) {
-    this.router.navigate(["bcast", "chat", bcastId]);
+    this.router.navigate(["chat", bcastId]);
   }
 }

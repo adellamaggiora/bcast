@@ -68,7 +68,7 @@ export class BcastListComponent implements OnInit {
     // al momento viene sempre fatta la navigazione sul dettaglio del bcast.
 
     // if (listedBcast.joined) {
-    //   this.router.navigate(['bcast', 'chat', listedBcast.id]);
+    //   this.router.navigate(['chat', listedBcast.id]);
     // }
     // else {
     //   this.router.navigate(['bcast', 'detail', listedBcast.id]);

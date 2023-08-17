@@ -149,7 +149,14 @@ const api =
             .from("user_info")
             .select("username")
             .eq('id', userId)
-            .then(handlers.usernameHandler)
+            .then(handlers.getUsernameHandler),
+
+        setUsername: (userId: string, username: string) =>
+          supabase
+            .from("user_info")
+            .update({username: username})
+            .eq("id", userId)
+            .then(handlers.setUsernameHandler)
       },
 
       auth: {
