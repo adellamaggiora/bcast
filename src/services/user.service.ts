@@ -1,8 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, filter, Observable, share } from "rxjs";
 import client from "src/api/client";
-import { IUserInfo } from "src/interfaces/user-info";
-import { utilsFns } from "src/functions/utils-fns";
 
 @Injectable({
   providedIn: "root",

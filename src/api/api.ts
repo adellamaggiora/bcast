@@ -154,7 +154,7 @@ const api =
         setUsername: (userId: string, username: string) =>
           supabase
             .from("user_info")
-            .update({username: username})
+            .upsert({ id: userId, username: username})
             .eq("id", userId)
             .then(handlers.setUsernameHandler)
       },
