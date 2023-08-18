@@ -9,7 +9,7 @@ export class DataService {
 
   private _selectedLocation$ = new BehaviorSubject<IGeoLocation>(null);
 
-  private _refreshBcastList$ = new BehaviorSubject<boolean>(false);
+  private _refreshBcastList$ = new BehaviorSubject<boolean>(true);
 
 
   constructor() { }

@@ -21,29 +21,10 @@ const getErrorMsgFromCatchBlock = (error: any) => {
   return message;
 };
 
-const generateUniqueColorHex = (id: string): string => {
-  // Calcolo un valore hash dell'ID usando una funzione hash (ad esempio, djb2)
-  let hash = 5381;
-  for (let i = 0; i < id.length; i++) {
-    hash = (hash * 33) ^ id.charCodeAt(i);
-  }
-
-  // Estraggo i componenti R, G e B dal valore hash
-  const r = (hash >> 16) & 255;
-  const g = (hash >> 8) & 255;
-  const b = hash & 255;
-
-  // Formatto i componenti in esadecimale e li concateno
-  const colorHex = `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
-
-  return colorHex;
-}
-
 
 export const utilsFns = {
   removeUndefinedOrNullProps,
   logger,
   existy,
-  getErrorMsgFromCatchBlock,
-  generateUniqueColorHex
+  getErrorMsgFromCatchBlock
 }

@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import client from "src/api/client";
+import { ChatService } from "./chat.service";
 
 @Injectable({
   providedIn: "root",
@@ -25,7 +26,7 @@ export class UserService {
     },
     setUsername: async (username: string) => {
       const userId = await this.userSession.getUserId();
-      await client.userInfo.setUsername(userId, username);
+      await client.userInfo.setUsername(userId, username?.trim());
     }
   };
 

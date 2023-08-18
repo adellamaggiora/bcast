@@ -3,7 +3,8 @@ import client from "src/api/client";
 import { UserService } from "./user.service";
 import { IMessage } from "src/interfaces/message";
 import { Observable } from "rxjs";
-import { utilsFns } from "src/functions/utils-fns";
+import { colorFns } from "src/functions/color-fns";
+
 
 @Injectable({
   providedIn: "root",
@@ -20,16 +21,22 @@ export class ChatService {
       if (!existingMap.has(userId)) {
         console.log('fetching username');
         const username = await client.userInfo.getUsername(userId);
-        const usernameColorHex = utilsFns.generateUniqueColorHex(userId);
+        const usernameColorHex = colorFns.assignColorToUser(userId);
         existingMap.set(userId, { username, usernameColorHex });
       }
     }
     else {
       console.log('fetching username');
       const username = await client.userInfo.getUsername(userId);
-      const usernameColorHex = utilsFns.generateUniqueColorHex(userId);
+      const usernameColorHex = colorFns.assignColorToUser(userId);
       const map = new Map([ [userId, { username, usernameColorHex }] ]);
       this._cache.set(bcastId, map);
+    }
+  }
+
+  cache = {
+    clear: () => {
+      this._cache = new Map()
     }
   }
 

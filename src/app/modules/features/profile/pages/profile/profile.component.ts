@@ -4,6 +4,8 @@ import { Session } from '@supabase/supabase-js';
 import { FormValidator } from 'src/models/form-validator';
 import { ProfileFormValidator } from './profile-form-validator';
 import { toast } from 'src/functions/notifiers/toast';
+import { Router } from '@angular/router';
+import { ChatService } from 'src/services/chat.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +17,11 @@ export class ProfileComponent implements OnInit {
   userSession: Session;
   formValidator: FormValidator;
 
-  constructor(public userService: UserService) { }
+  constructor(
+    public userService: UserService,
+    private chatService: ChatService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     this.readUserSession();
@@ -33,7 +39,9 @@ export class ProfileComponent implements OnInit {
     try {
       const username = this.formValidator.getFormControlValue('username');
       await this.userService.userInfo.setUsername(username);
-      toast.success('Username updated'); 
+      this.chatService.cache.clear();
+      toast.success('Username updated');
+      this.router.navigate(['bcast', 'list']);
     } catch (error) {
       toast.fail(error);
     }

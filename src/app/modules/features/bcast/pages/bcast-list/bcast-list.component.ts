@@ -24,15 +24,16 @@ export class BcastListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dataService.selectedLocation.get$().subscribe(
-      async (selectedLocation) => {
-        this.fetchBcastList(selectedLocation);
-      },
-    );
     this.dataService.refreshBcastList.get$().subscribe(async (refresh) => {
       if (refresh) {
         const selectedLocation = this.dataService.selectedLocation.get();
         this.fetchBcastList(selectedLocation);
+        this.dataService.refreshBcastList.set(false);
+        this.dataService.selectedLocation.get$().subscribe(
+          async (selectedLocation) => {
+            this.fetchBcastList(selectedLocation);
+          },
+        );
       }
     });
   }
