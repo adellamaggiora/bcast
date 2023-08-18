@@ -1,0 +1,31 @@
+<ion-content class="ion-padding" #chatContainer>
+
+  <ng-container *ngFor="let message of messages" class="message">
+    <ion-card [ngClass]="isMyMessage(message) ? 'ms-5' : 'me-5'">
+
+      <ion-card-header>
+        <ion-text>
+          <small [style.color]="chatService.message.getUserColor(message.bcastId, message.userId)">
+            {{ chatService.message.getUsername(message.bcastId, message.userId) }}
+          </small>
+          <small>
+            {{ message.createdAt | date: dateFns.formatString() }}
+          </small>
+        </ion-text>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{ message.content }}
+      </ion-card-content>
+
+    </ion-card>
+  </ng-container>
+
+</ion-content>
+
+<ion-card shape="round">
+  <ion-input (keyup.enter)="sendMessage()" 
+    placeholder="Type your message here..." 
+    [(ngModel)]="message" fill="outline">
+  </ion-input>
+</ion-card>
