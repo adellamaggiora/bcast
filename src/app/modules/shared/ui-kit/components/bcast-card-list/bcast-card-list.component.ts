@@ -19,7 +19,7 @@ export class BcastCardListComponent implements OnChanges {
 
   get seatsLeft(): number {
     let result = null;
-    if (this.listedBcast?.maxUsers >= 0 && this.listedBcast?.joinedUsers >= 0) {
+    if (this.listedBcast?.maxUsers && this.listedBcast?.maxUsers >= 0 && this.listedBcast?.joinedUsers >= 0) {
       result = this.listedBcast.maxUsers - this.listedBcast.joinedUsers;
     }
     return result;

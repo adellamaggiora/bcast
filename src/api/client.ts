@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import api from "./api";
-import { supabaseKey, supabaseUrl } from "./constants";
+import { supabaseAnonKey, supabaseUrl } from "./constants";
 
-const client = createClient(supabaseUrl, supabaseKey);
+const client = createClient(supabaseUrl, supabaseAnonKey);
 
 export default api(client);
