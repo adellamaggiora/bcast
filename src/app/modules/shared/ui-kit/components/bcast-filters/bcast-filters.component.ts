@@ -51,4 +51,8 @@ export class BcastFiltersComponent {
     this.modal.present();
   }
 
+  showModalContent(modalContent: ModalContentEnum) {
+    return this.modalContent === modalContent || this.modalContent === ModalContentEnum.All;
+  }
+
 }
