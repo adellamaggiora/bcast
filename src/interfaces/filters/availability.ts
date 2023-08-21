@@ -1,0 +1,1 @@
+export type TAvailability = 'vacant' | 'soldOut' | 'all';

@@ -36,21 +36,28 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content *ngIf="formValidator?.formGroup">
       <!-- distance container-->
-      <ng-container *ngIf="showModalContent(ModalContentEnum.Distance)" formGroupName="maxDistMeters">
+      <ng-container
+        *ngIf="showModalContent(ModalContentEnum.Distance)"
+        formGroupName="maxDistMeters"
+      >
         <ion-item>
-          <ion-label>Any distance</ion-label>
+          <ion-text color="primary">
+            <h4>Distance</h4>
+          </ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Any</ion-label>
           <ion-checkbox formControlName="all"></ion-checkbox>
         </ion-item>
-      
+
         <ion-item [disabled]="formValidator.anyDistanceAllowed">
           <ion-grid class="ion-no-padding">
             <ion-row>
               <ion-col>
-                <ion-text>
-                  Max distance
-                </ion-text>
+                <ion-text>Max</ion-text>
               </ion-col>
             </ion-row>
             <ion-row>
@@ -69,22 +76,80 @@
           </ion-grid>
         </ion-item>
       </ng-container>
-      <!-- availability container -->
-      <ng-container *ngIf="showModalContent(ModalContentEnum.Availabilty)" formGroupName="availability">
+      <!-- tag container -->
+      <ng-container
+        *ngIf="showModalContent(ModalContentEnum.Tag)"
+        formGroupName="tag"
+      >
         <ion-item>
-          availability
+          <ion-text color="primary">
+            <h4>Tag</h4>
+          </ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Any</ion-label>
+          <ion-checkbox formControlName="all"></ion-checkbox>
+        </ion-item>
+        <ion-item [disabled]="formValidator.anyTagAllowed">
+          <ion-label position="fixed"> Enter a tag: </ion-label>
+          <ion-input formControlName="temp"> </ion-input>
+          <span slot="error">Tag should be between 3 and 12 characters</span>
+        </ion-item>
+        <ion-item [disabled]="formValidator.anyTagAllowed">
+          
         </ion-item>
       </ng-container>
-      <!-- tag container -->
-      <ion-item *ngIf="showModalContent(ModalContentEnum.Tag)"> tag </ion-item>
+      <!-- availability container -->
+      <ng-container *ngIf="showModalContent(ModalContentEnum.Availabilty)">
+        <ion-item>
+          <ion-text color="primary">
+            <h4>Availability</h4>
+          </ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-radio-group formControlName="availability" class="w-100">
+            <ion-radio justify="space-between" value="all">All</ion-radio>
+            <ion-radio justify="space-between" value="vacant">Vacant</ion-radio>
+            <ion-radio justify="space-between" value="soldOut"
+              >Sold out</ion-radio
+            >
+          </ion-radio-group>
+        </ion-item>
+      </ng-container>
       <!-- partecipation container -->
-      <ion-item *ngIf="showModalContent(ModalContentEnum.Partecipation)">
-        partecipation
-      </ion-item>
+      <ng-container *ngIf="showModalContent(ModalContentEnum.Partecipation)">
+        <ion-item>
+          <ion-text color="primary">
+            <h4>Partecipation</h4>
+          </ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-radio-group formControlName="partecipation" class="w-100">
+            <ion-radio justify="space-between" value="all">All</ion-radio>
+            <ion-radio justify="space-between" value="partecipating"
+              >Partecipating</ion-radio
+            >
+            <ion-radio justify="space-between" value="notPartecipating"
+              >Not partecipating</ion-radio
+            >
+          </ion-radio-group>
+        </ion-item>
+      </ng-container>
       <!-- author container -->
-      <ion-item *ngIf="showModalContent(ModalContentEnum.Author)">
-        author
-      </ion-item>
+      <ng-container *ngIf="showModalContent(ModalContentEnum.Author)">
+        <ion-item>
+          <ion-text color="primary">
+            <h4>Author</h4>
+          </ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-radio-group formControlName="author" class="w-100">
+            <ion-radio justify="space-between" value="all">All</ion-radio>
+            <ion-radio justify="space-between" value="me">Me</ion-radio>
+            <ion-radio justify="space-between" value="others">Others</ion-radio>
+          </ion-radio-group>
+        </ion-item>
+      </ng-container>
     </ion-content>
   </ng-template>
 </ion-modal>

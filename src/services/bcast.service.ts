@@ -7,7 +7,8 @@ import { IListedBcast } from 'src/interfaces/listed-bcast';
 import { IBcast } from 'src/interfaces/bcast';
 import { Preferences } from '@capacitor/preferences';
 import { StorageKeys } from 'src/constants/storage-keys';
-import { IBcastFilters } from 'src/interfaces/bcast-filters';
+import { IBcastFilters } from 'src/interfaces/filters/bcast-filters';
+
 
 @Injectable({
   providedIn: 'root'

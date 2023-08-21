@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output, SimpleChange, ViewChild } from 
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { DEFALT_FILTERS } from 'src/constants';
-import { IBcastFilters } from 'src/interfaces/bcast-filters';
 import { BcastFiltersFormValidartor } from './bcast-filters-form-validator';
+import { IBcastFilters } from 'src/interfaces/filters/bcast-filters';
 
 enum ModalContentEnum {
   All = 'all',

@@ -1,0 +1,1 @@
+export type TAuthor = 'me' | 'others' | 'all';

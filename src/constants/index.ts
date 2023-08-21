@@ -1,29 +1,17 @@
-import { IBcastFilters } from "src/interfaces/bcast-filters";
+import { IBcastFilters } from "src/interfaces/filters/bcast-filters";
 
 export const BCAST_MAIN_IMAGE_NAME = 'main';
 
 export const DEFALT_FILTERS: IBcastFilters = {
-    maxDistMeters: {
-        all: true,
-        favorite: 50000
-    },
-    author: {
-      all: true,
-      isMe: false,
-      isOtherUsers: false
-    },
-    availability: {
-      all: true,
-      isSoldOutSeats: false,
-      isVacantSeats: false
-    },
-    partecipation: {
-      all: true,
-      isNotPartecipating: false,
-      isPartecipating: false
-    },
-    tag: {
-      all: true,
-      favorite: []
-    }
-  }
+  maxDistMeters: {
+    all: true,
+    favorite: 50000
+  },
+  tag: {
+    all: true,
+    favorite: []
+  },
+  author: 'all',
+  availability: 'all',
+  partecipation: 'all'
+}
