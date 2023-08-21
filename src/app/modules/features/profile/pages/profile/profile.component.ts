@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from "src/services/user.service";
 import { Session } from '@supabase/supabase-js';
 import { FormValidator } from 'src/models/form-validator';
@@ -12,7 +12,7 @@ import { ChatService } from 'src/services/chat.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
 
   userSession: Session;
   formValidator: FormValidator;
@@ -23,11 +23,8 @@ export class ProfileComponent implements OnInit {
     private router: Router
     ) { }
 
-  ngOnInit() {
-    this.readUserSession();
-  }
-
   ionViewWillEnter() {
+    this.readUserSession();
     this.initializeFormValidator();
   }
 
