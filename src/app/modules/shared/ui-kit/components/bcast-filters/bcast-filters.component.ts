@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChange, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { DEFALT_FILTERS } from 'src/constants';
 import { IBcastFilters } from 'src/interfaces/bcast-filters';
+import { BcastFiltersFormValidartor } from './bcast-filters-form-validator';
 
 enum ModalContentEnum {
   All = 'all',
@@ -20,16 +21,29 @@ enum ModalContentEnum {
 })
 export class BcastFiltersComponent {
 
-  ModalContentEnum = ModalContentEnum;
 
   @ViewChild(IonModal) modal: IonModal;
 
   @Input() filters: IBcastFilters = DEFALT_FILTERS;
   @Output() filtersChange = new EventEmitter<IBcastFilters>(null);
 
+  ModalContentEnum = ModalContentEnum;
   modalContent: ModalContentEnum;
+  formValidator: BcastFiltersFormValidartor;
   
-  constructor() { }
+  constructor() { 
+    this.initFormValidator();
+  }
+
+  ngOnChanges(changes) {
+    if (changes?.filters?.currentValue) {
+      this.initFormValidator();
+    }
+  }
+
+  initFormValidator() {
+    this.formValidator = new BcastFiltersFormValidartor(this.filters);
+  }
 
   cancel() {
     this.modal.dismiss(null, 'cancel');

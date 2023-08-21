@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
 
   async save() {
     try {
-      const username = this.formValidator.getFormControlValue('username');
+      const username = this.formValidator.getFormControl(['username'])?.value;
       await this.userService.userInfo.setUsername(username);
       this.chatService.cache.clear();
       toast.success('Username updated');

@@ -5,7 +5,7 @@ export const BCAST_MAIN_IMAGE_NAME = 'main';
 export const DEFALT_FILTERS: IBcastFilters = {
     maxDistMeters: {
         all: true,
-        favorite: null
+        favorite: 50000
     },
     author: {
       all: true,
