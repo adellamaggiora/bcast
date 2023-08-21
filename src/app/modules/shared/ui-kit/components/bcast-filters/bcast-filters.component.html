@@ -50,7 +50,7 @@
 
         <ion-item>
           <ion-label>Any</ion-label>
-          <ion-checkbox formControlName="all"></ion-checkbox>
+          <ion-checkbox formControlName="any"></ion-checkbox>
         </ion-item>
 
         <ion-item [disabled]="formValidator.anyDistanceAllowed">
@@ -88,7 +88,7 @@
         </ion-item>
         <ion-item>
           <ion-label>Any</ion-label>
-          <ion-checkbox formControlName="all"></ion-checkbox>
+          <ion-checkbox formControlName="any"></ion-checkbox>
         </ion-item>
         <ion-item [disabled]="formValidator.anyTagAllowed">
           <ion-label position="fixed"> Enter a tag: </ion-label>
@@ -113,7 +113,7 @@
         </ion-item>
         <ion-item>
           <ion-radio-group formControlName="availability" class="w-100">
-            <ion-radio justify="space-between" value="all">All</ion-radio>
+            <ion-radio justify="space-between" value="any">Any</ion-radio>
             <ion-radio justify="space-between" value="vacant">Vacant</ion-radio>
             <ion-radio justify="space-between" value="soldOut"
               >Sold out</ion-radio
@@ -130,7 +130,7 @@
         </ion-item>
         <ion-item>
           <ion-radio-group formControlName="partecipation" class="w-100">
-            <ion-radio justify="space-between" value="all">All</ion-radio>
+            <ion-radio justify="space-between" value="any">Any</ion-radio>
             <ion-radio justify="space-between" value="partecipating"
               >I'm partecipating</ion-radio
             >
@@ -149,7 +149,7 @@
         </ion-item>
         <ion-item>
           <ion-radio-group formControlName="author" class="w-100">
-            <ion-radio justify="space-between" value="all">All</ion-radio>
+            <ion-radio justify="space-between" value="any">Any</ion-radio>
             <ion-radio justify="space-between" value="me">Me</ion-radio>
             <ion-radio justify="space-between" value="others">Others</ion-radio>
           </ion-radio-group>

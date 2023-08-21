@@ -4,14 +4,14 @@ export const BCAST_MAIN_IMAGE_NAME = 'main';
 
 export const DEFALT_FILTERS: IBcastFilters = {
   maxDistMeters: {
-    all: true,
+    any: true,
     favorite: 50000
   },
   tag: {
-    all: true,
+    any: true,
     favorite: ['figa']
   },
-  author: 'all',
-  availability: 'all',
-  partecipation: 'all'
+  author: 'any',
+  availability: 'any',
+  partecipation: 'any'
 }

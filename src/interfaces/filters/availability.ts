@@ -1,1 +1,1 @@
-export type TAvailability = 'vacant' | 'soldOut' | 'all';
+export type TAvailability = 'vacant' | 'soldOut' | 'any';

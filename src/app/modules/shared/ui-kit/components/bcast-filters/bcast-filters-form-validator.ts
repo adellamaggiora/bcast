@@ -21,12 +21,12 @@ export class BcastFiltersFormValidartor extends FormValidator {
         this._formGroup = new FormGroup({
             maxDistMeters: new FormGroup({
                 favorite: new FormControl<number>(bcastFilters?.maxDistMeters?.favorite),
-                all: new FormControl<boolean>(bcastFilters?.maxDistMeters?.all)
+                any: new FormControl<boolean>(bcastFilters?.maxDistMeters?.any)
             }),
             tag: new FormGroup({
                 temp: this._generateTagFormControl(''),
                 favorite: new FormArray(tagFormControls),
-                all: new FormControl(bcastFilters?.tag?.all)
+                any: new FormControl(bcastFilters?.tag?.any)
             }),
             availability: new FormControl<TAvailability>(bcastFilters?.availability),
             author: new FormControl<TAuthor>(bcastFilters?.author),
@@ -42,7 +42,7 @@ export class BcastFiltersFormValidartor extends FormValidator {
     }
 
     get anyDistanceAllowed(): boolean {
-        const isAllowed = this.getFormControl(['maxDistMeters', 'all'])?.value;
+        const isAllowed = this.getFormControl(['maxDistMeters', 'any'])?.value;
         return isAllowed;
     }
 
@@ -51,7 +51,7 @@ export class BcastFiltersFormValidartor extends FormValidator {
     }
 
     get anyTagAllowed(): boolean {
-        const isAllowed = this.getFormControl(['tag', 'all'])?.value;
+        const isAllowed = this.getFormControl(['tag', 'any'])?.value;
         return isAllowed;
     }
 

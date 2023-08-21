@@ -1,1 +1,1 @@
-export type TAuthor = 'me' | 'others' | 'all';
+export type TAuthor = 'me' | 'others' | 'any';

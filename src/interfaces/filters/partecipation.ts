@@ -1,1 +1,1 @@
-export type TPartecipation = 'partecipating' | 'notPartecipating' | 'all';
+export type TPartecipation = 'partecipating' | 'notPartecipating' | 'any';

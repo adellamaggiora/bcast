@@ -5,11 +5,11 @@ import { TPartecipation } from "./partecipation";
 export interface IBcastFilters {
     maxDistMeters: {
         favorite: number;
-        all: boolean;
+        any: boolean;
     };
     tag: {
         favorite: string[];
-        all: boolean;
+        any: boolean;
     };
     availability: TAvailability;
     author: TAuthor;
