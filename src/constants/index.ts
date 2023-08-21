@@ -9,7 +9,7 @@ export const DEFALT_FILTERS: IBcastFilters = {
   },
   tag: {
     any: true,
-    favorite: ['figa']
+    favorite: []
   },
   author: 'any',
   availability: 'any',

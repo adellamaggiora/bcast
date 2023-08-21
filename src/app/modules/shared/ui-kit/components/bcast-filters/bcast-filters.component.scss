@@ -1,0 +1,12 @@
+.chip-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  ion-chip {
+    flex: none;
+    margin-right: 5px;  /* For spacing */
+    margin-bottom: 5px; /* For spacing */
+  }
+  
