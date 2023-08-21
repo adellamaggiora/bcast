@@ -2,15 +2,61 @@
   <ion-button shape="round" color="tertiary" (click)="openModal(ModalContentEnum.All)">
     <ion-icon name="options-outline" slot="icon-only"></ion-icon>
   </ion-button>
-  <ion-chip (click)="openModal(ModalContentEnum.Distance)">Distance</ion-chip>
-  <ion-chip (click)="openModal(ModalContentEnum.Tag)"> Tag </ion-chip>
-  <ion-chip (click)="openModal(ModalContentEnum.Availabilty)">
-    Availability
-  </ion-chip>
-  <ion-chip (click)="openModal(ModalContentEnum.Partecipation)">
-    Partecipation
-  </ion-chip>
-  <ion-chip (click)="openModal(ModalContentEnum.Author)"> Author </ion-chip>
+  <!-- distance chips -->
+  <ng-container>
+    <ion-chip *ngIf="formValidator?.anyDistancelIsAllowed" (click)="openModal(ModalContentEnum.Distance)">
+      Distance
+    </ion-chip>
+    <ion-chip *ngIf="!formValidator?.anyDistancelIsAllowed" outline color="tertiary"
+      (click)="openModal(ModalContentEnum.Distance)">
+      Distance
+      <ion-icon (click)="formValidator.clearDistanceFilters()" name="close-circle"></ion-icon>
+    </ion-chip>
+  </ng-container>
+  <!-- tag chip -->
+  <ng-container>
+    <ion-chip *ngIf="formValidator?.anyTagIsAllowed" (click)="openModal(ModalContentEnum.Tag)">
+      Tag
+    </ion-chip>
+    <ion-chip *ngIf="!formValidator?.anyTagIsAllowed" outline color="tertiary"
+      (click)="openModal(ModalContentEnum.Tag)">
+      Tag
+      <ion-icon (click)="formValidator.clearTagFilters()" name="close-circle"></ion-icon>
+    </ion-chip>
+  </ng-container>
+  <!-- availability chips -->
+  <ng-container>
+    <ion-chip *ngIf="formValidator?.anyAvailabilityIsAllowed" (click)="openModal(ModalContentEnum.Availabilty)">
+      Availability
+    </ion-chip>
+    <ion-chip *ngIf="!formValidator?.anyAvailabilityIsAllowed" outline color="tertiary"
+      (click)="openModal(ModalContentEnum.Availabilty)">
+      Availability
+      <ion-icon (click)="formValidator.clearAvailabilityFilters()" name="close-circle"></ion-icon>
+    </ion-chip>
+  </ng-container>
+  <!-- partrcipation chips -->
+  <ng-container>
+    <ion-chip *ngIf="formValidator?.anyPartecipationIsAllowed" (click)="openModal(ModalContentEnum.Partecipation)">
+      Partecipation
+    </ion-chip>
+    <ion-chip *ngIf="!formValidator?.anyPartecipationIsAllowed" outline color="tertiary"
+      (click)="openModal(ModalContentEnum.Partecipation)">
+      Partecipation
+      <ion-icon (click)="formValidator.clearPartecipationFilters()" name="close-circle"></ion-icon>
+    </ion-chip>
+  </ng-container>
+  <!-- author chips -->
+  <ng-container>
+    <ion-chip *ngIf="formValidator?.anyAuthorIsAllowed" (click)="openModal(ModalContentEnum.Author)">
+      Author
+    </ion-chip>
+    <ion-chip *ngIf="!formValidator?.anyAuthorIsAllowed" outline color="tertiary"
+      (click)="openModal(ModalContentEnum.Author)">
+      Author
+      <ion-icon (click)="formValidator.clearAuthorFilters()" name="close-circle"></ion-icon>
+    </ion-chip>
+  </ng-container>
 </div>
 
 <ion-modal (willDismiss)="onWillDismiss($event)">
@@ -70,12 +116,12 @@
           <ion-label>Any</ion-label>
           <ion-checkbox formControlName="any"></ion-checkbox>
         </ion-item>
-        <ion-item [disabled]="formValidator.anyTagAllowed">
+        <ion-item [disabled]="formValidator.anyTagIsAllowed">
           <ion-label position="fixed"> Enter a tag: </ion-label>
           <ion-input formControlName="temp" (keydown.enter)="formValidator.addTag()"></ion-input>
           <span slot="error">Tag must be between 3 and 12 characters</span>
         </ion-item>
-        <ion-item [disabled]="formValidator.anyTagAllowed">
+        <ion-item [disabled]="formValidator.anyTagIsAllowed">
           <div class="ion-wrap">
             <ng-container *ngFor="let tag of formValidator?.tag?.value; let i = index;">
               <ion-chip color="secondary">

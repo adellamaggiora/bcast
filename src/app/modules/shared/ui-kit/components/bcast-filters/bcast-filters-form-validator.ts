@@ -50,8 +50,28 @@ export class BcastFiltersFormValidartor extends FormValidator {
         return this.getFormControl(['tag', 'favorite']) as FormArray;
     }
 
-    get anyTagAllowed(): boolean {
-        const isAllowed = this.getFormControl(['tag', 'any'])?.value;
+    get anyTagIsAllowed(): boolean {
+        const isAllowed = this.getFormControl(['tag', 'any'])?.value === true;
+        return isAllowed;
+    }
+
+    get anyDistancelIsAllowed(): boolean {
+        const isAllowed = this.getFormControl(['maxDistMeters', 'any'])?.value === true;
+        return isAllowed;
+    }
+
+    get anyAvailabilityIsAllowed(): boolean {
+        const isAllowed = this.getFormControl(['availability'])?.value === 'any';
+        return isAllowed;
+    }
+
+    get anyAuthorIsAllowed(): boolean {
+        const isAllowed = this.getFormControl(['author'])?.value === 'any';
+        return isAllowed;
+    }
+
+    get anyPartecipationIsAllowed(): boolean {
+        const isAllowed = this.getFormControl(['partecipation'])?.value === 'any';
         return isAllowed;
     }
 
@@ -62,11 +82,36 @@ export class BcastFiltersFormValidartor extends FormValidator {
     addTag() {
         let tagFormControl = this.getFormControl(['tag', 'temp']);
         if (tagFormControl?.value) {
-            const formConrol = this._generateTagFormControl(tagFormControl.value);
-            this.tag.push(formConrol);
+            const formControl = this._generateTagFormControl(tagFormControl.value?.toLowerCase());
+            this.tag.push(formControl);
             // temp tag clear
             tagFormControl.setValue('');
         }
+    }
+
+    clearDistanceFilters() {
+        const formControl = this.getFormControl(['maxDistMeters', 'any']);
+        formControl.setValue(true);
+    }
+
+    clearTagFilters() {
+        const formControl = this.getFormControl(['tag', 'any']);
+        formControl.setValue(true);
+    }
+
+    clearAvailabilityFilters() {
+        const formControl = this.getFormControl(['availability']);
+        formControl.setValue('any');
+    }
+
+    clearAuthorFilters() {
+        const formControl = this.getFormControl(['author']);
+        formControl.setValue('any');
+    }
+
+    clearPartecipationFilters() {
+        const formControl = this.getFormControl(['partecipation']);
+        formControl.setValue('any');
     }
 
 }
