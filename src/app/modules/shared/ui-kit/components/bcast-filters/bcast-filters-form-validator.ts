@@ -55,4 +55,18 @@ export class BcastFiltersFormValidartor extends FormValidator {
         return isAllowed;
     }
 
+    removeTag(index: number) {
+        this.tag.removeAt(index);
+    }
+
+    addTag() {
+        let tagFormControl = this.getFormControl(['tag', 'temp']);
+        if (tagFormControl?.value) {
+            const formConrol = this._generateTagFormControl(tagFormControl.value);
+            this.tag.push(formConrol);
+            // temp tag clear
+            tagFormControl.setValue('');
+        }
+    }
+
 }
