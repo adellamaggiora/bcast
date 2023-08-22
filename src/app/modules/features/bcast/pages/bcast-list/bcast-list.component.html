@@ -9,7 +9,10 @@
 
     <ng-container *ngIf="(bcastService.bcastList.get$() | async)?.length && !isLoading">
         <div *ngFor="let listedBcast of bcastService.bcastList.get$() | async">
-            <app-bcast-card-list [listedBcast]="listedBcast" (click)="onBcastCardClick(listedBcast)">
+            <app-bcast-card-list 
+            [favoriteTag]="(bcastService?.filters?.getFavoriteTag$() | async)"
+            [listedBcast]="listedBcast" 
+            (click)="onBcastCardClick(listedBcast)">
             </app-bcast-card-list>
         </div>
     </ng-container>

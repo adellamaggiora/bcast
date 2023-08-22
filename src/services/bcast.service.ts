@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, share } from 'rxjs';
+import { BehaviorSubject, map, share } from 'rxjs';
 import client from 'src/api/client';
 import { IGeoLocation } from 'src/interfaces/geo-location';
 import { UserService } from './user.service';
@@ -57,7 +57,18 @@ export class BcastService {
       this._bcastFilters$.next(filters);
       const stringifyFilters = JSON.stringify(filters);
       return await Preferences.set({ key: StorageKeys.BCAST_FILTERS, value: stringifyFilters });
-    }
+    },
+    getFavoriteTag$: () => this.filters.get$()
+      .pipe(
+        map(_ => {
+          let result = []
+          if (!_.tag?.any) {
+             result = _.tag?.favorite;
+          }
+          return result;
+        })
+        
+      )
   }
 
 }

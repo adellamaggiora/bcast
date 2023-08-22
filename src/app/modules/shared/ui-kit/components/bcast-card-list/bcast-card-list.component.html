@@ -55,11 +55,14 @@
     <ng-container *ngFor="let tag of listedBcast?.tag">
       <ion-chip
         color="secondary"
-        [outline]="true"
+        
         *ngIf="!tagMatchesFavorite(tag)"
         >{{ tag }}</ion-chip
       >
-      <ion-chip color="secondary" *ngIf="tagMatchesFavorite(tag)">{{
+      <ion-chip 
+      color="success" 
+      
+      *ngIf="tagMatchesFavorite(tag)">{{
         tag
       }}</ion-chip>
     </ng-container>
