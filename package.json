@@ -31,6 +31,7 @@
     "@ionic/angular": "^7.2.0",
     "@supabase/supabase-js": "^2.29.0",
     "buffer": "^6.0.3",
+    "cropperjs": "^1.5.13",
     "ionicons": "^7.1.2",
     "leaflet": "^1.9.4",
     "node-polyfill-webpack-plugin": "^2.0.1",

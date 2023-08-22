@@ -1,7 +1,7 @@
 <ion-content class="ion-padding" #chatContainer>
 
   <ng-container *ngFor="let message of messages" class="message">
-    <ion-card [ngClass]="isMyMessage(message) ? 'ms-5' : 'me-5'">
+    <ion-card [ngClass]="isMyMessage(message) ? 'margin-start' : 'margin-end'">
 
       <ion-card-header>
         <ion-text>
