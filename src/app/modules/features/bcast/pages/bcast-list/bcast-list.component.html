@@ -18,9 +18,9 @@
         @todo add skeleton
     </ng-container>
 
-    <ng-container *ngIf="!(bcastService.bcastList.get$() | async)?.length && !isLoading">
-        <ion-text class="ion-padding">
-            <h2>No braodcast match this area</h2>
+    <ion-item *ngIf="!(bcastService.bcastList.get$() | async)?.length && !isLoading">
+        <ion-text>
+            <h4>No braodcast match this area</h4>
         </ion-text>
-    </ng-container>
+    </ion-item>
 </ion-content>

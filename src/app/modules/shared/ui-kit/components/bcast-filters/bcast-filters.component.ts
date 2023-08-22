@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
-import { DEFALT_FILTERS } from 'src/constants';
 import { BcastFiltersFormValidartor } from './bcast-filters-form-validator';
 import { IBcastFilters } from 'src/interfaces/filters/bcast-filters';
 
@@ -23,7 +22,7 @@ export class BcastFiltersComponent {
 
   @ViewChild(IonModal) modal: IonModal;
 
-  @Input() filters: IBcastFilters = DEFALT_FILTERS;
+  @Input() filters: IBcastFilters;
   @Output() filtersChange = new EventEmitter<IBcastFilters>(null);
 
   ModalContentEnum = ModalContentEnum;

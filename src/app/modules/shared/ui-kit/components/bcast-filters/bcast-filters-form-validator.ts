@@ -5,6 +5,7 @@ import { TAvailability } from "src/interfaces/filters/availability";
 import { TAuthor } from "src/interfaces/filters/author";
 import { IBcastFilters } from "src/interfaces/filters/bcast-filters";
 import { TPartecipation } from "src/interfaces/filters/partecipation";
+import { DEFALT_FILTERS } from "src/constants";
 
 export class BcastFiltersFormValidartor extends FormValidator {
 
@@ -13,6 +14,10 @@ export class BcastFiltersFormValidartor extends FormValidator {
     }
 
     constructor(bcastFilters: IBcastFilters) {
+
+        if (!bcastFilters) {
+            bcastFilters = DEFALT_FILTERS;
+        }
 
         super();
 
