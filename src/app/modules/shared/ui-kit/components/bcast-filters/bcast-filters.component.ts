@@ -71,18 +71,23 @@ export class BcastFiltersComponent {
     switch (type) {
       case ModalContentEnum.Distance:
         this.formValidator.clearDistanceFilters();
+        this.confirm();
         break;
       case ModalContentEnum.Tag:
         this.formValidator.clearTagFilters();
+        this.confirm();
         break;
       case ModalContentEnum.Availabilty:
         this.formValidator.clearAvailabilityFilters();
+        this.confirm();
         break;
       case ModalContentEnum.Partecipation:
         this.formValidator.clearPartecipationFilters();
+        this.confirm();
         break;
       case ModalContentEnum.Author:
         this.formValidator.clearAuthorFilters();
+        this.confirm();
         break;
       case ModalContentEnum.All:
         this.formValidator.clearAllFilters();
