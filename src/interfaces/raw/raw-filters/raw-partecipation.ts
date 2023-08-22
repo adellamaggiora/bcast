@@ -1,0 +1,1 @@
+export type TRawPartecipation = "partecipating" | "notPartecipating" | null;

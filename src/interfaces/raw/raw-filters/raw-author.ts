@@ -1,0 +1,1 @@
+export type TRawAuthor = "me" | "others" | null;

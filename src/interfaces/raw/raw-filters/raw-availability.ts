@@ -1,0 +1,1 @@
+export type TRawAvailability = "vacant" | "soldOut" | null;
