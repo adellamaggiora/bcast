@@ -6,6 +6,7 @@ import { IGeoLocation } from "src/interfaces/geo-location";
 import { Router } from "@angular/router";
 import { IListedBcast } from "src/interfaces/listed-bcast";
 import { DataService } from "src/services/data.service";
+import { IBcastFilters } from "src/interfaces/filters/bcast-filters";
 
 @Component({
   selector: "app-bcast-list",
@@ -77,4 +78,9 @@ export class BcastListComponent implements OnInit {
 
     this.router.navigate(["bcast", "detail", listedBcast.id]);
   }
+
+  onFiltersChange(filters: IBcastFilters) {
+    console.log(filters);
+  }
+
 }

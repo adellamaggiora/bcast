@@ -75,6 +75,11 @@ export class BcastFiltersFormValidartor extends FormValidator {
         return isAllowed;
     }
 
+    get tempTagIsInvalid(): boolean {
+        const isInvalid = this.getFormControl(['tag', 'temp'])?.invalid;
+        return isInvalid;
+    }
+
     removeTag(index: number) {
         this.tag.removeAt(index);
     }
@@ -112,6 +117,14 @@ export class BcastFiltersFormValidartor extends FormValidator {
     clearPartecipationFilters() {
         const formControl = this.getFormControl(['partecipation']);
         formControl.setValue('any');
+    }
+
+    clearAllFilters() {
+        this.clearDistanceFilters();
+        this.clearTagFilters();
+        this.clearAvailabilityFilters();
+        this.clearAuthorFilters();
+        this.clearPartecipationFilters();
     }
 
 }

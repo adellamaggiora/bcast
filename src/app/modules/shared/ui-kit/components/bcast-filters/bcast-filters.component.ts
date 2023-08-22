@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, Output, SimpleChange, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
-import { OverlayEventDetail } from '@ionic/core/components';
 import { DEFALT_FILTERS } from 'src/constants';
 import { BcastFiltersFormValidartor } from './bcast-filters-form-validator';
 import { IBcastFilters } from 'src/interfaces/filters/bcast-filters';
@@ -30,8 +29,8 @@ export class BcastFiltersComponent {
   ModalContentEnum = ModalContentEnum;
   modalContent: ModalContentEnum;
   formValidator: BcastFiltersFormValidartor;
-  
-  constructor() { 
+
+  constructor() {
     this.initFormValidator();
   }
 
@@ -46,18 +45,13 @@ export class BcastFiltersComponent {
   }
 
   cancel() {
-    this.modal.dismiss(null, 'cancel');
+    this.initFormValidator();
+    this.modal.dismiss();
   }
 
   confirm() {
-    this.modal.dismiss('some value', 'confirm');
-  }
-
-  onWillDismiss(event: Event) {
-    const ev = event as CustomEvent<OverlayEventDetail<string>>;
-    if (ev.detail.role === 'confirm') {
-      window.alert(`Hello, ${ev.detail.data}!`);
-    }
+    this.emitFilters();
+    this.modal.dismiss();
   }
 
   openModal(modalContent: ModalContentEnum) {
@@ -67,6 +61,37 @@ export class BcastFiltersComponent {
 
   showModalContent(modalContent: ModalContentEnum) {
     return this.modalContent === modalContent || this.modalContent === ModalContentEnum.All;
+  }
+
+  emitFilters() {
+    const filters = this.formValidator.formGroup.value;
+    this.filtersChange.emit(filters);
+  }
+
+  clearFilter(type: ModalContentEnum) {
+    switch (type) {
+      case ModalContentEnum.Distance:
+        this.formValidator.clearDistanceFilters();
+        break;
+      case ModalContentEnum.Tag:
+        this.formValidator.clearTagFilters();
+        break;
+      case ModalContentEnum.Availabilty:
+        this.formValidator.clearAvailabilityFilters();
+        break;
+      case ModalContentEnum.Partecipation:
+        this.formValidator.clearPartecipationFilters();
+        break;
+      case ModalContentEnum.Author:
+        this.formValidator.clearAuthorFilters();
+        break;
+      case ModalContentEnum.All:
+        this.formValidator.clearAllFilters();
+        break;
+      default:
+        break;
+    }
+    this.confirm();
   }
 
 }
