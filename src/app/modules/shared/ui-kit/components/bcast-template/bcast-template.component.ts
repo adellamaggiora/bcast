@@ -21,9 +21,8 @@ export class BcastTemplateComponent  implements OnInit {
   dateFns = dateFns;
 
   tempPhoto: {
-    base64: string;
     webPath: string;
-    name: string
+    name: string;
   }
 
   constructor() { }
@@ -49,7 +48,7 @@ export class BcastTemplateComponent  implements OnInit {
       resultType: CameraResultType.Uri
     });
     
-    this.tempPhoto = { webPath: photo.webPath, name: `${BCAST_MAIN_IMAGE_NAME}.${photo.format}`, base64: null };
+    this.tempPhoto = { webPath: photo.webPath, name: `${BCAST_MAIN_IMAGE_NAME}.${photo.format}` };
   };
 
   async save() {
@@ -78,8 +77,7 @@ export class BcastTemplateComponent  implements OnInit {
   onCroppedBase64(base64: string) {
     if (base64?.length) {
       const file = utilsFns.base64ToFile(base64, this.tempPhoto.name);
-      this.formValidator.setImage(file);
-      this.tempPhoto.base64 = base64;
+      this.formValidator.setImage(file, base64);
     }
     
   }

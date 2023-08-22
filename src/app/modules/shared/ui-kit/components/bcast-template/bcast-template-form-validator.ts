@@ -4,6 +4,12 @@ import { FormValidator } from "src/models/form-validator";
 
 export class BcastTemplateFormValidator extends FormValidator {
 
+    private _imageUrl: string;
+
+    get imageUrl(): string {
+        return this._imageUrl;
+    }
+
     get tag() {
         return this._formGroup?.controls?.['tag'] as FormArray;
     }
@@ -46,8 +52,9 @@ export class BcastTemplateFormValidator extends FormValidator {
         this.tag.removeAt(index);
     }
 
-    setImage(image: File) {
+    setImage(image: File, imageUrl: string) {
         this._formGroup.controls['image'] = this._generateFormControlImage(image);
+        this._imageUrl = imageUrl;
     }
 
     //#endregion
