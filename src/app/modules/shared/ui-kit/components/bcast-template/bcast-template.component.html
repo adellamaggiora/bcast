@@ -4,6 +4,9 @@
       <img [src]="formValidator.imageUrl">
     </ion-item>
 
+    <app-image-cropper [imageUrl]="formValidator?.imageUrl">
+    </app-image-cropper>
+
     <ion-item>
       <ion-button size="large" (click)="takePicture()">
         <ion-icon name="camera-outline" size="large"></ion-icon>

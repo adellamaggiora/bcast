@@ -11,6 +11,7 @@ import { MapExplorerComponent } from './components/map-explorer/map-explorer.com
 import { LocationSelectorComponent } from './components/location-selector/location-selector.component';
 import { MetersToKmPipe } from './pipes/meters-to-km.pipe';
 import { BcastCardDetailComponent } from './components/bcast-card-detail/bcast-card-detail.component';
+import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { BcastCardDetailComponent } from './components/bcast-card-detail/bcast-c
     MapPreviewComponent,
     LocationSelectorComponent,
     MetersToKmPipe,
-    BcastCardDetailComponent
+    BcastCardDetailComponent,
+    ImageCropperComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { BcastCardDetailComponent } from './components/bcast-card-detail/bcast-c
     MapPreviewComponent,
     LocationSelectorComponent,
     MetersToKmPipe,
-    BcastCardDetailComponent
+    BcastCardDetailComponent,
+    ImageCropperComponent
   ]
 })
 export class UiKitModule { }

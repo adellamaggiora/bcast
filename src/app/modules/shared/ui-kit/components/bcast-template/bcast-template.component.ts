@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { IBcast } from 'src/interfaces/bcast';
 import { BcastTemplateFormValidator } from './bcast-template-form-validator';
@@ -12,9 +12,10 @@ import dateFns from 'src/functions/date-fns';
   styleUrls: ['./bcast-template.component.scss'],
 })
 export class BcastTemplateComponent  implements OnInit {
-
+  
   @Input() initForm: boolean
   @Output() saveBcast: EventEmitter<Partial<IBcast>> = new EventEmitter();
+
   formValidator: BcastTemplateFormValidator;
   dateFns = dateFns;
 

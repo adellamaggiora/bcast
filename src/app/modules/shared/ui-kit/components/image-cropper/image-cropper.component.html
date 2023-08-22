@@ -1,0 +1,23 @@
+<ion-modal>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()">Cancel</ion-button>
+        </ion-buttons>
+        <ion-title>Crop image</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="confirmCrop()" [strong]="true"
+            >Confirm
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content *ngIf="imageUrl">
+      <ion-item>
+        <img [src]="imageUrl" id="imageRef" />
+      </ion-item>
+    </ion-content>
+  </ng-template>
+</ion-modal>
