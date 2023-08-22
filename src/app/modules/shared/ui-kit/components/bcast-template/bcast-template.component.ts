@@ -5,6 +5,7 @@ import { BcastTemplateFormValidator } from './bcast-template-form-validator';
 import { IonInput } from '@ionic/angular';
 import { BCAST_MAIN_IMAGE_NAME } from 'src/constants';
 import dateFns from 'src/functions/date-fns';
+import { utilsFns } from 'src/functions/utils-fns';
 
 @Component({
   selector: 'app-bcast-template',
@@ -18,6 +19,12 @@ export class BcastTemplateComponent  implements OnInit {
 
   formValidator: BcastTemplateFormValidator;
   dateFns = dateFns;
+
+  tempPhoto: {
+    base64: string;
+    webPath: string;
+    name: string
+  }
 
   constructor() { }
 
@@ -36,21 +43,13 @@ export class BcastTemplateComponent  implements OnInit {
   }
 
   async takePicture() {
-    const width = 800;
-    const height = Math.round(width * 3/4);
-
     const photo = await Camera.getPhoto({
       quality: 70,
       allowEditing: false,
-      resultType: CameraResultType.Uri,
-      width,
-      height,
-      correctOrientation: false
+      resultType: CameraResultType.Uri
     });
-    const blob = await fetch(photo.webPath).then(_ => _.blob());
-    const imageName = `${BCAST_MAIN_IMAGE_NAME}.${photo.format}`;
-    const image = new File([blob], imageName, { type: blob.type });
-    this.formValidator.setImage(image, photo.webPath);
+    
+    this.tempPhoto = { webPath: photo.webPath, name: `${BCAST_MAIN_IMAGE_NAME}.${photo.format}`, base64: null };
   };
 
   async save() {
@@ -76,6 +75,14 @@ export class BcastTemplateComponent  implements OnInit {
     this.formValidator.addTag(tag);
   }
 
+  onCroppedBase64(base64: string) {
+    if (base64?.length) {
+      const file = utilsFns.base64ToFile(base64, this.tempPhoto.name);
+      this.formValidator.setImage(file);
+      this.tempPhoto.base64 = base64;
+    }
+    
+  }
 
 
 }

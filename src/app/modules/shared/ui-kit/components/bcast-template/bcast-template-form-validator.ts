@@ -12,10 +12,6 @@ export class BcastTemplateFormValidator extends FormValidator {
         return this._formGroup?.controls?.['image'] as FormControl<File>;
     }
 
-    get imageUrl() {
-        return this._imageUrl;
-    }
-
     constructor() {
         super();
         this._formGroup = new FormGroup({
@@ -39,7 +35,6 @@ export class BcastTemplateFormValidator extends FormValidator {
         return new FormControl<File>(image);
     }
 
-    private _imageUrl: string;
 
     //#region public
 
@@ -51,8 +46,7 @@ export class BcastTemplateFormValidator extends FormValidator {
         this.tag.removeAt(index);
     }
 
-    setImage(image: File, imageUrl: string) {
-        this._imageUrl = imageUrl
+    setImage(image: File) {
         this._formGroup.controls['image'] = this._generateFormControlImage(image);
     }
 

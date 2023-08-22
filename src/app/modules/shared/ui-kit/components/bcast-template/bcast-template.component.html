@@ -1,10 +1,10 @@
 <form [formGroup]="formValidator.formGroup">
   <ion-list>
-    <ion-item *ngIf="formValidator?.imageUrl">
-      <img [src]="formValidator.imageUrl">
+    <ion-item *ngIf="tempPhoto?.base64">
+      <img [src]="tempPhoto.base64">
     </ion-item>
 
-    <app-image-cropper [imageUrl]="formValidator?.imageUrl">
+    <app-image-cropper [imageUrl]="tempPhoto?.webPath" (croppedBase64)="onCroppedBase64($event)">
     </app-image-cropper>
 
     <ion-item>
