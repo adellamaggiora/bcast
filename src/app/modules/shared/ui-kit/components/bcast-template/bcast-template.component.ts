@@ -35,10 +35,16 @@ export class BcastTemplateComponent  implements OnInit {
   }
 
   async takePicture() {
+    const width = 800;
+    const height = Math.round(width * 3/4);
+
     const photo = await Camera.getPhoto({
       quality: 70,
       allowEditing: false,
-      resultType: CameraResultType.Uri
+      resultType: CameraResultType.Uri,
+      width,
+      height,
+      correctOrientation: false
     });
     const blob = await fetch(photo.webPath).then(_ => _.blob());
     const imageName = `${BCAST_MAIN_IMAGE_NAME}.${photo.format}`;

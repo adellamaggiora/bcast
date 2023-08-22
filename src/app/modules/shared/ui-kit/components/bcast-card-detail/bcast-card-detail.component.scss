@@ -1,8 +1,4 @@
-div {
-    img {
-      max-height: 300px;
-      width: 100%; 
-      object-fit: cover; 
-      border-radius: 16px;
-    }
-  }
+ion-thumbnail {
+  --size: 200px;
+  --border-radius: 14px;
+}

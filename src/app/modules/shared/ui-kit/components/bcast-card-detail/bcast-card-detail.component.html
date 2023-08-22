@@ -1,60 +1,42 @@
-<div *ngIf="bcastDetail" class="p-4">
-  <!-- bcast image -->
-  <img [src]="imageSrc" alt="Immagine del broadcast" class="mb-3" />
+<ion-card *ngIf="bcastDetail" class="ion-padding">
+  <img [src]="imageSrc" />
 
-  <!-- bcast title -->
-  <div class="fs-1 mb-3">
-    {{ bcastDetail.title }}
-  </div>
+  <ion-card-header>
+    <ion-card-title>{{ bcastDetail.title }}</ion-card-title>
+    <ion-card-subtitle color="primary">
+      {{ bcastDetail.expiresAt | date : dateFns.formatString() }}
+    </ion-card-subtitle>
+    <ion-card-subtitle>
+      <ion-icon name="rocket"></ion-icon>
+      <ion-text>
+        {{ bcastDetail.distMeters | metersToKm | number : "1.0-1" }} Km from you
+      </ion-text>
+    </ion-card-subtitle>
+  </ion-card-header>
 
-  <!-- bcast expires at -->
-  <div class="fs-6">
-    <ion-icon name="calendar"></ion-icon>
-    {{ bcastDetail.expiresAt | date : dateFns.formatString() }}
-  </div>
+  <ion-card-content>
+    <ion-text>
+      {{ bcastDetail.content }}
+    </ion-text>
+  </ion-card-content>
 
-  <!-- bcast location -->
-  <div class="fs-6 mb-2">
-    <ion-icon name="rocket"></ion-icon>
-    {{ bcastDetail.distMeters | metersToKm | number : "1.0-1" }} Km
-  </div>
-
-  <div class="mb-3">
-    <ng-container *ngFor="let tag of bcastDetail?.tag">
-      <ion-chip
-        color="secondary"
-        [outline]="true"
-        class="m-0 me-1"
-        >{{ tag }}</ion-chip
-      >
-    </ng-container>
-  </div>
-
-
-  <div class="fs-6 fw-bold lh-sm"> Descrizione </div>
-  <div class="mb-3">{{ bcastDetail.content }}</div>
-
-  <div class="mb-3" *ngIf="bcastDetail?.location">
-    <app-map-preview
-    [position]="bcastDetail.location"
-  ></app-map-preview>
-  </div>
-
-
-  <!-- CONTENT -->
+  <!-- <ion-thumbnail *ngIf="bcastDetail?.location" class="ion-padding">
+    <app-map-preview [position]="bcastDetail.location"></app-map-preview>
+  </ion-thumbnail> -->
 
   <ion-button
+    expand="block"
+    color="tertiary"
     (click)="onChatClick()"
     *ngIf="bcastDetail.joined"
-    expand="block"
-    size="large"
     >Chat</ion-button
   >
+
   <ion-button
+    expand="block"
+    color="tertiary"
     (click)="onJoinClick()"
     *ngIf="!bcastDetail.joined"
-    expand="block"
-    size="large"
     >Join</ion-button
   >
-</div>
+</ion-card>
