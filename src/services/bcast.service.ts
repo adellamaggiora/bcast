@@ -62,8 +62,8 @@ export class BcastService {
       .pipe(
         map(_ => {
           let result = []
-          if (!_.tag?.any) {
-             result = _.tag?.favorite;
+          if (!_?.tag?.any) {
+             result = _?.tag?.favorite;
           }
           return result;
         })

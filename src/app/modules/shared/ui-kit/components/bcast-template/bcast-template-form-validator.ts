@@ -45,7 +45,7 @@ export class BcastTemplateFormValidator extends FormValidator {
     //#region public
 
     addTag(tag: string) {
-        this.tag.push(this._generateTagFormControl(tag?.toLowerCase()));
+        this.tag.push(this._generateTagFormControl(tag?.toLowerCase()?.trim()));
     }
 
     removeTag(index: number) {

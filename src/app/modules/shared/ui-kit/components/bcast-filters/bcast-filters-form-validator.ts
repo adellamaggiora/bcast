@@ -92,7 +92,7 @@ export class BcastFiltersFormValidartor extends FormValidator {
     addTag() {
         let tagFormControl = this.getFormControl(['tag', 'temp']);
         if (tagFormControl?.value) {
-            const formControl = this._generateTagFormControl(tagFormControl.value?.toLowerCase());
+            const formControl = this._generateTagFormControl(tagFormControl.value?.toLowerCase()?.trim());
             this.tag.push(formControl);
             // temp tag clear
             tagFormControl.setValue('');

@@ -22,7 +22,7 @@ export class BcastDetailComponent {
   ) {}
 
   async ionViewWillEnter() {
-    this.loader.show("Loading braodcast...");
+    this.loader.show("Loading broadcast...");
 
     this.route.params.subscribe(async (params) => {
       try {

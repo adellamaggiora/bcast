@@ -1,4 +1,5 @@
-<ion-card *ngIf="bcastDetail" class="ion-padding">
+<ion-card *ngIf="bcastDetail">
+
   <img [src]="imageSrc" />
 
   <ion-card-header>
@@ -18,14 +19,17 @@
     <ion-text>
       {{ bcastDetail.content }}
     </ion-text>
+
+<!-- 
+    <ion-thumbnail *ngIf="bcastDetail?.location" class="ion-padding">
+      <app-map-preview [position]="bcastDetail.location"></app-map-preview>
+    </ion-thumbnail> -->
   </ion-card-content>
 
-  <!-- <ion-thumbnail *ngIf="bcastDetail?.location" class="ion-padding">
-    <app-map-preview [position]="bcastDetail.location"></app-map-preview>
-  </ion-thumbnail> -->
 
-  <ion-button
-    expand="block"
+  <!--class="ion-float-right"-->
+  <ion-button   
+    fill="clear" 
     color="tertiary"
     (click)="onChatClick()"
     *ngIf="bcastDetail.joined"
@@ -33,7 +37,7 @@
   >
 
   <ion-button
-    expand="block"
+    fill="clear"
     color="tertiary"
     (click)="onJoinClick()"
     *ngIf="!bcastDetail.joined"

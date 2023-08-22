@@ -7,7 +7,7 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ng-container *ngIf="(bcastService.bcastList.get$() | async)?.length && !isLoading">
+    <ng-container *ngIf="(bcastService?.bcastList?.get$() | async)?.length && !isLoading">
         <div *ngFor="let listedBcast of bcastService.bcastList.get$() | async">
             <app-bcast-card-list 
             [favoriteTag]="(bcastService?.filters?.getFavoriteTag$() | async)"
@@ -21,9 +21,9 @@
         @todo add skeleton
     </ng-container> -->
 
-    <ion-item *ngIf="!(bcastService.bcastList.get$() | async)?.length && !isLoading">
+    <ion-item *ngIf="!(bcastService?.bcastList?.get$() | async)?.length && !isLoading">
         <ion-text>
-            <h4>No braodcast match this area</h4>
+            <h4>No broadcast match this area</h4>
         </ion-text>
     </ion-item>
 </ion-content>
