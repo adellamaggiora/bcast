@@ -19,14 +19,12 @@ export class ChatService {
     if (this._cache.has(bcastId)) {
       const existingMap = this._cache.get(bcastId);
       if (!existingMap.has(userId)) {
-        console.log('fetching username');
         const username = await client.userInfo.getUsername(userId);
         const usernameColorHex = colorFns.assignColorToUser(userId);
         existingMap.set(userId, { username, usernameColorHex });
       }
     }
     else {
-      console.log('fetching username');
       const username = await client.userInfo.getUsername(userId);
       const usernameColorHex = colorFns.assignColorToUser(userId);
       const map = new Map([ [userId, { username, usernameColorHex }] ]);

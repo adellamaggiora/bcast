@@ -1,6 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { IonContent } from "@ionic/angular";
+import { IonContent, Platform } from "@ionic/angular";
 import dateFns from "src/functions/date-fns";
 import { IMessage } from "src/interfaces/message";
 import { ChatService } from "src/services/chat.service";
@@ -23,10 +23,11 @@ export class ChatRoomComponent {
   private chatContainer: IonContent;
 
   constructor(
+    public chatService: ChatService,
     private route: ActivatedRoute,
     private userService: UserService,
-    public chatService: ChatService
-  ) {}
+    private platfrom: Platform
+  ) { }
 
   async ngAfterViewInit() {
     this.userId = await this.userService.userSession.getUserId();
@@ -37,12 +38,19 @@ export class ChatRoomComponent {
         this.messages.push(message);
         this.scrollToBottom();
       });
-    Keyboard.addListener("keyboardDidShow", (info) => {
-      this.chatContainer.scrollToBottom(100);
-    });
-    Keyboard.addListener("keyboardDidHide", () => {
-      this.chatContainer.scrollToBottom(100);
-    });
+    if (
+      this.platfrom.is('android') ||
+      this.platfrom.is('ios') ||
+      this.platfrom.is('tablet') ||
+      this.platfrom.is('mobile')
+    ) {
+      Keyboard.addListener("keyboardDidShow", (info) => {
+        this.chatContainer.scrollToBottom(100);
+      });
+      Keyboard.addListener("keyboardDidHide", () => {
+        this.chatContainer.scrollToBottom(100);
+      });
+    }
     this.scrollToBottom();
   }
 
