@@ -130,6 +130,7 @@ export class BcastFiltersFormValidartor extends FormValidator {
         this.clearAvailabilityFilters();
         this.clearAuthorFilters();
         this.clearPartecipationFilters();
+        this._formGroup.markAsDirty();
     }
 
 }

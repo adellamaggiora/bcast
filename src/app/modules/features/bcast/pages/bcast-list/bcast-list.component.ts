@@ -41,7 +41,7 @@ export class BcastListComponent implements OnInit {
   }
 
   async fetchBcastList(selectedLocation: IGeoLocation | null) {
-    this.loaderService.show('Fetching list...');
+    this.loaderService.show();
     this.isLoading = true;
     try {
       await this.bcastService.filters.fetch();

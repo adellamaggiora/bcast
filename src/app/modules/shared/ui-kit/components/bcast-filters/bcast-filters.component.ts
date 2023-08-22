@@ -90,7 +90,6 @@ export class BcastFiltersComponent {
       default:
         break;
     }
-    this.confirm();
   }
 
 }
