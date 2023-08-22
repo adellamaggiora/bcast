@@ -21,7 +21,8 @@ export class AppComponent {
   userSession: Session;
   appVersion: string = packageJson.version;
   appPages = [
-    { title: 'Profile', url: '/profile', icon: 'person' }
+    { title: 'Profile', url: '/profile', icon: 'person' },
+    { title: 'Broadcast', url: '/bcast', icon: 'megaphone' }
   ];
 
   get isLoginPage(): boolean {
