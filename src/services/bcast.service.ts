@@ -16,15 +16,16 @@ import { IBcastFilters } from 'src/interfaces/filters/bcast-filters';
 export class BcastService {
 
   private _bcastList$ = new BehaviorSubject<IListedBcast[]>([]);
+  private _bcastFilters$ = new BehaviorSubject<IBcastFilters>(null);
 
   constructor(private userService: UserService) { }
 
   public bcastList = {
     get$: () => this._bcastList$.asObservable().pipe(share()),
     get: () => this._bcastList$.getValue(),
-    fetch: async (location: IGeoLocation, maxDistanceMeters?: number) => {
+    fetch: async (location: IGeoLocation, filters: IBcastFilters) => {
       const userId = await this.userService.userSession?.getUserId();
-      const bcastList: IListedBcast[] = await client.bcast.getList(userId, location, maxDistanceMeters);
+      const bcastList: IListedBcast[] = await client.bcast.getList(userId, location, filters);
       this._bcastList$.next(bcastList);
     }
   }
@@ -44,15 +45,18 @@ export class BcastService {
     }
   }
 
-  public bcastFilters = {
-    get: async () => {
-      const data = await Preferences.get({ key: StorageKeys.BCAST_FILTERS });
-      const bcastFilters: IBcastFilters = JSON.parse(data?.value);
-      return bcastFilters;
+  public filters = {
+    fetch: async () => {
+      const stringifyFilters = await Preferences.get({ key: StorageKeys.BCAST_FILTERS });
+      const filters: IBcastFilters = JSON.parse(stringifyFilters?.value);
+      this._bcastFilters$.next(filters);
     },
-    set: async (bcastFilters: IBcastFilters) => {
-      const data = JSON.stringify(bcastFilters);
-      return await Preferences.set({ key: StorageKeys.BCAST_FILTERS, value: data });
+    get$: () => this._bcastFilters$.asObservable().pipe(share()),
+    get: () => this._bcastFilters$.getValue(),
+    set: async (filters: IBcastFilters) => {
+      this._bcastFilters$.next(filters);
+      const stringifyFilters = JSON.stringify(filters);
+      return await Preferences.set({ key: StorageKeys.BCAST_FILTERS, value: stringifyFilters });
     }
   }
 

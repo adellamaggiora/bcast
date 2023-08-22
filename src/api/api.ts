@@ -1,13 +1,13 @@
 import { Session, SupabaseClient } from "@supabase/supabase-js";
-import { utilsFns } from "src/functions/utils-fns";
 import { IBcast } from "src/interfaces/bcast";
 import { IGeoLocation } from "src/interfaces/geo-location";
 import { IMessage } from "src/interfaces/message";
 import { ISignIn } from "src/interfaces/sign-in";
-import { IUserInfo } from "src/interfaces/user-info";
 import outputDto from "./dto/output-dto";
 import handlers from "./utils/handlers";
 import { apiUtils } from "./utils/api-utils";
+import { IBcastFilters } from "src/interfaces/filters/bcast-filters";
+import { IRawBcastFilters } from "src/interfaces/raw/raw-filters/raw-bcast-filters";
 
 const api =
   (init = false) => (supabase: SupabaseClient<any, "public", any>) => {
@@ -58,15 +58,13 @@ const api =
         getList: (
           userId: string,
           location: IGeoLocation,
-          maxDistanceMeters: number | null = null,
-          tag: string[] | null = null,
-          availability: "vacant" | "soldOut" | null = null,
-          author: "me" | "others" | null = null,
-          partecipation: "partecipating" | "notPartecipating" | null = null,
+          filters: IBcastFilters,
           limit = 50,
           offset = 0,
-        ) =>
-          supabase
+        ) => {
+          const rawFilters: IRawBcastFilters = outputDto.filtersToRawFilters(filters);
+          const { maxDistanceMeters = null, tag = null, availability = null, author = null, partecipation = null } = rawFilters || {};
+          return supabase
             .rpc("bcast_list", {
               p_user_id: userId,
               p_lng: location.lng,
@@ -77,9 +75,9 @@ const api =
               p_author: author,
               p_partecipation: partecipation,
             })
-            //.range(offset, (offset + limit))
-            // .then(utilsFns.logger(`Bcast list`))
-            .then(handlers.bcastListHandler(supabase)),
+            .range(offset, (offset + limit))
+            .then(handlers.bcastListHandler(supabase))
+        },
 
         join: async (userId: string, bcastId: string) => {
           const bcastUserExists = await apiUtils.bcastUserRecordExists(
@@ -154,7 +152,7 @@ const api =
         setUsername: (userId: string, username: string) =>
           supabase
             .from("user_info")
-            .upsert({ id: userId, username: username})
+            .upsert({ id: userId, username: username })
             .eq("id", userId)
             .then(handlers.setUsernameHandler)
       },

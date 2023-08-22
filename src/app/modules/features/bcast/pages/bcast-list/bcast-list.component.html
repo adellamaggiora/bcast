@@ -1,5 +1,5 @@
 <ion-item style="overflow-x: scroll; white-space: nowrap;">
-    <app-bcast-filters (filtersChange)="onFiltersChange($event)"></app-bcast-filters>
+    <app-bcast-filters (filtersChange)="onFiltersChange($event)" [filters]="bcastService.filters.get$() | async"></app-bcast-filters>
 </ion-item>
 
 <ion-content>
@@ -7,14 +7,14 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ng-container *ngIf="(bcastService.bcastList.get$() | async)?.length">
+    <ng-container *ngIf="(bcastService.bcastList.get$() | async)?.length && !isLoading">
         <div *ngFor="let listedBcast of bcastService.bcastList.get$() | async">
             <app-bcast-card-list [listedBcast]="listedBcast" (click)="onBcastCardClick(listedBcast)">
             </app-bcast-card-list>
         </div>
     </ng-container>
 
-    <ng-container *ngIf="!(bcastService.bcastList.get$() | async)?.length && isLoading">
+    <ng-container *ngIf="isLoading">
         @todo add skeleton
     </ng-container>
 
