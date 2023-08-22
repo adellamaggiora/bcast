@@ -38,19 +38,10 @@ export class BcastListComponent implements OnInit {
     });
   }
 
-  // async ionViewWillEnter() {
-  //   try {
-  //     await this.bcastService.filters.fetch();
-  //     const filters = this.bcastService.filters.get();
-  //     await this.onFiltersChange(filters);
-  //   } catch (error) {
-  //     toast.fail(error?.message || error);
-  //   }
-  // }
-
   async fetchBcastList(selectedLocation: IGeoLocation | null) {
     this.isLoading = true;
     try {
+      await this.bcastService.filters.fetch();
       const filters = await this.bcastService?.filters?.get();
       if (selectedLocation) {
         await this.bcastService.bcastList.fetch(selectedLocation, filters);
