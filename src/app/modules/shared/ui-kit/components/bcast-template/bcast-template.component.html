@@ -13,12 +13,12 @@
 
     <ion-item class="ion-align-items-center">
       <ion-col>
+        <img [src]="formValidator.imageUrl"  height="150" class="ion-justify-content-between" />
+      </ion-col>
+      <ion-col size="m">
         <ion-button (click)="takePicture()">
           <ion-icon name="camera-outline" size="large"></ion-icon>
         </ion-button>
-      </ion-col>
-      <ion-col size="auto">
-        <img [src]="formValidator.imageUrl"  height="150" class="ion-justify-content-between" />
       </ion-col>
     </ion-item>
 
@@ -55,7 +55,7 @@
 
     <ng-container formGroupName="maxUsers">
       <ion-item>
-        <ion-label>Open number broadcast</ion-label>
+        <ion-label>Open number users</ion-label>
         <ion-checkbox formControlName="openNumber"></ion-checkbox>
       </ion-item>
       <ion-item [disabled]="formValidator.maxUsersIsOpenNumber">

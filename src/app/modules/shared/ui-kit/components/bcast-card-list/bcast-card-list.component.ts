@@ -42,7 +42,7 @@ export class BcastCardListComponent implements OnChanges {
     if (imageFile) {
       this.imageSrc = URL.createObjectURL(imageFile);
     } else {
-      this.imageSrc = "https://ionicframework.com/docs/img/demos/card-media.png";
+      this.imageSrc = "assets/pictures/card-media-resized.png";
     }
   }
 

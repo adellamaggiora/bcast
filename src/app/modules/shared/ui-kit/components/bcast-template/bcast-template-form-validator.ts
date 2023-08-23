@@ -5,7 +5,7 @@ import { FormValidator } from "src/models/form-validator";
 
 export class BcastTemplateFormValidator extends FormValidator {
 
-    private _imageUrl: string;
+    private _imageUrl: string = 'assets/pictures/card-media-resized.png';
 
     get imageUrl(): string {
         return this._imageUrl;
