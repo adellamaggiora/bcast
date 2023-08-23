@@ -5,6 +5,7 @@ import { BcastService } from "src/services/bcast.service";
 import { LoaderService } from "src/services/loader.service";
 import { ActivatedRoute } from "@angular/router";
 import { Geolocation } from "@capacitor/geolocation";
+import { toast } from "src/functions/notifiers/toast";
 
 @Component({
   selector: "app-bcast-detail",
@@ -34,7 +35,7 @@ export class BcastDetailComponent {
           lat: latitude,
         });
       } catch (error) {
-        window.alert(error);
+        toast.fail(error?.message || error);
       } finally {
         this.loader.hide();
       }

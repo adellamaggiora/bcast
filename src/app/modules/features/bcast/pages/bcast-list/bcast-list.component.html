@@ -1,29 +1,37 @@
-<ion-item style="overflow-x: scroll; white-space: nowrap;">
-    <app-bcast-filters (filtersChange)="onFiltersChange($event)" [filters]="bcastService.filters.get$() | async"></app-bcast-filters>
+<ion-item style="overflow-x: scroll; white-space: nowrap">
+  <app-bcast-filters
+    (filtersChange)="onFiltersChange($event)"
+    [filters]="bcastService.filters.get$() | async"
+  ></app-bcast-filters>
 </ion-item>
 
-<ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
+<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
 
-    <ng-container *ngIf="(bcastService?.bcastList?.get$() | async)?.length && !isLoading">
-        <div *ngFor="let listedBcast of bcastService.bcastList.get$() | async">
-            <app-bcast-card-list 
-            [favoriteTag]="(bcastService?.filters?.getFavoriteTag$() | async)"
-            [listedBcast]="listedBcast" 
-            (click)="onBcastCardClick(listedBcast)">
-            </app-bcast-card-list>
-        </div>
-    </ng-container>
+<ion-content
+  *ngIf="(bcastService?.bcastList?.get$() | async)?.length && !isLoading"
+>
+  <ng-container
+    *ngFor="let listedBcast of bcastService.bcastList.get$() | async"
+  >
+    <app-bcast-card-list
+      [favoriteTag]="bcastService?.filters?.getFavoriteTag$() | async"
+      [listedBcast]="listedBcast"
+      (click)="onBcastCardClick(listedBcast)"
+    >
+    </app-bcast-card-list>
+  </ng-container>
 
-    <!-- <ng-container *ngIf="isLoading">
+  <!-- <ng-container *ngIf="isLoading">
         @todo add skeleton
     </ng-container> -->
+</ion-content>
 
-    <ion-item *ngIf="!(bcastService?.bcastList?.get$() | async)?.length && !isLoading">
-        <ion-text>
-            <h4>No broadcast match this area</h4>
-        </ion-text>
-    </ion-item>
+<ion-content
+  *ngIf="!(bcastService?.bcastList?.get$() | async)?.length && !isLoading"
+>
+  <ion-text class="ion-text-center">
+    <h4>No broadcast match this area</h4>
+  </ion-text>
 </ion-content>
