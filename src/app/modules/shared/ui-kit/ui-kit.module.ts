@@ -13,6 +13,7 @@ import { MetersToKmPipe } from './pipes/meters-to-km.pipe';
 import { BcastCardDetailComponent } from './components/bcast-card-detail/bcast-card-detail.component';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 import { TagChipsComponent } from './components/tag-chips/tag-chips.component';
+import { BcastCardListSkeletonComponent } from './components/bcast-card-list-skeleton/bcast-card-list-skeleton.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { TagChipsComponent } from './components/tag-chips/tag-chips.component';
     MetersToKmPipe,
     BcastCardDetailComponent,
     ImageCropperComponent,
-    TagChipsComponent
+    TagChipsComponent,
+    BcastCardListSkeletonComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { TagChipsComponent } from './components/tag-chips/tag-chips.component';
     MetersToKmPipe,
     BcastCardDetailComponent,
     ImageCropperComponent,
-    TagChipsComponent
+    TagChipsComponent,
+    BcastCardListSkeletonComponent
   ]
 })
 export class UiKitModule { }

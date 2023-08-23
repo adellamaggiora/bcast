@@ -22,10 +22,13 @@
     >
     </app-bcast-card-list>
   </ng-container>
+</ion-content>
 
-  <!-- <ng-container *ngIf="isLoading">
-        @todo add skeleton
-    </ng-container> -->
+<ion-content *ngIf="isLoading">
+  <app-bcast-card-list-skeleton></app-bcast-card-list-skeleton>
+  <app-bcast-card-list-skeleton></app-bcast-card-list-skeleton>
+  <app-bcast-card-list-skeleton></app-bcast-card-list-skeleton>
+  <app-bcast-card-list-skeleton></app-bcast-card-list-skeleton>
 </ion-content>
 
 <ion-content

@@ -8,7 +8,6 @@ import { IListedBcast } from "src/interfaces/listed-bcast";
 import { DataService } from "src/services/data.service";
 import { IBcastFilters } from "src/interfaces/filters/bcast-filters";
 import { toast } from "src/functions/notifiers/toast";
-import { LoaderService } from "src/services/loader.service";
 
 @Component({
   selector: "app-bcast-list",
@@ -23,8 +22,7 @@ export class BcastListComponent implements OnInit {
     public bcastService: BcastService,
     public userService: UserService,
     private dataService: DataService,
-    private router: Router,
-    private loaderService: LoaderService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -41,7 +39,6 @@ export class BcastListComponent implements OnInit {
   }
 
   async fetchBcastList(selectedLocation: IGeoLocation | null) {
-    this.loaderService.show();
     this.isLoading = true;
     try {
       await this.bcastService.filters.fetch();
@@ -59,7 +56,6 @@ export class BcastListComponent implements OnInit {
       toast.fail(error?.message || error);
     } finally {
       this.isLoading = false;
-      this.loaderService.hide();
     }
   }
 
