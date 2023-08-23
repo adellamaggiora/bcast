@@ -1,4 +1,13 @@
 <ng-container *ngIf="bcastDetail">
-    <app-bcast-card-detail [bcastDetail]="this.bcastDetail" (chat)="onChat($event)" (join)="onJoin($event)" class="overflow-auto">
-    </app-bcast-card-detail>
+  <app-bcast-card-detail
+    [bcastDetail]="this.bcastDetail"
+    (chat)="onChat($event)"
+    (join)="onJoin($event)"
+    class="overflow-auto"
+  >
+  </app-bcast-card-detail>
+</ng-container>
+
+<ng-container *ngIf="!bcastDetail">
+  <app-bcast-card-detail-skeleton> </app-bcast-card-detail-skeleton>
 </ng-container>

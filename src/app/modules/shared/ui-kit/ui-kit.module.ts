@@ -14,6 +14,7 @@ import { BcastCardDetailComponent } from './components/bcast-card-detail/bcast-c
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 import { TagChipsComponent } from './components/tag-chips/tag-chips.component';
 import { BcastCardListSkeletonComponent } from './components/bcast-card-list-skeleton/bcast-card-list-skeleton.component';
+import { BcastCardDetailSkeletonComponent } from './components/bcast-card-detail-skeleton/bcast-card-detail-skeleton.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { BcastCardListSkeletonComponent } from './components/bcast-card-list-ske
     BcastCardDetailComponent,
     ImageCropperComponent,
     TagChipsComponent,
-    BcastCardListSkeletonComponent
+    BcastCardListSkeletonComponent,
+    BcastCardDetailSkeletonComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { BcastCardListSkeletonComponent } from './components/bcast-card-list-ske
     BcastCardDetailComponent,
     ImageCropperComponent,
     TagChipsComponent,
-    BcastCardListSkeletonComponent
+    BcastCardListSkeletonComponent,
+    BcastCardDetailSkeletonComponent
   ]
 })
 export class UiKitModule { }
