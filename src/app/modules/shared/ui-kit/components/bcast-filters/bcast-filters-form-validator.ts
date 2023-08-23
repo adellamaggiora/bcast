@@ -10,7 +10,7 @@ import { DEFALT_FILTERS } from "src/constants";
 export class BcastFiltersFormValidartor extends FormValidator {
 
     private _generateTagFormControl(tag: string) {
-        return new FormControl<string>(tag, [Validators.minLength(3), Validators.maxLength(12)]);
+        return new FormControl<string>(tag, [Validators.maxLength(24)]);
     }
 
     constructor(bcastFilters: IBcastFilters) {

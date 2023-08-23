@@ -21,13 +21,13 @@ const buildRawUserInfo = (userId: string, userInfo: Partial<IUserInfo>): Partial
 
 const buildRawBcast = (userId: string, bcast: Partial<IBcast>): Partial<IRawBcast> => ({
     user_id: userId,
-    expires_at: new Date(bcast?.expiresAt),
-    max_users: bcast?.maxUsers,
-    tag: bcast?.tag,
-    title: bcast?.title,
-    content: bcast?.content,
+    expires_at: bcast?.expiresAt? new Date(bcast?.expiresAt) : null,
+    max_users: bcast?.maxUsers || null,
+    tag: bcast?.tag || null,
+    title: bcast?.title || null,
+    content: bcast?.content || null,
     location: `POINT(${bcast?.location.lng} ${bcast?.location.lat})`,
-    hide_position: bcast?.hidePosition
+    hide_position: bcast?.hidePosition || null
 });
 
 const buildRawMessage = (userId: string, bcastId: string, message: IMessage): Partial<IRawMessage> => ({

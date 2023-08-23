@@ -37,13 +37,13 @@ export class BcastTemplateFormValidator extends FormValidator {
     constructor() {
         super();
         this._formGroup = new FormGroup({
-            title: new FormControl<string>('', [Validators.required, Validators.maxLength(16)]),
+            title: new FormControl<string>('', [Validators.required, Validators.maxLength(24)]),
             content: new FormControl<string>(''),
             maxUsers: new FormGroup({
                 openNumber: new FormControl<boolean>(true),
                 total: new FormControl<number>(10)
             }),
-            tempTag: new FormControl<string>('', [Validators.minLength(3), Validators.maxLength(12)]),
+            tempTag: new FormControl<string>('', [Validators.maxLength(24)]),
             tag: new FormArray([]),
             // IONIC BUG - if you pass a Date instance to the init value it will raise an error 
             expiresAt: new FormControl<any>(dateFns.getISODateTomorrow(), [Validators.required]),

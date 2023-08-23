@@ -60,7 +60,7 @@ export class BcastTemplateComponent  implements OnInit {
         title: formValue.title,
         expiresAt: formValue.expiresAt,
         tag: formValue.tag,
-        maxUsers: formValue.maxUsers
+        maxUsers: formValue.maxUsers?.openNumber? null : formValue?.maxUsers?.total
       }
       this.saveBcast.emit(bcast);
     } catch (error) {

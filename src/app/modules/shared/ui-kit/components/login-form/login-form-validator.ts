@@ -7,8 +7,8 @@ export class LoginFormValidator extends FormValidator {
         super();
         this._formGroup = new FormGroup({
             email: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [Validators.required, Validators.min(6), Validators.max(16)]),
-            confirmPassword: new FormControl('', [Validators.min(6),Validators.max(16)])
+            password: new FormControl('', [Validators.required, Validators.min(8), Validators.max(24)]),
+            confirmPassword: new FormControl('', [Validators.min(8),Validators.max(24)])
         })
     }
 

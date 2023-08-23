@@ -8,7 +8,7 @@ export class ProfileFormValidator extends FormValidator {
     this._formGroup = new FormGroup({
       username: new FormControl(userInfo?.username, [
         Validators.required,
-        Validators.minLength(2),
+        Validators.minLength(3),
         Validators.maxLength(16),
       ]),
     });
