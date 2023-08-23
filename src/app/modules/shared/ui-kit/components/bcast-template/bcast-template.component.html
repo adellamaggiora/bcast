@@ -35,7 +35,8 @@
             id="datetime"
             formControlName="expiresAt"
             max="2030-01-01"
-            [min]="dateFns.getISODateNow()"
+            [min]="datepickerRange.min"
+            [max]="datepickerRange.max"
           >
           </ion-datetime>
         </ng-template>
@@ -55,7 +56,7 @@
 
     <ng-container formGroupName="maxUsers">
       <ion-item>
-        <ion-label>Open number users</ion-label>
+        <ion-label>Open number broadcast</ion-label>
         <ion-checkbox formControlName="openNumber"></ion-checkbox>
       </ion-item>
       <ion-item [disabled]="formValidator.maxUsersIsOpenNumber">

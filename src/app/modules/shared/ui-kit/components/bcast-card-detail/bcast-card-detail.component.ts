@@ -9,6 +9,7 @@ import { IBcastDetail } from 'src/interfaces/bcast-detail';
 export class BcastCardDetailComponent  implements OnInit {
 
   @Input() bcastDetail: IBcastDetail;
+  @Input() favoriteTag: string[] = [];
 
   @Output() chat = new EventEmitter<string>(null);
   @Output() join = new EventEmitter<string>(null);

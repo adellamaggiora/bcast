@@ -46,9 +46,4 @@ export class BcastCardListComponent implements OnChanges {
     }
   }
 
-  tagMatchesFavorite(tag: string) {
-    return this.favoriteTag?.includes(tag);
-  }
-
-
 }

@@ -1,0 +1,8 @@
+<ng-container *ngFor="let t of tag">
+  <ion-chip color="secondary" *ngIf="!tagMatchesFavorite(t)">{{
+    t
+  }}</ion-chip>
+  <ion-chip color="success" *ngIf="tagMatchesFavorite(t)">{{
+    t
+  }}</ion-chip>
+</ng-container>

@@ -10,13 +10,21 @@ const getTomorrow = () => {
     return date;
 }
 
+const getOneYearFromNow = () => {
+    const date = new Date();
+    date.setFullYear(date.getFullYear() + 1);
+    return date;
+}
+
 const getISODateNow = () => getISODate(new Date());
 
 const getISODateTomorrow = () => getISODate(getTomorrow());
 
+const getISODateOneYearFromNow = () => getISODate(getOneYearFromNow());
+
 export default {
     formatString,
-    getISODate,
     getISODateNow,
-    getISODateTomorrow
+    getISODateTomorrow,
+    getISODateOneYearFromNow
 }

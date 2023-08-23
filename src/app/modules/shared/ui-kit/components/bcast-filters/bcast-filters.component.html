@@ -16,7 +16,7 @@
     </ion-chip>
     <ion-chip
       *ngIf="!formValidator?.anyDistancelIsAllowed"
-      color="tertiary"
+      color="warning"
       (click)="openModal(ModalContentEnum.Distance)"
     >
       Distance
@@ -36,7 +36,7 @@
     </ion-chip>
     <ion-chip
       *ngIf="!formValidator?.anyTagIsAllowed"
-      color="tertiary"
+      color="warning"
       (click)="openModal(ModalContentEnum.Tag)"
     >
       Tag
@@ -56,7 +56,7 @@
     </ion-chip>
     <ion-chip
       *ngIf="!formValidator?.anyAvailabilityIsAllowed"
-      color="tertiary"
+      color="warning"
       (click)="openModal(ModalContentEnum.Availabilty)"
     >
       Availability
@@ -76,7 +76,7 @@
     </ion-chip>
     <ion-chip
       *ngIf="!formValidator?.anyPartecipationIsAllowed"
-      color="tertiary"
+      color="warning"
       (click)="openModal(ModalContentEnum.Partecipation)"
     >
       Partecipation
@@ -96,7 +96,7 @@
     </ion-chip>
     <ion-chip
       *ngIf="!formValidator?.anyAuthorIsAllowed"
-      color="tertiary"
+      color="warning"
       (click)="openModal(ModalContentEnum.Author)"
     >
       Author
@@ -264,7 +264,7 @@
         <ion-item>
           <ion-button
             (click)="clearFilter(ModalContentEnum.All)"
-            color="tertiary"
+            color="warning"
             class="ion-margin-top"
             >Clear all filters</ion-button
           >

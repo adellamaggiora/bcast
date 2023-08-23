@@ -18,14 +18,23 @@ export class BcastTemplateComponent  implements OnInit {
   @Output() saveBcast: EventEmitter<Partial<IBcast>> = new EventEmitter();
 
   formValidator: BcastTemplateFormValidator;
-  dateFns = dateFns;
 
   tempPhoto: {
     webPath: string;
     name: string;
   }
 
-  constructor() { }
+  datepickerRange: {
+    min: string;
+    max: string;
+  }
+
+  constructor() { 
+    this.datepickerRange = {
+      min: dateFns.getISODateNow(),
+      max: dateFns.getISODateOneYearFromNow()
+    }
+  }
 
   ngOnInit() {
     this.initFormValidator();

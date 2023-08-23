@@ -49,14 +49,7 @@
 
     <ion-row>
       <ion-col>
-        <ng-container *ngFor="let tag of listedBcast?.tag">
-          <ion-chip color="secondary" *ngIf="!tagMatchesFavorite(tag)">{{
-            tag
-          }}</ion-chip>
-          <ion-chip color="success" *ngIf="tagMatchesFavorite(tag)">{{
-            tag
-          }}</ion-chip>
-        </ng-container>
+        <app-tag-chips [favoriteTag]="favoriteTag" [tag]="listedBcast?.tag"></app-tag-chips>
       </ion-col>
     </ion-row>
   </ion-grid>
