@@ -50,4 +50,8 @@ export class BcastCardDetailComponent  implements OnInit {
     }
   }
 
+  showLocation() {
+    window.alert('@todo show location')
+  }
+
 }
