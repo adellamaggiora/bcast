@@ -68,12 +68,6 @@ export class BcastTemplateComponent  implements OnInit {
     }
   }
 
-  addTag(tagInput: IonInput) {
-    const tag = tagInput.value as string;
-    tagInput.value = '';
-    this.formValidator.addTag(tag);
-  }
-
   onCroppedBase64(base64: string) {
     if (base64?.length) {
       const file = utilsFns.base64ToFile(base64, this.tempPhoto.name);

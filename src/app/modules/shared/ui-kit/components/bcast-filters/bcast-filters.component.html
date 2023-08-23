@@ -182,14 +182,13 @@
           <ion-checkbox formControlName="any"></ion-checkbox>
         </ion-item>
         <ion-item [disabled]="formValidator.anyTagIsAllowed">
-          <ion-label position="fixed"> Enter a tag: </ion-label>
+          <ion-label position="fixed">Enter a tag:</ion-label>
           <ion-input formControlName="temp"></ion-input>
           <ion-button
-            shape="round"
             (click)="formValidator.addTag()"
             [disabled]="formValidator?.tempTagIsInvalid"
           >
-            <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+            <ion-icon slot="icon-only" name="add-outline"></ion-icon>
           </ion-button>
           <span slot="error">Tag must be between 3 and 12 characters</span>
         </ion-item>

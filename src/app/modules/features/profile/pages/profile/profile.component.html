@@ -1,5 +1,8 @@
-<ng-container *ngIf="formValidator?.formGroup" [formGroup]="formValidator.formGroup">
-  <ion-list>
+<ion-content
+  *ngIf="formValidator?.formGroup"
+  [formGroup]="formValidator.formGroup"
+>
+  <ion-card>
     <ion-item>
       <ion-label position="fixed">Email: </ion-label>
       <ion-input disabled [value]="userSession?.user?.email"></ion-input>
@@ -9,7 +12,12 @@
       <ion-input color="primary" formControlName="username"></ion-input>
       <span slot="error">Name must be between 2 and 16 characters</span>
     </ion-item>
-  </ion-list>
-
-  <ion-button (click)="save()" [disabled]="formValidator.formButtonDisabled"> Save </ion-button>
-</ng-container>
+  </ion-card>
+  <ion-button
+    class="ion-margin ion-float-end"
+    (click)="save()"
+    [disabled]="formValidator?.formButtonDisabled"
+  >
+    Save
+  </ion-button>
+</ion-content>

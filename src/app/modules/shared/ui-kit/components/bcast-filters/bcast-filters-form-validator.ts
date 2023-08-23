@@ -90,12 +90,12 @@ export class BcastFiltersFormValidartor extends FormValidator {
     }
 
     addTag() {
-        let tagFormControl = this.getFormControl(['tag', 'temp']);
-        if (tagFormControl?.value) {
-            const formControl = this._generateTagFormControl(tagFormControl.value?.toLowerCase()?.trim());
+        let tempTagFormControl = this.getFormControl(['tag', 'temp']);
+        if (tempTagFormControl?.value) {
+            const formControl = this._generateTagFormControl(tempTagFormControl.value?.toLowerCase()?.trim());
             this.tag.push(formControl);
             // temp tag clear
-            tagFormControl.setValue('');
+            tempTagFormControl.setValue('');
         }
     }
 

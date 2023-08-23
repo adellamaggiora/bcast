@@ -24,12 +24,13 @@
     <ion-thumbnail *ngIf="bcastDetail?.location" class="ion-padding">
       <app-map-preview [position]="bcastDetail.location"></app-map-preview>
     </ion-thumbnail> -->
+    
   </ion-card-content>
 
 
   <!--class="ion-float-right"-->
   <ion-button   
-    fill="clear" 
+    class="ion-float-end ion-margin"
     color="tertiary"
     (click)="onChatClick()"
     *ngIf="bcastDetail.joined"
@@ -37,7 +38,7 @@
   >
 
   <ion-button
-    fill="clear"
+    class="ion-float-end ion-margin"
     color="tertiary"
     (click)="onJoinClick()"
     *ngIf="!bcastDetail.joined"

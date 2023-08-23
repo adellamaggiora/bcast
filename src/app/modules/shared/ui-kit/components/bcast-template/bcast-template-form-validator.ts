@@ -1,4 +1,5 @@
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import dateFns from "src/functions/date-fns";
 import { IGeoLocation } from "src/interfaces/geo-location";
 import { FormValidator } from "src/models/form-validator";
 
@@ -18,18 +19,39 @@ export class BcastTemplateFormValidator extends FormValidator {
         return this._formGroup?.controls?.['image'] as FormControl<File>;
     }
 
+    get tempTagIsInvalid(): boolean {
+        const isInvalid = this.getFormControl(['tempTag'])?.invalid;
+        return isInvalid;
+    }
+
+    get maxUsersIsOpenNumber(): boolean {
+        const isOpenNumber = this.getFormControl(['maxUsers', 'openNumber'])?.value === true;
+        return isOpenNumber
+    }
+
+    get useCurrentLocationIsTrue(): boolean {
+        const useCurrentLocationIsTrue = this.getFormControl(['location', 'useCurrent'])?.value === true;
+        return useCurrentLocationIsTrue
+    }
+
     constructor() {
         super();
         this._formGroup = new FormGroup({
-            title: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
+            title: new FormControl<string>('', [Validators.required, Validators.maxLength(16)]),
             content: new FormControl<string>(''),
-            maxUsers: new FormControl<number>(10, [Validators.min(2)]),
+            maxUsers: new FormGroup({
+                openNumber: new FormControl<boolean>(true),
+                total: new FormControl<number>(10)
+            }),
             tempTag: new FormControl<string>('', [Validators.minLength(3), Validators.maxLength(12)]),
             tag: new FormArray([]),
             // IONIC BUG - if you pass a Date instance to the init value it will raise an error 
-            expiresAt: new FormControl<Date>(null, [Validators.required]),
-            location: new FormControl<IGeoLocation>({ lat: null, lng: null }, [Validators.required]),
-            image: this._generateFormControlImage(null)     
+            expiresAt: new FormControl<any>(dateFns.getISODateTomorrow(), [Validators.required]),
+            location: new FormGroup({
+                useCurrent: new FormControl<boolean>(true),
+                selected: new FormControl<IGeoLocation>({ lat: null, lng: null }, [Validators.required])
+            }),
+            image: this._generateFormControlImage(null)
         })
     }
 
@@ -44,8 +66,14 @@ export class BcastTemplateFormValidator extends FormValidator {
 
     //#region public
 
-    addTag(tag: string) {
-        this.tag.push(this._generateTagFormControl(tag?.toLowerCase()?.trim()));
+    addTag() {
+        let tempTagFormControl = this.getFormControl(['tempTag']);
+        if (tempTagFormControl?.value) {
+            const formControl = this._generateTagFormControl(tempTagFormControl.value?.toLowerCase()?.trim());
+            this.tag.push(formControl);
+            // temp tag clear
+            tempTagFormControl.setValue('');
+        }
     }
 
     removeTag(index: number) {
@@ -58,6 +86,6 @@ export class BcastTemplateFormValidator extends FormValidator {
     }
 
     //#endregion
-    
+
 }
 

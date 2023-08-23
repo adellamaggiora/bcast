@@ -1,56 +1,119 @@
-<form [formGroup]="formValidator.formGroup">
-  <ion-list>
-    <ion-item *ngIf="formValidator?.imageUrl">
-      <img [src]="formValidator.imageUrl">
+<app-image-cropper
+  [imageUrl]="tempPhoto?.webPath"
+  (croppedBase64)="onCroppedBase64($event)"
+>
+</app-image-cropper>
+
+<ng-container
+  *ngIf="formValidator?.formGroup"
+  [formGroup]="formValidator?.formGroup"
+>
+  <ion-content class="ion-page">
+  <ion-card>
+
+    <ion-item class="ion-align-items-center">
+      <ion-col>
+        <ion-button (click)="takePicture()">
+          <ion-icon name="camera-outline" size="large"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="auto">
+        <img [src]="formValidator.imageUrl"  height="150" class="ion-justify-content-between" />
+      </ion-col>
     </ion-item>
 
-    <app-image-cropper [imageUrl]="tempPhoto?.webPath" (croppedBase64)="onCroppedBase64($event)">
-    </app-image-cropper>
-
     <ion-item>
-      <ion-button size="large" (click)="takePicture()">
-        <ion-icon name="camera-outline" size="large"></ion-icon>
-      </ion-button>
-    </ion-item>
-
-    <ion-item>
-      <ion-datetime-button datetime="datetime" locale="it-IT"></ion-datetime-button>
+      <ion-label position="fixed">Date:</ion-label>
+      <ion-datetime-button
+        datetime="datetime"
+        locale="it-IT"
+      ></ion-datetime-button>
 
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
-          <ion-datetime id="datetime" formControlName="expiresAt" max="2030-01-01" [min]="dateFns.getIonDateTimeMin()">
+          <ion-datetime
+            id="datetime"
+            formControlName="expiresAt"
+            max="2030-01-01"
+            [min]="dateFns.getISODateNow()"
+          >
           </ion-datetime>
         </ng-template>
       </ion-modal>
-    </ion-item>
-
-
-    <ion-item>
-      <ion-input label="Title:" formControlName="title"></ion-input>
+      <span slot="error">Select a date and time</span>
     </ion-item>
 
     <ion-item>
-      <ion-textarea label="Content:" formControlName="content"></ion-textarea>
+      <ion-label position="fixed">Title:</ion-label>
+      <ion-input formControlName="title"></ion-input>
+      <span slot="error">Invalid title</span>
     </ion-item>
 
     <ion-item>
-      <ion-input label="Max users:" formControlName="maxUsers" type="number"></ion-input>
+      <ion-textarea formControlName="content" rows="4" label="Content:"></ion-textarea>
     </ion-item>
-  </ion-list>
 
-  <ion-item>
-    <ion-input #tagInput label="Tag:" formControlName="tempTag" errorText="Enter a valid tag"
-      (keydown.enter)="addTag(tagInput)" (keydown.space)="addTag(tagInput)" />
-  </ion-item>
+    <ng-container formGroupName="maxUsers">
+      <ion-item>
+        <ion-label>Open number broadcast</ion-label>
+        <ion-checkbox formControlName="openNumber"></ion-checkbox>
+      </ion-item>
+      <ion-item [disabled]="formValidator.maxUsersIsOpenNumber">
+        <ion-input
+          formControlName="total"
+          type="number"
+          label="Max users:"
+          labelPlacement="fixed"
+        ></ion-input>
+      </ion-item>
+    </ng-container>
 
-  <ion-item>
-    <div>
-      <ion-chip color="primary" *ngFor="let t of formValidator?.tag?.value; let i = index;">
-        <ion-label>{{ t }}</ion-label>
-        <ion-icon name="close-circle" (click)="formValidator.removeTag(i)"></ion-icon>
-      </ion-chip>
-    </div>
-  </ion-item>
+    <ng-container formGroupName="location">
+      <ion-item disabled>
+        <ion-label>Use current location</ion-label>
+        <ion-checkbox formControlName="useCurrent"></ion-checkbox>
+      </ion-item>
+      <ion-item [disabled]="formValidator.useCurrentLocationIsTrue">
+        @todo add location selector here
+      </ion-item>
+    </ng-container>
 
-  <ion-button (click)="save()" [disabled]="formValidator.formButtonDisabled"> Save </ion-button>
-</form>
+
+    <!-- tag adding -->
+    <ion-item>
+      <ion-label position="fixed">Enter a tag:</ion-label>
+      <ion-input formControlName="tempTag"></ion-input>
+      <ion-button
+        (click)="formValidator.addTag()"
+        [disabled]="formValidator?.tempTagIsInvalid"
+      >
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+      <span slot="error">Tag must be between 3 and 12 characters</span>
+    </ion-item>
+    <!-- tag iteration show -->
+    <ion-item>
+      <div class="ion-wrap">
+        <ng-container
+          *ngFor="let tag of formValidator?.tag?.value; let i = index"
+        >
+          <ion-chip color="secondary">
+            {{ tag }}
+            <ion-icon
+              name="close-circle"
+              (click)="formValidator.removeTag(i)"
+            ></ion-icon>
+          </ion-chip>
+        </ng-container>
+      </div>
+    </ion-item>
+  </ion-card>
+  <ion-button
+    (click)="save()"
+    [disabled]="formValidator?.formButtonDisabled"
+    class="ion-float-end ion-margin"
+  >
+    Save
+  </ion-button>
+</ion-content>
+</ng-container>
