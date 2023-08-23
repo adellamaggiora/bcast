@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { IBcastDetail } from "src/interfaces/bcast-detail";
 import { BcastService } from "src/services/bcast.service";
-import { LoaderService } from "src/services/loader.service";
 import { ActivatedRoute } from "@angular/router";
 import { Geolocation } from "@capacitor/geolocation";
 import { toast } from "src/functions/notifiers/toast";
@@ -18,13 +17,10 @@ export class BcastDetailComponent {
   constructor(
     private bcastService: BcastService,
     private router: Router,
-    private loader: LoaderService,
     private route: ActivatedRoute,
   ) {}
 
   async ionViewWillEnter() {
-    this.loader.show("Loading broadcast...");
-
     this.route.params.subscribe(async (params) => {
       try {
         const bcastId = params["id"];
@@ -36,8 +32,6 @@ export class BcastDetailComponent {
         });
       } catch (error) {
         toast.fail(error?.message || error);
-      } finally {
-        this.loader.hide();
       }
     });
   }
