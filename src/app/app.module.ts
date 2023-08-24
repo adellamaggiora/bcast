@@ -12,7 +12,7 @@ import { UiKitModule } from './modules/shared/ui-kit/ui-kit.module';
   imports: [
     BrowserModule, 
     IonicModule.forRoot({
-      spinner: 'bubbles'
+      spinner: 'dots'
     }), 
     AppRoutingModule,
     HttpClientModule,

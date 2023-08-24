@@ -1,6 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Capacitor, Plugins } from "@capacitor/core";
+import { Capacitor } from "@capacitor/core";
 import { Keyboard } from "@capacitor/keyboard";
 import { IonContent, Platform } from "@ionic/angular";
 import dateFns from "src/functions/date-fns";
@@ -48,7 +48,7 @@ export class ChatRoomComponent {
       window.alert('keyboard did hide')
     })
 
-    if (this.platfrom.is('android') || this.platfrom.is('ios')) {
+    if (Capacitor.getPlatform() !== 'web') {
       Keyboard.addListener("keyboardDidShow", (info) => {
         this.chatContainer.scrollToBottom(100);
       });
@@ -56,7 +56,7 @@ export class ChatRoomComponent {
         this.chatContainer.scrollToBottom(100);
       });
     }
-    else if (this.platfrom.is('pwa') || this.platfrom.is('mobileweb')) {
+    else {
       window.addEventListener('ionKeyboardDidShow', ev => {
         this.chatContainer.scrollToBottom(100);
       });
@@ -64,6 +64,7 @@ export class ChatRoomComponent {
         this.chatContainer.scrollToBottom(100);
       });
     }
+
     this.scrollToBottom();
   }
 

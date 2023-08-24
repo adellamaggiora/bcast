@@ -42,7 +42,7 @@ export class AppComponent {
     private location: Location,
     private authService: AuthService,
     private platform: Platform) { 
-      this.platform.backButton.subscribeWithPriority(-1, () => {
+      this.platform.backButton.subscribeWithPriority(10, () => {
           // this.location.back();
           if (this.router.url === '/bcast/list') {
             App.exitApp();
