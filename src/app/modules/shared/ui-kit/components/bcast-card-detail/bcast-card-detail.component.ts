@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { fadeIn } from 'src/functions/aninamtions';
 import dateFns from 'src/functions/date-fns';
 import { IBcastDetail } from 'src/interfaces/bcast-detail';
+
 @Component({
+  animations: [fadeIn],
   selector: 'app-bcast-card-detail',
   templateUrl: './bcast-card-detail.component.html',
   styleUrls: ['./bcast-card-detail.component.scss'],
