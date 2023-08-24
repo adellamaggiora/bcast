@@ -24,6 +24,7 @@ export class BcastService {
     get$: () => this._bcastList$.asObservable().pipe(share()),
     get: () => this._bcastList$.getValue(),
     fetch: async (location: IGeoLocation, filters: IBcastFilters) => {
+      console.log('::[fetching bcast list]');
       const userId = await this.userService.userSession?.getUserId();
       const bcastList: IListedBcast[] = await client.bcast.getList(userId, location, filters);
       this._bcastList$.next(bcastList);
@@ -66,8 +67,7 @@ export class BcastService {
              result = _?.tag?.favorite;
           }
           return result;
-        })
-        
+        })        
       )
   }
 
