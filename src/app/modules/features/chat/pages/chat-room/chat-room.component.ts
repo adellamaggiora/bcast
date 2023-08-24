@@ -41,12 +41,12 @@ export class ChatRoomComponent {
         this.scrollToBottom();
       });
 
-    Capacitor.addListener('Keyboard', 'ionKeyboardDidShow', a => {
-      window.alert('keyboard did show')
-    })
-    Capacitor.addListener('keyboard', 'ionKeyboardDidHide', a => {
-      window.alert('keyboard did hide')
-    })
+    // Capacitor.addListener('Keyboard', 'ionKeyboardDidShow', a => {
+    //   window.alert('keyboard did show')
+    // })
+    // Capacitor.addListener('keyboard', 'ionKeyboardDidHide', a => {
+    //   window.alert('keyboard did hide')
+    // })
 
     if (Capacitor.getPlatform() !== 'web') {
       Keyboard.addListener("keyboardDidShow", (info) => {

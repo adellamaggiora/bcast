@@ -46,8 +46,13 @@ export class BcastDetailComponent {
   }
 
   async onJoin(bcastId: string) {
-    await this.bcastService.bcast.join(this.bcastDetail.id);
-    this.navigateToChat(bcastId);
+    try {
+      await this.bcastService.bcast.join(this.bcastDetail.id);
+      this.bcastService.bcast.clearDetailCache(this.bcastDetail.id);
+      this.navigateToChat(bcastId);
+    } catch (error) {
+      toast.fail(error?.message || error);
+    }
   }
 
   navigateToChat(bcastId: string) {

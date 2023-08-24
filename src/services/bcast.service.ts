@@ -59,6 +59,9 @@ export class BcastService {
     insert: async (bcast: Partial<IBcast>) => {
       const userId = await this.userService.userSession?.getUserId();
       return await client.bcast.insert(userId, bcast);
+    },
+    clearDetailCache: (bcastId: string) => {
+      return this._bcastDetailCache.delete(bcastId);
     }
   }
 
