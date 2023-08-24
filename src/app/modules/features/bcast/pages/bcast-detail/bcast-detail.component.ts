@@ -3,7 +3,6 @@ import { Router } from "@angular/router";
 import { IBcastDetail } from "src/interfaces/bcast-detail";
 import { BcastService } from "src/services/bcast.service";
 import { ActivatedRoute } from "@angular/router";
-import { Geolocation } from "@capacitor/geolocation";
 import { toast } from "src/functions/notifiers/toast";
 import { DataService } from "src/services/data.service";
 import { IGeoLocation } from "src/interfaces/geo-location";
@@ -33,11 +32,8 @@ export class BcastDetailComponent {
           location = selectedLocation
         }
         else {
-          const coordinates = await Geolocation.getCurrentPosition();
-          const { latitude, longitude } = coordinates.coords;
-          location = { lat: latitude, lng: longitude };
+          location = this.dataService.userLocation.get();
         }
-
         this.bcastDetail = await this.bcastService.bcast.getDetail(bcastId, location);
       } catch (error) {
         toast.fail(error?.message || error);

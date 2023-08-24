@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
-import { Geolocation } from '@capacitor/geolocation';
 import L from 'leaflet';
 import { IGeoLocation } from 'src/interfaces/geo-location';
+import { DataService } from 'src/services/data.service';
 
+// @important, this is not a dummy component anymore (dataService dependency)
 @Component({
   selector: 'app-map-explorer',
   templateUrl: './map-explorer.component.html',
@@ -13,7 +14,7 @@ export class MapExplorerComponent implements AfterViewInit {
   map: L.Map;
   @Output() selectedLocation = new EventEmitter<IGeoLocation>(null);
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   async ngAfterViewInit() {
     try {
@@ -46,8 +47,9 @@ export class MapExplorerComponent implements AfterViewInit {
   }
 
   async getCurrentLocation(): Promise<IGeoLocation> {
-    const { coords: { latitude: lat, longitude: lng } } = await Geolocation.getCurrentPosition();
-    return { lat, lng };
+    await this.dataService.userLocation.fetch();
+    const location = this.dataService.userLocation.get();
+    return location;
   }
 
   centerMap(location: IGeoLocation) {

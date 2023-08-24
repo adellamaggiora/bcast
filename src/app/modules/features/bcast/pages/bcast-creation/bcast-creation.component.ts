@@ -4,7 +4,6 @@ import { utilsFns } from 'src/functions/utils-fns';
 import { IBcast } from 'src/interfaces/bcast';
 import { BcastService } from 'src/services/bcast.service';
 import { LoaderService } from 'src/services/loader.service';
-import { Geolocation } from '@capacitor/geolocation';
 import { DataService } from 'src/services/data.service';
 import { Router } from '@angular/router';
 
@@ -32,8 +31,9 @@ export class BcastCreationComponent {
     this.loaderService.show(`Saving broadcast...`);
     try {
       if (!bcast.location) {
-        const { latitude: lat, longitude: lng } = await Geolocation.getCurrentPosition()?.then(_ => _.coords);
-        bcast = { ...bcast, location: { lat, lng } };
+        await this.dataService.userLocation.fetch();
+        const location = this.dataService.userLocation.get();
+        bcast = { ...bcast, location };
       }
       const bcastId = await this.bcastService.bcast.insert(bcast);
       await this.bcastService.bcast.join(bcastId);
