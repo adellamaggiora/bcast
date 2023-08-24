@@ -5,6 +5,8 @@ import { BcastService } from "src/services/bcast.service";
 import { ActivatedRoute } from "@angular/router";
 import { Geolocation } from "@capacitor/geolocation";
 import { toast } from "src/functions/notifiers/toast";
+import { DataService } from "src/services/data.service";
+import { IGeoLocation } from "src/interfaces/geo-location";
 
 @Component({
   selector: "app-bcast-detail",
@@ -18,18 +20,25 @@ export class BcastDetailComponent {
     private bcastService: BcastService,
     private router: Router,
     private route: ActivatedRoute,
+    private dataService: DataService
   ) {}
 
   async ionViewWillEnter() {
     this.route.params.subscribe(async (params) => {
       try {
         const bcastId = params["id"];
-        const coordinates = await Geolocation.getCurrentPosition();
-        const { latitude, longitude } = coordinates.coords;
-        this.bcastDetail = await this.bcastService.bcast.getDetail(bcastId, {
-          lng: longitude,
-          lat: latitude,
-        });
+        const selectedLocation = this.dataService.selectedLocation.get();
+        let location: IGeoLocation;
+        if (selectedLocation?.lat && selectedLocation?.lng) {
+          location = selectedLocation
+        }
+        else {
+          const coordinates = await Geolocation.getCurrentPosition();
+          const { latitude, longitude } = coordinates.coords;
+          location = { lat: latitude, lng: longitude };
+        }
+
+        this.bcastDetail = await this.bcastService.bcast.getDetail(bcastId, location);
       } catch (error) {
         toast.fail(error?.message || error);
       }
