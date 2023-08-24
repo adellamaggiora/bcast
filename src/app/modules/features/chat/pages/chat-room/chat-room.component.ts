@@ -1,11 +1,13 @@
 import { Component, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { Capacitor, Plugins } from "@capacitor/core";
+import { Keyboard } from "@capacitor/keyboard";
 import { IonContent, Platform } from "@ionic/angular";
 import dateFns from "src/functions/date-fns";
 import { IMessage } from "src/interfaces/message";
 import { ChatService } from "src/services/chat.service";
 import { UserService } from "src/services/user.service";
-import { Keyboard } from "@capacitor/keyboard";
+
 
 @Component({
   selector: "app-chat-room",
@@ -38,16 +40,27 @@ export class ChatRoomComponent {
         this.messages.push(message);
         this.scrollToBottom();
       });
-    if (
-      this.platfrom.is('android') ||
-      this.platfrom.is('ios') ||
-      this.platfrom.is('tablet') ||
-      this.platfrom.is('mobile')
-    ) {
+
+    Capacitor.addListener('Keyboard', 'ionKeyboardDidShow', a => {
+      window.alert('keyboard did show')
+    })
+    Capacitor.addListener('keyboard', 'ionKeyboardDidHide', a => {
+      window.alert('keyboard did hide')
+    })
+
+    if (this.platfrom.is('android') || this.platfrom.is('ios')) {
       Keyboard.addListener("keyboardDidShow", (info) => {
         this.chatContainer.scrollToBottom(100);
       });
       Keyboard.addListener("keyboardDidHide", () => {
+        this.chatContainer.scrollToBottom(100);
+      });
+    }
+    else if (this.platfrom.is('pwa') || this.platfrom.is('mobileweb')) {
+      window.addEventListener('ionKeyboardDidShow', ev => {
+        this.chatContainer.scrollToBottom(100);
+      });
+      window.addEventListener('ionKeyboardDidHide', () => {
         this.chatContainer.scrollToBottom(100);
       });
     }

@@ -11,7 +11,9 @@ import { UiKitModule } from './modules/shared/ui-kit/ui-kit.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule, 
-    IonicModule.forRoot(), 
+    IonicModule.forRoot({
+      spinner: 'bubbles'
+    }), 
     AppRoutingModule,
     HttpClientModule,
     UiKitModule

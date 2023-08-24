@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 import { LoaderService } from 'src/services/loader.service';
 import { DataService } from 'src/services/data.service';
 import { App } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-root',
