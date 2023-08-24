@@ -8,6 +8,7 @@ import { IBcast } from 'src/interfaces/bcast';
 import { Preferences } from '@capacitor/preferences';
 import { StorageKeys } from 'src/constants/storage-keys';
 import { IBcastFilters } from 'src/interfaces/filters/bcast-filters';
+import { IBcastDetail } from 'src/interfaces/bcast-detail';
 
 
 @Injectable({
@@ -15,10 +16,16 @@ import { IBcastFilters } from 'src/interfaces/filters/bcast-filters';
 })
 export class BcastService {
 
+  private _bcastDetailCache: Map<string, IBcastDetail> = new Map();
+
   private _bcastList$ = new BehaviorSubject<IListedBcast[]>([]);
   private _bcastFilters$ = new BehaviorSubject<IBcastFilters>(null);
 
   constructor(private userService: UserService) { }
+
+  private _clearBcastDetailCache() {
+    this._bcastDetailCache = new Map();
+  }
 
   public bcastList = {
     get$: () => this._bcastList$.asObservable().pipe(share()),
@@ -33,8 +40,17 @@ export class BcastService {
 
   public bcast = {
     getDetail: async (bcastId: string, location: IGeoLocation) => {
-      const userId = await this.userService.userSession?.getUserId();
-      return await client.bcast.getDetail(userId, bcastId, location);
+      let bcastDetail: IBcastDetail;
+      if (this._bcastDetailCache.has(bcastId)) {
+        bcastDetail = this._bcastDetailCache.get(bcastId);
+      }
+      else {
+        console.log('::[fetching bcast detail]');
+        const userId = await this.userService.userSession?.getUserId();
+        bcastDetail = await client.bcast.getDetail(userId, bcastId, location);
+        this._bcastDetailCache.set(bcastId, bcastDetail);
+      }
+      return bcastDetail;
     },
     join: async (bcastId: string) => {
       const userId = await this.userService.userSession?.getUserId();

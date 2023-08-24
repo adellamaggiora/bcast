@@ -27,7 +27,6 @@ export class BcastListComponent implements OnInit {
   ngOnInit() {
     this.dataService.refreshBcastList.get$().subscribe(async (refresh) => {
       if (refresh) {
-        console.log('::[refreshing bcast list]')
         this.dataService.refreshBcastList.set(false);
         this.dataService.selectedLocation.get$().subscribe(
           async (selectedLocation) => {
