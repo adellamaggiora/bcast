@@ -1,14 +1,14 @@
 const distinctColors = [
-  "#E57373",
-  "#F06292",
-  "#BA68C8",
-  "#9575CD",
-  "#7986CB",
-  "#64B5F6",
-  "#4FC3F7",
-  "#4DD0E1",
-  "#81C784",
-  "#AED581",
+  "#FF6B6B",
+  "#FF9F1A",
+  "#FFCD56",
+  "#4CAF50",
+  "#00BCD4",
+  "#2196F3",
+  "#9C27B0",
+  "#FF63B1",
+  "#8BC34A",
+  "#FFC107"
 ];
 
 const userIdColorMap: Record<string, string> = {};
