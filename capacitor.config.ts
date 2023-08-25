@@ -5,7 +5,6 @@ const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'bcast',
   webDir: 'www',
-  bundledWebRuntime: false,
   plugins: {
 	Keyboard: {
 		resize: KeyboardResize.Native,
