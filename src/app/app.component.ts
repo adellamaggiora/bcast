@@ -6,11 +6,10 @@ import { Router } from '@angular/router';
 import { BcastService } from 'src/services/bcast.service';
 import { IGeoLocation } from 'src/interfaces/geo-location';
 import { Platform, IonRouterOutlet } from '@ionic/angular';
-import { Location } from '@angular/common';
 import { LoaderService } from 'src/services/loader.service';
 import { DataService } from 'src/services/data.service';
 import { App } from '@capacitor/app';
-import { Capacitor } from '@capacitor/core';
+
 
 @Component({
   selector: 'app-root',
@@ -18,7 +17,7 @@ import { Capacitor } from '@capacitor/core';
 })
 export class AppComponent {
 
-  @ViewChild(IonRouterOutlet, { static : true }) routerOutlet: IonRouterOutlet;
+  @ViewChild(IonRouterOutlet, { static: true }) routerOutlet: IonRouterOutlet;
   userSession: Session;
   appVersion: string = packageJson.version;
   appPages = [
@@ -38,18 +37,17 @@ export class AppComponent {
     public bcastService: BcastService,
     public loaderService: LoaderService,
     public dataService: DataService,
-    private router: Router, 
-    private location: Location,
+    private router: Router,
     private authService: AuthService,
-    private platform: Platform) { 
-      this.platform.backButton.subscribeWithPriority(10, () => {
-          // this.location.back();
-          if (this.router.url === '/bcast/list') {
-            App.exitApp();
-          }
-          this.router.navigate(['bcast', 'list']);
-      });
-    }
+    private platform: Platform) {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      if (this.router.url === '/bcast/list') {
+        App.exitApp();
+      }
+      this.router.navigate(['bcast', 'list']);
+    });
+  }
+
 
   logout() {
     this.authService.logout();
@@ -60,3 +58,4 @@ export class AppComponent {
   }
 
 }
+

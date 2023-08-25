@@ -16,8 +16,8 @@ const api =
     }
     init = true;
 
-    supabase.auth.onAuthStateChange((event, session) => {
-      console.log("New auth event", event, "Session:", session);
+    supabase?.auth?.onAuthStateChange((event, session) => {
+      console.log("New auth event", event, "Session user:", session?.user);
     });
 
     return {
@@ -168,6 +168,7 @@ const api =
                   access_type: "offline",
                   prompt: "consent",
                 },
+                //redirectTo: "http://localhost:4200/bcast/list"
               },
             }),
 
@@ -194,10 +195,10 @@ const api =
             .refreshSession()
             .then(handlers.authHandler),
 
-        setSession: (session: Session | null) =>
+        setSession: ({ access_token, refresh_token }) =>
           supabase
             .auth
-            .setSession(session)
+            .setSession({ access_token, refresh_token })
             .then(handlers.authHandler),
 
         getSession: () =>

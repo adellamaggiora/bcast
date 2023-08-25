@@ -20,7 +20,7 @@
           type="password"
           formControlName="confirmPassword"
         ></ion-input>
-        <span slot="error">Invalid password</span>
+        <span slot="error">Password doesn't match</span>
       </ion-item>
     </ion-list>
     <ion-button
@@ -58,7 +58,9 @@
     <ion-row class="ion-justify-content-center">
       <ion-text>
         Don't have an account yet?
-        <ion-text color="primary"> Register </ion-text>
+        <ion-text color="primary" (click)="toggleRegister()">
+          <span>Register</span>
+        </ion-text>
       </ion-text>
     </ion-row>
   </div>

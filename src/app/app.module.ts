@@ -14,7 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule, 
     IonicModule.forRoot({
-      spinner: 'lines'
+      spinner: 'lines',
+      menuIcon:'grid-outline'
     }), 
     AppRoutingModule,
     HttpClientModule,
