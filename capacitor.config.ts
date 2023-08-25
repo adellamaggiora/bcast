@@ -6,11 +6,11 @@ const config: CapacitorConfig = {
   appName: 'bcast',
   webDir: 'www',
   plugins: {
-	Keyboard: {
-		resize: KeyboardResize.Native,
-		resizeOnFullScreen: true,
-		style: KeyboardStyle.Default 
-	}
+    // Keyboard: {
+    //   resize: KeyboardResize.Native,
+    //   resizeOnFullScreen: true,
+    //   style: KeyboardStyle.Default
+    // }
   }
 };
 
