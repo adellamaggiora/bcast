@@ -16,29 +16,50 @@
     <ion-list>
       <ion-item>
         <ion-label position="floating">Confirm Password</ion-label>
-        <ion-input type="password" formControlName="confirmPassword"></ion-input>
+        <ion-input
+          type="password"
+          formControlName="confirmPassword"
+        ></ion-input>
         <span slot="error">Invalid password</span>
       </ion-item>
     </ion-list>
-    <ion-button expand="block" (click)="doRegister()"
-      [disabled]="formValidator.formButtonDisabled">Register</ion-button>
-    <p class="ion-text-center">Already have an account? <a (click)="toggleRegister()">Login</a></p>
+    <ion-button
+      expand="block"
+      (click)="doRegister()"
+      [disabled]="formValidator.formButtonDisabled"
+      >Register</ion-button
+    >
+    <p class="ion-text-center">
+      Already have an account? <a (click)="toggleRegister()">Login</a>
+    </p>
   </div>
 
   <div *ngIf="!isRegistering">
-    <ion-button expand="block" (click)="doLogin()" [disabled]="formValidator.formButtonDisabled"
-    color="primary" fill="outline" class="my-4">Login</ion-button>
-    <!-- <ion-button expand="block" (click)="doGoogleLogin()" color="tertiary" fill="outline" class="my-4">
+    <ion-button
+      expand="block"
+      (click)="doLogin()"
+      [disabled]="formValidator.formButtonDisabled"
+      color="primary"
+      fill="outline"
+      class="ion-margin-vertical"
+      >Login</ion-button
+    >
+    <ion-button
+      expand="block"
+      (click)="doGoogleLogin()"
+      color="tertiary"
+      fill="outline"
+      class="ion-margin-vertical"
+    >
       Login with Google
       <ion-icon slot="end" name="logo-google"></ion-icon>
-    </ion-button> -->
-    <ion-text>
-      <p>Don't have an account yet? 
-        <a (click)="toggleRegister()">
-          <ion-text color="primary">
-            Register
-          </ion-text>
-        </a></p>
-    </ion-text>
+    </ion-button>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-text>
+        Don't have an account yet?
+        <ion-text color="primary"> Register </ion-text>
+      </ion-text>
+    </ion-row>
   </div>
 </form>
