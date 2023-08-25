@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule, 
     IonicModule.forRoot({
-      spinner: 'dots'
+      spinner: 'lines'
     }), 
     AppRoutingModule,
     HttpClientModule,
