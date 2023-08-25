@@ -16,7 +16,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     BrowserModule, 
     IonicModule.forRoot({
       spinner: 'lines',
-      menuIcon:'grid-outline'
+      menuIcon:'menu'
     }), 
     AppRoutingModule,
     HttpClientModule,
