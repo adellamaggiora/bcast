@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { IGeoLocation } from 'src/interfaces/geo-location';
+import { DataService } from 'src/services/data.service';
 
 @Component({
   selector: 'app-location-selector',
@@ -14,7 +15,13 @@ export class LocationSelectorComponent {
   @Input() location: IGeoLocation;
   @Output() selectedLocation = new EventEmitter<IGeoLocation>(null);
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
+
+  ngAfterViewInit() {
+    this.modal.didDismiss.subscribe(_ => {
+      this.dataService.currentModal.set(null)
+    })
+  }
 
   onSelectedLocation(location: IGeoLocation) {
     this.location = location;
@@ -32,7 +39,8 @@ export class LocationSelectorComponent {
   }
 
   openModal() {
-    this.modal.present();
+    this.dataService.currentModal.set(this.modal)
+    this.modal.present();    
   }
 
 }
