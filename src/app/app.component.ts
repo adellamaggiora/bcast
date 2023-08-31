@@ -16,8 +16,8 @@ import { fromEvent, share, switchMap } from "rxjs";
   templateUrl: "app.component.html",
 })
 export class AppComponent {
-  @ViewChild(IonRouterOutlet, { static: true })
-  routerOutlet: IonRouterOutlet;
+  
+  @ViewChild(IonRouterOutlet, { static: true }) routerOutlet: IonRouterOutlet;
   userSession: Session;
   appVersion: string = packageJson.version;
   appPages = [
