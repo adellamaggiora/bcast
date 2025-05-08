@@ -286,6 +286,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/service-worker@^16.1.6":
+  version "16.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-16.2.2.tgz#01997bd94cea92f1799186837eef27df7e4f94dc"
+  integrity sha512-0r7DNY3MCQcSYw+lC7V3fljRA1eNl9RI4OS122s9gBUTR9/24D4WGulGzPtSRs11NfnK7v6+m1YDrNtsh0i4PQ==
+  dependencies:
+    tslib "^2.3.0"
+
 "@assemblyscript/loader@^0.10.1":
   version "0.10.1"
   resolved "https://registry.npmjs.org/@assemblyscript/loader/-/loader-0.10.1.tgz"
@@ -1584,6 +1591,11 @@
     "@stencil/core" "^3.4.0"
     ionicons "7.1.0"
     tslib "^2.1.0"
+
+"@ionic/pwa-elements@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@ionic/pwa-elements/-/pwa-elements-3.2.2.tgz#a757b22d7054e718b20e722f1a936f7deff09a01"
+  integrity sha512-gCQsHdvkaWa83T3ToKsr6FOtzSmLIYFWy+zZisXVDqU3ry4Hv581dFSxDUgokgoWSxIERe/nvYnhoN8zIIEKQQ==
 
 "@ionic/utils-array@2.1.6":
   version "2.1.6"

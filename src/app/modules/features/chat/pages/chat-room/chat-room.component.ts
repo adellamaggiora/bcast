@@ -1,7 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Capacitor } from "@capacitor/core";
-import { Keyboard } from "@capacitor/keyboard";
 import { IonContent, Platform } from "@ionic/angular";
 import dateFns from "src/functions/date-fns";
 import { IMessage } from "src/interfaces/message";
@@ -27,8 +25,7 @@ export class ChatRoomComponent {
   constructor(
     public chatService: ChatService,
     private route: ActivatedRoute,
-    private userService: UserService,
-    private platfrom: Platform
+    private userService: UserService
   ) { }
 
   async ngAfterViewInit() {
@@ -41,29 +38,22 @@ export class ChatRoomComponent {
         this.scrollToBottom();
       });
 
-    // Capacitor.addListener('Keyboard', 'ionKeyboardDidShow', a => {
-    //   window.alert('keyboard did show')
-    // })
-    // Capacitor.addListener('keyboard', 'ionKeyboardDidHide', a => {
-    //   window.alert('keyboard did hide')
-    // })
-
-    if (Capacitor.getPlatform() !== 'web') {
-      Keyboard.addListener("keyboardDidShow", (info) => {
-        this.chatContainer.scrollToBottom(100);
-      });
-      Keyboard.addListener("keyboardDidHide", () => {
-        this.chatContainer.scrollToBottom(100);
-      });
-    }
-    else {
-      window.addEventListener('ionKeyboardDidShow', ev => {
-        this.chatContainer.scrollToBottom(100);
-      });
-      window.addEventListener('ionKeyboardDidHide', () => {
-        this.chatContainer.scrollToBottom(100);
-      });
-    }
+    // if (Capacitor.getPlatform() !== 'web') {
+    //   Keyboard.addListener("keyboardDidShow", (info) => {
+    //     this.chatContainer.scrollToBottom(100);
+    //   });
+    //   Keyboard.addListener("keyboardDidHide", () => {
+    //     this.chatContainer.scrollToBottom(100);
+    //   });
+    // }
+    // else {
+    //   window.addEventListener('ionKeyboardDidShow', ev => {
+    //     this.chatContainer.scrollToBottom(100);
+    //   });
+    //   window.addEventListener('ionKeyboardDidHide', () => {
+    //     this.chatContainer.scrollToBottom(100);
+    //   });
+    // }
 
     this.scrollToBottom();
   }

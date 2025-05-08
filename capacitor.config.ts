@@ -5,13 +5,12 @@ const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'bcast',
   webDir: 'www',
-  bundledWebRuntime: false,
   plugins: {
-	Keyboard: {
-		resize: KeyboardResize.Native,
-		resizeOnFullScreen: true,
-		style: KeyboardStyle.Default 
-	}
+    // Keyboard: {
+    //   resize: KeyboardResize.Native,
+    //   resizeOnFullScreen: true,
+    //   style: KeyboardStyle.Default
+    // }
   }
 };
 
